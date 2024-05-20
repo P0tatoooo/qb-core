@@ -210,29 +210,25 @@ function QBCore.Functions.Notify(text, texttype, length)
     exports['MyCity_Notify']:notify(text, texttype, length);
 end
 
---[[function QBCore.Functions.Notify(text, texttype, length)
-    if type(text) == "table" then
-        local ttext = text.text or 'Placeholder'
-        local caption = text.caption or 'Placeholder'
-        texttype = texttype or 'primary'
-        length = length or 5000
-        SendNUIMessage({
-            action = 'notify',
-            type = texttype,
-            length = length,
-            text = ttext,
-            caption = caption
-        })
+--[[function QBCore.Functions.Notify(text, texttype, length, icon)
+    local message = {
+        action = 'notify',
+        type = texttype or 'primary',
+        length = length or 5000,
+    }
+
+    if type(text) == 'table' then
+        message.text = text.text or 'Placeholder'
+        message.caption = text.caption or 'Placeholder'
     else
-        texttype = texttype or 'primary'
-        length = length or 5000
-        SendNUIMessage({
-            action = 'notify',
-            type = texttype,
-            length = length,
-            text = text
-        })
+        message.text = text
     end
+
+    if icon then
+        message.icon = icon
+    end
+
+    SendNUIMessage(message)
 end]]
 
 function QBCore.Debug(resource, obj, depth)
@@ -591,7 +587,7 @@ function QBCore.Functions.GetBoneDistance(entity, boneType, boneIndex)
 end
 
 function QBCore.Functions.AttachProp(ped, model, boneId, x, y, z, xR, yR, zR, vertex)
-    local modelHash = type(model) == 'string' and GetHashKey(model) or model
+    local modelHash = type(model) == 'string' and joaat(model) or model
     local bone = GetPedBoneIndex(ped, boneId)
     QBCore.Functions.LoadModel(modelHash)
     local prop = CreateObject(modelHash, 1.0, 1.0, 1.0, 1, 1, 0)
@@ -744,6 +740,14 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             doorStatus[i] = IsVehicleDoorDamaged(vehicle, i) == 1
         end
 
+        local xenonColor
+        local hasCustom, r, g, b = GetVehicleXenonLightsCustomColor(vehicle)
+        if hasCustom then
+            xenonColor = table.pack(r, g, b)
+        else
+            xenonColor = GetVehicleXenonLightsColor(vehicle)
+        end
+
         return {
             model = GetEntityModel(vehicle),
             plate = QBCore.Functions.GetPlate(vehicle),
@@ -770,7 +774,6 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             windowTint = GetVehicleWindowTint(vehicle),
             windowStatus = windowStatus,
             doorStatus = doorStatus,
-            xenonColor = GetVehicleXenonLightsColour(vehicle),
             neonEnabled = {
                 IsVehicleNeonLightEnabled(vehicle, 0),
                 IsVehicleNeonLightEnabled(vehicle, 1),
@@ -778,10 +781,10 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
                 IsVehicleNeonLightEnabled(vehicle, 3)
             },
             neonColor = table.pack(GetVehicleNeonLightsColour(vehicle)),
-            headlightColor = GetVehicleHeadlightsColour(vehicle),
             interiorColor = GetVehicleInteriorColour(vehicle),
             extras = extras,
             tyreSmokeColor = table.pack(GetVehicleTyreSmokeColor(vehicle)),
+            xenonColor = xenonColor,
             modSpoilers = GetVehicleMod(vehicle, 0),
             modFrontBumper = GetVehicleMod(vehicle, 1),
             modRearBumper = GetVehicleMod(vehicle, 2),
@@ -961,9 +964,6 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.neonColor then
             SetVehicleNeonLightsColour(vehicle, props.neonColor[1], props.neonColor[2], props.neonColor[3])
         end
-        if props.headlightColor then
-            SetVehicleHeadlightsColour(vehicle, props.headlightColor)
-        end
         if props.interiorColor then
             SetVehicleInteriorColour(vehicle, props.interiorColor)
         end
@@ -1046,7 +1046,11 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
             ToggleVehicleMod(vehicle, 22, props.modXenon)
         end
         if props.xenonColor then
-            SetVehicleXenonLightsColor(vehicle, props.xenonColor)
+            if type(props.xenonColor) == 'table' then
+                SetVehicleXenonLightsCustomColor(vehicle, props.xenonColor[1], props.xenonColor[2], props.xenonColor[3])
+            else
+                SetVehicleXenonLightsColor(vehicle, props.xenonColor)
+            end
         end
         if props.modFrontWheels then
             SetVehicleMod(vehicle, 23, props.modFrontWheels, false)
@@ -1239,16 +1243,16 @@ function QBCore.Functions.GetCardinalDirection(entity)
     if DoesEntityExist(entity) then
         local heading = GetEntityHeading(entity)
         if ((heading >= 0 and heading < 45) or (heading >= 315 and heading < 360)) then
-            return "North"
+            return 'North'
         elseif (heading >= 45 and heading < 135) then
-            return "West"
+            return 'West'
         elseif (heading >= 135 and heading < 225) then
-            return "South"
+            return 'South'
         elseif (heading >= 225 and heading < 315) then
-            return "East"
+            return 'East'
         end
     else
-        return "Cardinal Direction Error"
+        return 'Cardinal Direction Error'
     end
 end
 
@@ -1258,14 +1262,14 @@ function QBCore.Functions.GetCurrentTime()
     obj.hour = GetClockHours()
 
     if obj.hour <= 12 then
-        obj.ampm = "AM"
+        obj.ampm = 'AM'
     elseif obj.hour >= 13 then
-        obj.ampm = "PM"
+        obj.ampm = 'PM'
         obj.formattedHour = obj.hour - 12
     end
 
     if obj.min <= 9 then
-        obj.formattedMin = "0" .. obj.min
+        obj.formattedMin = '0' .. obj.min
     end
 
     return obj

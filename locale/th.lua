@@ -119,7 +119,7 @@ local Translations = {
         },
     }
 }
-    
+
 if GetConvar('qb_locale', 'en') == 'th' then
     Lang = Locale:new({
         phrases = Translations,

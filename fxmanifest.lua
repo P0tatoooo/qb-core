@@ -1,7 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
-
-description 'QB-Core'
+lua54 'yes'
+author 'Kakarot'
+description 'Core resource for the framework, contains all the core functionality and features'
 version '1.2.6'
 
 shared_scripts {
@@ -15,8 +16,7 @@ shared_scripts {
     'shared/vehicles.lua',
     'shared/gangs.lua',
     'shared/weapons.lua',
-    'shared/locations.lua',
-    'shared/peds.lua'
+    'shared/locations.lua'
 }
 
 client_scripts {
@@ -24,8 +24,7 @@ client_scripts {
     'client/functions.lua',
     'client/loops.lua',
     'client/events.lua',
-    'client/drawtext.lua',
-    'client/admin.lua'
+    'client/drawtext.lua'
 }
 
 server_scripts {
@@ -49,5 +48,3 @@ files {
 }
 
 dependency 'oxmysql'
-
-lua54 'yes'
