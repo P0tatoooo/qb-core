@@ -60,6 +60,7 @@ QBConfig.Player.PlayerDefaults = {
         }
     },
     metadata = {
+        health = 200,
         hunger = 100,
         thirst = 100,
         stress = 0,
@@ -67,23 +68,10 @@ QBConfig.Player.PlayerDefaults = {
         inlaststand = false,
         armor = 0,
         ishandcuffed = false,
-        tracker = false,
         injail = 0,
-        jailitems = {},
         status = {},
-        phone = {},
         fitbit = {},
         bloodtype = function() return QBConfig.Player.Bloodtypes[math.random(1, #QBConfig.Player.Bloodtypes)] end,
-        dealerrep = 0,
-        craftingrep = 0,
-        attachmentcraftingrep = 0,
-        currentapartment = nil,
-        jobrep = {
-            tow = 0,
-            trucker = 0,
-            taxi = 0,
-            hotdog = 0
-        },
         callsign = 'NO CALLSIGN',
         fingerprint = function() return QBCore.Player.CreateFingerId() end,
         walletid = function() return QBCore.Player.CreateWalletId() end,
@@ -96,17 +84,6 @@ QBConfig.Player.PlayerDefaults = {
             business = false,
             weapon = false
         },
-        inside = {
-            house = nil,
-            apartment = {
-                apartmentType = nil,
-                apartmentId = nil,
-            }
-        },
-        phonedata = {
-            SerialNumber = function() return QBCore.Player.CreateSerialNumber() end,
-            InstalledApps = {}
-        }
     },
     position = QBConfig.DefaultSpawn,
     items = {},

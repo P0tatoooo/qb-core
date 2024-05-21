@@ -86,7 +86,7 @@ function QBShared.SetDefaultVehicleExtras(vehicle, config)
 end
 
 function QBShared.CheckBlPlate(plate)
-    if string.match(plate, 'MCE ') or string.match(plate, 'MIS ') then
+    if string.match(plate, 'MCE') or string.match(plate, 'MIS') or string.match(plate, 'LSPD') then
         return true
     else
         return false
