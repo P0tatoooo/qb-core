@@ -751,18 +751,9 @@ for i = 1, #Vehicles do
         brand = Vehicles[i].brand,
         model = Vehicles[i].model,
         price = Vehicles[i].price,
-<<<<<<< HEAD
-        category = Vehicles[i].categoryLabel:gsub("%s+", ""):lower(),
-        categoryLabel = Vehicles[i].categoryLabel,
-        hash = joaat(Vehicles[i].model),
-        shop = Vehicles[i].shop
-    }
-end
-=======
         category = Vehicles[i].category,
         hash = joaat(Vehicles[i].model),
         type = Vehicles[i].type,
         shop = Vehicles[i].shop
     }
 end
->>>>>>> main
