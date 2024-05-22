@@ -243,3 +243,11 @@ end)
 --QBCore.Functions.CreateCallback('QBCore:HasItem', function(source, cb, items, amount)
 -- https://github.com/qbcore-framework/qb-inventory/blob/e4ef156d93dd1727234d388c3f25110c350b3bcf/server/main.lua#L2066
 --end)
+
+RegisterServerEvent('qb-core:server:forcedeleteentity')
+AddEventHandler('qb-core:server:forcedeleteentity', function(entitynetid)
+    local entity = NetworkGetEntityFromNetworkId(entitynetid)
+    if DoesEntityExist(entity) then
+        DeleteEntity(entity)
+    end
+end)

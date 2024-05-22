@@ -18,6 +18,12 @@ function QBCore.Functions.HasItem(item, amount)
     return count >= amount
 end
 
+function QBCore.Functions.GetItemByName(item, amount)
+    if not amount then amount = 1 end
+    local count = exports.ox_inventory:GetItemCount(item, nil, false)
+    return count >= amount
+end
+
 -- Utility
 
 function QBCore.Functions.GetPedMugshot(ped, transparent)
@@ -127,33 +133,45 @@ function QBCore.Functions.DeleteObject(object)
     SetEntityAsMissionEntity(object, false, false)
     DeleteObject(object)
 
-	local attempt = 0
-	while not NetworkHasControlOfEntity(object) and attempt < 100 and DoesEntityExist(object) do
-		Citizen.Wait(20)
-		NetworkRequestControlOfEntity(object)
-		attempt = attempt + 1
-	end
+    if NetworkGetEntityIsNetworked(object) then
+        local attempt = 0
+        while not NetworkHasControlOfEntity(object) and attempt < 100 and DoesEntityExist(object) do
+            Citizen.Wait(20)
+            NetworkRequestControlOfEntity(object)
+            attempt = attempt + 1
+        end
+    end
 
-	if DoesEntityExist(object) and NetworkHasControlOfEntity(object) then
+	if DoesEntityExist(object) and (not NetworkGetEntityIsNetworked(object) or NetworkHasControlOfEntity(object)) then
 		SetEntityAsMissionEntity(object, false, false)
 		DeleteObject(object)
 	end
+
+    if DoesEntityExist(entity) and NetworkGetEntityIsNetworked(entity) then
+        TriggerServerEvent('qb-core:server:forcedeleteentity', NetworkGetNetworkIdFromEntity(entity))
+    end
 end
 
 function QBCore.Functions.DeleteEntity(entity)
     SetEntityAsMissionEntity(entity, false, false)
     DeleteEntity(entity)
 
-    local attempt = 0
-    while not NetworkHasControlOfEntity(entity) and attempt < 100 and DoesEntityExist(entity) do
-        Citizen.Wait(20)
-        NetworkRequestControlOfEntity(entity)
-        attempt = attempt + 1
+    if NetworkGetEntityIsNetworked(entity) then
+        local attempt = 0
+        while not NetworkHasControlOfEntity(entity) and attempt < 100 and DoesEntityExist(entity) do
+            Citizen.Wait(20)
+            NetworkRequestControlOfEntity(entity)
+            attempt = attempt + 1
+        end
     end
 
-    if DoesEntityExist(entity) and NetworkHasControlOfEntity(entity) then
+    if DoesEntityExist(entity) and (not NetworkGetEntityIsNetworked(entity) or NetworkHasControlOfEntity(entity)) then
         SetEntityAsMissionEntity(entity, false, false)
         DeleteEntity(entity)
+    end
+
+    if DoesEntityExist(entity) and NetworkGetEntityIsNetworked(entity) then
+        TriggerServerEvent('qb-core:server:forcedeleteentity', NetworkGetNetworkIdFromEntity(entity))
     end
 end
 
@@ -636,16 +654,22 @@ function QBCore.Functions.DeleteVehicle(vehicle)
     SetEntityAsMissionEntity(vehicle, true, true)
     DeleteVehicle(vehicle)
 
-    local attempt = 0
-    while not NetworkHasControlOfEntity(vehicle) and attempt < 100 and DoesEntityExist(vehicle) do
-        Citizen.Wait(20)
-        NetworkRequestControlOfEntity(vehicle)
-        attempt = attempt + 1
+    if NetworkGetEntityIsNetworked(vehicle) then
+        local attempt = 0
+        while not NetworkHasControlOfEntity(vehicle) and attempt < 100 and DoesEntityExist(vehicle) do
+            Citizen.Wait(20)
+            NetworkRequestControlOfEntity(vehicle)
+            attempt = attempt + 1
+        end
     end
 
-    if DoesEntityExist(vehicle) and NetworkHasControlOfEntity(vehicle) then
+    if DoesEntityExist(vehicle) and (not NetworkGetEntityIsNetworked(vehicle) or NetworkHasControlOfEntity(vehicle))  then
         SetEntityAsMissionEntity(vehicle, false, false)
         DeleteEntity(vehicle)
+    end
+
+    if DoesEntityExist(vehicle) and NetworkGetEntityIsNetworked(vehicle) then
+        TriggerServerEvent('qb-core:server:forcedeleteentity', NetworkGetNetworkIdFromEntity(vehicle))
     end
 end
 
