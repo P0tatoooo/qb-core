@@ -87,6 +87,10 @@ QBConfig.Player.PlayerDefaults = {
     },
     position = QBConfig.DefaultSpawn,
     items = {},
+    tattoos = {},
+    furnitures = {},
+    currentproperty = '',
+    phone = ''
 }
 
 QBConfig.Server = {}                                    -- General server config
