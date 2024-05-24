@@ -96,7 +96,7 @@ end
 ---@return table?
 function QBCore.Functions.GetPlayerByPhone(number)
     for src in pairs(QBCore.Players) do
-        if QBCore.Players[src].PlayerData.charinfo.phone == number then
+        if QBCore.Players[src].PlayerData.phone == number then
             return QBCore.Players[src]
         end
     end
@@ -565,9 +565,13 @@ end
 ---@param items table|string
 ---@param amount number
 ---@return boolean
-function QBCore.Functions.HasItem(source, items, amount)
-    if GetResourceState('qb-inventory') == 'missing' then return end
-    return exports['qb-inventory']:HasItem(source, items, amount)
+function QBCore.Functions.HasItem(source, item, amount)
+    local itemCount = exports.ox_inventory:Search(source, 'count', type)
+    if itemCount then
+        return itemCount >= (amount or 1)
+    else
+        return false
+    end
 end
 
 ---Notify
@@ -599,7 +603,7 @@ end
 function QBCore.Functions.DoesJobExist(job, grade)
     if not job then return false end
     job = job:lower() or ''
-    grade = tostring(grade) or '0'
+    grade = tonumber(grade) or 1
 
     if QBCore.Shared.Jobs[job] and QBCore.Shared.Jobs[job].grades[grade] then
         return true
@@ -610,7 +614,7 @@ end
 function QBCore.Functions.DoesGangExist(gang, grade)
     if not gang then return false end
     gang = gang:lower() or ''
-    grade = tostring(grade) or '0'
+    grade = tonumber(grade) or 1
 
     if QBCore.Shared.Gangs[gang] and QBCore.Shared.Gangs[gang].grades[grade] then
         return true

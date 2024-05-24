@@ -28,6 +28,7 @@ function QBCore.Commands.Add(name, help, arguments, argsrequired, callback, perm
                 args = { 'System', Lang:t('error.missing_args2') }
             })
         end
+        if args[1] == 'me' then args[1] = source end
         callback(source, args, rawCommand)
     end, restricted)
 
@@ -131,6 +132,11 @@ QBCore.Commands.Add('addpermission', Lang:t('command.addpermission.help'), { { n
     local permission = tostring(args[2]):lower()
     if Player then
         QBCore.Functions.AddPermission(Player.PlayerData.source, permission)
+
+        local result = MySQL.query.await('INSERT INTO adminmembers(`identifier`, `group`) VALUES (@identifier, @group) ON DUPLICATE KEY UPDATE `group` = @group', {
+            ['@identifier'] = Player.PlayerData.license,
+            ['@group'] = permission,
+        })
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end

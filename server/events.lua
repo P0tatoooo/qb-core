@@ -145,7 +145,7 @@ end)
 -- BaseEvents
 
 -- Vehicles
-RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName)
+RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName, netid)
     local src = source
     local data = {
         vehicle = veh,
@@ -156,7 +156,7 @@ RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName)
     TriggerClientEvent('QBCore:Client:VehicleInfo', src, data)
 end)
 
-RegisterServerEvent('baseevents:enteredVehicle', function(veh, seat, modelName)
+RegisterServerEvent('baseevents:enteredVehicle', function(veh, seat, modelName, netid)
     local src = source
     local data = {
         vehicle = veh,
@@ -165,6 +165,7 @@ RegisterServerEvent('baseevents:enteredVehicle', function(veh, seat, modelName)
         event = 'Entered'
     }
     TriggerClientEvent('QBCore:Client:VehicleInfo', src, data)
+    Entity(NetworkGetEntityFromNetworkId(netid)).state.entered = true
 end)
 
 RegisterServerEvent('baseevents:enteringAborted', function()
@@ -250,4 +251,22 @@ AddEventHandler('qb-core:server:forcedeleteentity', function(entitynetid)
     if DoesEntityExist(entity) then
         DeleteEntity(entity)
     end
+end)
+
+AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
+    Citizen.Wait(1000)
+    local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = Player.PlayerData.license })
+    if result[1] then
+        QBCore.Functions.AddPermission(Player.PlayerData.source, result[1].group)
+    end
+end)
+
+RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)
+    local src = source
+	local xPlayer = QBCore.Functions.GetPlayer(src)
+	if xPlayer then
+        xPlayer.Functions.SetMetaData('health', health)
+		xPlayer.Functions.SetMetaData('armor', armor)
+        print('health and armor', health, armor)
+	end
 end)

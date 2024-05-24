@@ -143,7 +143,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
 
     function self.Functions.SetJob(job, grade)
         job = job:lower()
-        grade = grade or '0'
+        grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
         self.PlayerData.job = {
             name = job,
@@ -157,11 +157,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
                 isboss = false
             }
         }
-        local gradeKey = tostring(grade)
+        local gradeKey = grade
         local jobGradeInfo = QBCore.Shared.Jobs[job].grades[gradeKey]
         if jobGradeInfo then
             self.PlayerData.job.grade.name = jobGradeInfo.name
-            self.PlayerData.job.grade.level = tonumber(gradeKey)
+            self.PlayerData.job.grade.level = tonumber(grade)
             self.PlayerData.job.grade.payment = jobGradeInfo.payment
             self.PlayerData.job.grade.isboss = jobGradeInfo.isboss or false
             self.PlayerData.job.isboss = jobGradeInfo.isboss or false
@@ -178,7 +178,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
 
     function self.Functions.SetGang(gang, grade)
         gang = gang:lower()
-        grade = grade or '0'
+        grade = tonumber(grade) or 1
         if not QBCore.Shared.Gangs[gang] then return false end
         self.PlayerData.gang = {
             name = gang,
@@ -189,11 +189,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
                 isboss = false
             }
         }
-        local gradeKey = tostring(grade)
+        local gradeKey = grade
         local gangGradeInfo = QBCore.Shared.Gangs[gang].grades[gradeKey]
         if gangGradeInfo then
             self.PlayerData.gang.grade.name = gangGradeInfo.name
-            self.PlayerData.gang.grade.level = tonumber(gradeKey)
+            self.PlayerData.gang.grade.level = tonumber(grade)
             self.PlayerData.gang.grade.isboss = gangGradeInfo.isboss or false
             self.PlayerData.gang.isboss = gangGradeInfo.isboss or false
         end
