@@ -4,7 +4,7 @@ local StringCharset = {}
 local NumberCharset = {}
 
 QBShared.StarterItems = {
-    ['phone'] = { amount = 1, item = 'white_phone' }
+    --['phone'] = { amount = 1, item = 'phone' }
 }
 
 for i = 48, 57 do NumberCharset[#NumberCharset + 1] = string.char(i) end

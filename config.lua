@@ -35,7 +35,6 @@ QBConfig.Player.PlayerDefaults = {
         birthdate = '00-00-0000',
         gender = 0,
         nationality = 'USA',
-        phone = function() return QBCore.Functions.CreatePhoneNumber() end,
         account = function() return QBCore.Functions.CreateAccountNumber() end
     },
     job = {
@@ -90,7 +89,7 @@ QBConfig.Player.PlayerDefaults = {
     tattoos = {},
     furnitures = {},
     currentproperty = '',
-    phone = ''
+    phone = function() return QBCore.Functions.CreatePhoneNumber() end,
 }
 
 QBConfig.Server = {}                                    -- General server config

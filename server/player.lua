@@ -600,7 +600,7 @@ function QBCore.Functions.CreateAccountNumber()
 end
 
 function QBCore.Functions.CreatePhoneNumber()
-    local PhoneNumber = math.random(100, 999) .. math.random(1000000, 9999999)
+    local PhoneNumber ="555-" .. QBCore.Shared.RandomInt(4)
     local result = MySQL.prepare.await('SELECT EXISTS(SELECT 1 FROM players WHERE JSON_UNQUOTE(JSON_EXTRACT(charinfo, "$.phone")) = ?) AS uniqueCheck', { PhoneNumber })
     if result == 0 then return PhoneNumber end
     return QBCore.Functions.CreatePhoneNumber()
