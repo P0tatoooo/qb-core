@@ -137,6 +137,20 @@ QBShared.Jobs = {
 		},
 	},
 
+    farmer = {
+		label = 'Miller\'s Farm',
+		type = 'farmer',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recruit', payment = 50 },
+			{ name = 'Novice', payment = 75 },
+			{ name = 'Experienced', payment = 100 },
+			{ name = 'Advanced', payment = 125 },
+			{ name = 'Manager', isboss = true, payment = 150 },
+		},
+	},
+
     government = {
 		label = 'Gouvernement',
 		type = 'government',
