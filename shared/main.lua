@@ -51,6 +51,7 @@ function QBShared.Round(value, numDecimalPlaces)
 end
 
 function QBShared.GroupDigits(value)
+    value = QBShared.Round(value)
     local left,num,right = string.match(value,'^([^%d]*%d)(%d*)(.-)$')
 
 	return left..(num:reverse():gsub('(%d%d%d)','%1' .. ' '):reverse())..right
