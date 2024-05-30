@@ -193,8 +193,8 @@ QBCore.Commands.Add('car', Lang:t('command.car.help'), { { name = Lang:t('comman
     TriggerClientEvent('QBCore:Command:SpawnVehicle', source, args[1])
 end, 'admin')
 
-QBCore.Commands.Add('dv', Lang:t('command.dv.help'), {}, false, function(source)
-    TriggerClientEvent('QBCore:Command:DeleteVehicle', source)
+QBCore.Commands.Add('dv', Lang:t('command.dv.help'), { { name = "radius", help = "rayon en mètres" } }, false, function(source, args)
+    TriggerClientEvent('QBCore:Command:DeleteVehicle', source, (args[1] and tonumber(args[1])) or nil)
 end, 'admin')
 
 QBCore.Commands.Add('dvall', Lang:t('command.dvall.help'), {}, false, function()
