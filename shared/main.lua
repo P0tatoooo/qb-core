@@ -174,3 +174,11 @@ QBShared.FemaleNoGloves = {
     [161] = true,
     [165] = true
 }
+
+QBShared.MaleNoBags = {
+
+}
+
+QBShared.FemaleNoBags = {
+
+}

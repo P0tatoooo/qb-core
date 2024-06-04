@@ -267,6 +267,5 @@ RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)
 	if xPlayer then
         xPlayer.Functions.SetMetaData('health', health)
 		xPlayer.Functions.SetMetaData('armor', armor)
-        print('health and armor', health, armor)
 	end
 end)

@@ -21,6 +21,7 @@ QBConfig.Player.Bloodtypes = {
 QBConfig.Player.PlayerDefaults = {
     citizenid = function() return QBCore.Player.CreateCitizenId() end,
     cid = 1,
+    rpname = '',
     money = function()
         local moneyDefaults = {}
         for moneytype, startamount in pairs(QBConfig.Money.MoneyTypes) do
@@ -71,14 +72,14 @@ QBConfig.Player.PlayerDefaults = {
         status = {},
         fitbit = {},
         bloodtype = function() return QBConfig.Player.Bloodtypes[math.random(1, #QBConfig.Player.Bloodtypes)] end,
-        callsign = 'NO CALLSIGN',
+        callsign = '',
         fingerprint = function() return QBCore.Player.CreateFingerId() end,
         walletid = function() return QBCore.Player.CreateWalletId() end,
         criminalrecord = {
             hasRecord = false,
             date = nil
         },
-        licences = {
+        licenses = {
             driver = true,
             business = false,
             weapon = false

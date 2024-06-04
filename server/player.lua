@@ -443,11 +443,12 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, phone) VALUES (:citizenid, :cid, :license, :name, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
             name = PlayerData.name,
+            rpname = PlayerData.rpname,
             money = json.encode(PlayerData.money),
             charinfo = json.encode(PlayerData.charinfo),
             job = json.encode(PlayerData.job),
@@ -468,11 +469,12 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, phone) VALUES (:citizenid, :cid, :license, :name, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
             name = PlayerData.name,
+            rpname = PlayerData.rpname,
             money = json.encode(PlayerData.money),
             charinfo = json.encode(PlayerData.charinfo),
             job = json.encode(PlayerData.job),
@@ -495,7 +497,7 @@ end
 
 local playertables = { -- Add tables as needed
     { table = 'players' },
-    { table = 'apartments' },
+    --{ table = 'apartments' },
     { table = 'bank_accounts' },
     { table = 'crypto_transactions' },
     --{ table = 'phone_invoices' },
