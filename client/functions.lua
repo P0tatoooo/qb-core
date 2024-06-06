@@ -397,18 +397,26 @@ function QBCore.Functions.IsWearingBag()
     return true
 end
 
-function QBCore.Functions.GetClosestPlayer(coords)
+function QBCore.Functions.GetClosestPlayer(coords, blacklist)
     local ped = PlayerPedId()
     if coords then
         coords = type(coords) == 'table' and vec3(coords.x, coords.y, coords.z) or coords
     else
         coords = GetEntityCoords(ped)
     end
+
+    local blackListIds = {}
+    if blacklist then
+        for k,v in pairs(blacklist) do
+            blackListIds[v] = true
+        end
+    end
+
     local closestPlayers = QBCore.Functions.GetPlayersFromCoords(coords)
     local closestDistance = -1
     local closestPlayer = -1
     for i = 1, #closestPlayers, 1 do
-        if closestPlayers[i] ~= PlayerId() and closestPlayers[i] ~= -1 then
+        if closestPlayers[i] ~= PlayerId() and closestPlayers[i] ~= -1 and not blackListIds[closestPlayers[i]] then
             local pos = GetEntityCoords(GetPlayerPed(closestPlayers[i]))
             local distance = #(pos - coords)
 
