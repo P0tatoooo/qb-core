@@ -75,15 +75,6 @@ QBConfig.Player.PlayerDefaults = {
         callsign = '',
         fingerprint = function() return QBCore.Player.CreateFingerId() end,
         walletid = function() return QBCore.Player.CreateWalletId() end,
-        criminalrecord = {
-            hasRecord = false,
-            date = nil
-        },
-        licenses = {
-            driver = true,
-            business = false,
-            weapon = false
-        },
     },
     position = QBConfig.DefaultSpawn,
     items = {},

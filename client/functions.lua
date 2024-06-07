@@ -18,9 +18,13 @@ function QBCore.Functions.HasItem(item, amount)
 end
 
 function QBCore.Functions.GetItemByName(item, amount)
-    if not amount then amount = 1 end
-    local count = exports.ox_inventory:GetItemCount(item, nil, false)
-    return count >= amount
+    local count = exports.ox_inventory:GetItemCount(item, nil, false) or 0
+    return count >= (amount or 1)
+end
+
+function QBCore.Functions.GetItemCount(item)
+    local count = exports.ox_inventory:GetItemCount(item, nil, false) or 0
+    return count
 end
 
 -- Utility
@@ -377,6 +381,8 @@ function QBCore.Functions.IsWearingGloves()
         if QBCore.Shared.FemaleNoGloves[armIndex] then
             return false
         end
+    else
+        return true
     end
     return true
 end
@@ -386,15 +392,17 @@ function QBCore.Functions.IsWearingBag()
     local armIndex = GetPedDrawableVariation(ped, 5)
     local model = GetEntityModel(ped)
     if model == `mp_m_freemode_01` then
-        if QBCore.Shared.MaleNoBags[armIndex] then
-            return false
+        if QBCore.Shared.MaleBags[armIndex] then
+            return true
         end
     elseif model == `mp_f_freemode_01` then
-        if QBCore.Shared.FemaleNoBags[armIndex] then
-            return false
+        if QBCore.Shared.FemaleBags[armIndex] then
+            return true
         end
+    else
+        return true
     end
-    return true
+    return false
 end
 
 function QBCore.Functions.GetClosestPlayer(coords, blacklist)
@@ -416,7 +424,7 @@ function QBCore.Functions.GetClosestPlayer(coords, blacklist)
     local closestDistance = -1
     local closestPlayer = -1
     for i = 1, #closestPlayers, 1 do
-        if closestPlayers[i] ~= PlayerId() and closestPlayers[i] ~= -1 and not blackListIds[closestPlayers[i]] then
+        if closestPlayers[i] ~= PlayerId() and closestPlayers[i] ~= -1 and IsEntityAVehicle(GetPlayerPed(closestPlayers[i])) and not blackListIds[closestPlayers[i]] then
             local pos = GetEntityCoords(GetPlayerPed(closestPlayers[i]))
             local distance = #(pos - coords)
 
