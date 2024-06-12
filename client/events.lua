@@ -272,3 +272,4 @@ end)
 RegisterNetEvent('QBCore:Client:SharedUpdate', function(table)
     QBCore.Shared = table
 end)
+

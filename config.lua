@@ -75,6 +75,7 @@ QBConfig.Player.PlayerDefaults = {
         callsign = '',
         fingerprint = function() return QBCore.Player.CreateFingerId() end,
         walletid = function() return QBCore.Player.CreateWalletId() end,
+        healthinsurance = {insured = false, insuredOn = ''}
     },
     position = QBConfig.DefaultSpawn,
     items = {},

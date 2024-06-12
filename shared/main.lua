@@ -182,3 +182,13 @@ QBShared.MaleBags = {
 QBShared.FemaleBags = {
 
 }
+
+QBShared.SalaryPeriods = {
+    { label = "Aucune", time = 0 },
+    { label = "5 minutes", time = 5 * 600000 },
+    { label = "10 minutes", time = 10 * 600000 },
+    { label = "15 minutes", time = 15 * 600000 },
+    { label = "20 minutes", time = 20 * 600000 },
+    { label = "30 minutes", time = 30 * 600000 },
+    { label = "1 heure", time = 60 * 600000 },
+}
