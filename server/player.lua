@@ -172,7 +172,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
             TriggerEvent('QBCore:Server:OnJobUpdate', self.PlayerData.source, self.PlayerData.job)
             TriggerClientEvent('QBCore:Client:OnJobUpdate', self.PlayerData.source, self.PlayerData.job)
         end
-
+        self.Functions.Save()
         return true
     end
 
@@ -203,7 +203,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
             TriggerEvent('QBCore:Server:OnGangUpdate', self.PlayerData.source, self.PlayerData.gang)
             TriggerClientEvent('QBCore:Client:OnGangUpdate', self.PlayerData.source, self.PlayerData.gang)
         end
-
+        self.Functions.Save()
         return true
     end
 
@@ -220,6 +220,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         TriggerEvent('QBCore:Server:OnJobUpdate', self.PlayerData.source, self.PlayerData.job)
         TriggerClientEvent('QBCore:Client:OnJobUpdate', self.PlayerData.source, self.PlayerData.job)
         self.Functions.UpdatePlayerData()
+        self.Functions.Save()
     end
 
     function self.Functions.SetPlayerData(key, val)
