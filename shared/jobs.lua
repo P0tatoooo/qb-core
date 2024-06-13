@@ -381,4 +381,60 @@ QBShared.Jobs = {
 			{ name = 'Manager', isboss = true, payment = 150 },
 		},
 	},
+
+	chickndrive = {
+		label = 'Chick\'n Drive',
+		type = 'chickndrive',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recruit', payment = 50 },
+			{ name = 'Novice', payment = 75 },
+			{ name = 'Experienced', payment = 100 },
+			{ name = 'Advanced', payment = 125 },
+			{ name = 'Manager', isboss = true, payment = 150 },
+		},
+	},
+
+	sandwichbar = {
+		label = 'Chez Denis',
+		type = 'sandwichbar',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recruit', payment = 50 },
+			{ name = 'Novice', payment = 75 },
+			{ name = 'Experienced', payment = 100 },
+			{ name = 'Advanced', payment = 125 },
+			{ name = 'Manager', isboss = true, payment = 150 },
+		},
+	},
+
+	yellowjack = {
+		label = 'Yellow Jack',
+		type = 'yellowjack',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recruit', payment = 50 },
+			{ name = 'Novice', payment = 75 },
+			{ name = 'Experienced', payment = 100 },
+			{ name = 'Advanced', payment = 125 },
+			{ name = 'Manager', isboss = true, payment = 150 },
+		},
+	},
+
+	salieris = {
+		label = 'Bar Pisoni',
+		type = 'salieris',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recruit', payment = 50 },
+			{ name = 'Novice', payment = 75 },
+			{ name = 'Experienced', payment = 100 },
+			{ name = 'Advanced', payment = 125 },
+			{ name = 'Manager', isboss = true, payment = 150 },
+		},
+	},
 }
