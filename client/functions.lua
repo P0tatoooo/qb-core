@@ -709,6 +709,11 @@ function QBCore.Functions.GetPlate(vehicle)
     return QBCore.Shared.Trim(GetVehicleNumberPlateText(vehicle))
 end
 
+function QBCore.Functions.IsVehicleLocked(vehicle)
+    local doorsStatus = GetVehicleDoorLockStatus(vehicle)
+    return doorsStatus > 1
+end
+
 function QBCore.Functions.GetVehicleLabel(vehicle)
     if vehicle == nil or vehicle == 0 then return end
     return GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)))
