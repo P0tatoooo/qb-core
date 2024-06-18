@@ -606,8 +606,8 @@ end
 
 function QBCore.Functions.CreatePhoneNumber()
     local PhoneNumber ="555-" .. QBCore.Shared.RandomInt(4)
-    local result = MySQL.prepare.await('SELECT EXISTS(SELECT 1 FROM players WHERE JSON_UNQUOTE(JSON_EXTRACT(charinfo, "$.phone")) = ?) AS uniqueCheck', { PhoneNumber })
-    if result == 0 then return PhoneNumber end
+    local result = MySQL.prepare.await('SELECT 1 FROM sim WHERE phone_number=?', { PhoneNumber })
+    if not result then return PhoneNumber end
     return QBCore.Functions.CreatePhoneNumber()
 end
 
