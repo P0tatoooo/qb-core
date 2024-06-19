@@ -327,7 +327,7 @@ QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.
     end
     local ped = GetPlayerPed(source)
     local pCoords = GetEntityCoords(ped)
-    local msg = table.concat(args, ' '):gsub('[~<].-[>~]', '')
+    local msg = "*La personne " .. table.concat(args, ' '):gsub('[~<].-[>~]', '') .. "*"
     local Players = QBCore.Functions.GetPlayers()
     for i = 1, #Players do
         local Player = Players[i]

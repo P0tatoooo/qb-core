@@ -243,17 +243,49 @@ local function Draw3DText(coords, str)
     end
 end
 
+local pedDisplaying = {}
+
+local function DrawText3Dme(coords, text)
+    local camCoords = GetGameplayCamCoord()
+    local dist = #(coords - camCoords)
+    
+    -- Experimental math to scale the text down
+    local scale = 200 / (GetGameplayCamFov() * dist)
+
+    if text == "*La personne *" then
+        return
+    else
+        -- Format the text
+        SetTextColour(color.r, color.g, color.b, color.a)
+        SetTextScale(0.0, defaultScale * scale)
+        SetTextDropshadow(0, 0, 0, 0, 55)
+        SetTextDropShadow()
+        SetTextCentre(true)
+
+        -- Diplay the text
+        BeginTextCommandDisplayText("STRING")
+        AddTextComponentSubstringPlayerName(text)
+        SetDrawOrigin(coords, 0)
+        EndTextCommandDisplayText(0.0, 0.0)
+        ClearDrawOrigin()
+    end
+end
+
 RegisterNetEvent('QBCore:Command:ShowMe3D', function(senderId, msg)
     local sender = GetPlayerFromServerId(senderId)
-    CreateThread(function()
-        local displayTime = 5000 + GetGameTimer()
-        while displayTime > GetGameTimer() do
-            local targetPed = GetPlayerPed(sender)
-            local tCoords = GetEntityCoords(targetPed)
-            Draw3DText(tCoords, msg)
-            Wait(0)
+    local targetPed = GetPlayerPed(sender)
+    local displayTime = 5000 + GetGameTimer()
+    
+    pedDisplaying[targetPed] = (pedDisplaying[targetPed] or 1) + 1
+    local offset = 0.8 + pedDisplaying[ped] * 0.1
+    while displayTime > GetGameTimer() do
+        local tCoords = GetEntityCoords(targetPed)
+        if HasEntityClearLosToEntity(PlayerPedId(), targetPed, 17 ) then
+            tCoords.z = tCoords.z + offset
+            DrawText3Dme(tCoords, msg)
         end
-    end)
+        Wait(0)
+    end
 end)
 
 -- Listen to Shared being updated
