@@ -58,6 +58,18 @@ function QBCore.Functions.ShowAdvancedNotification(sender, subject, msg, texture
 	EndTextCommandThefeedPostTicker(flash or false, saveToBrief)
 end
 
+function QBCore.Functions.ShowHelpNotification(msg, thisFrame)
+	AddTextEntry('esxHelpNotification', msg)
+
+	if thisFrame then
+		DisplayHelpTextThisFrame('esxHelpNotification', false)
+	else
+		--if beep == nil then beep = true end
+		BeginTextCommandDisplayHelp('esxHelpNotification')
+		EndTextCommandDisplayHelp(0, false, false, -1)
+	end
+end
+
 function QBCore.Functions.DrawText(x, y, width, height, scale, r, g, b, a, text)
     -- Use local function instead
     SetTextFont(4)
