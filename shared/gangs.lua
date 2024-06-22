@@ -128,7 +128,7 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
-    ballas = {
+    irishbearded = {
         label = 'Irish Bearded Original Grade',
         grades = {
             { name = 'Support' },
