@@ -195,4 +195,10 @@ QBShared.Gangs = {
             { name = 'Membre', isboss = true },
         },
     },
+    hargreeves = {
+        label = 'Famille Hargreeves',
+        grades = {
+            { name = 'Membre', isboss = true },
+        },
+    },
 }
