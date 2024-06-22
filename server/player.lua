@@ -632,4 +632,4 @@ function QBCore.Player.CreateSerialNumber()
     return QBCore.Player.CreateSerialNumber()
 end
 
-PaycheckInterval() -- This starts the paycheck system
+--PaycheckInterval() -- This starts the paycheck system

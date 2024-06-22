@@ -3,10 +3,10 @@ QBShared.ForceJobDefaultDutyAtLogin = true -- true: Force duty state to jobdefau
 QBShared.Jobs = {
 	unemployed = {
         label = 'Civil',
-        defaultDuty = false,
-        offDutyPay = false,
+        defaultDuty = true,
+        offDutyPay = true,
         grades = {
-            { name = 'Sans Emploi', payment = 10 }
+            { name = 'Sans Emploi', payment = 20 }
         }
     },
 
