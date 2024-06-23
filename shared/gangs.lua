@@ -201,4 +201,13 @@ QBShared.Gangs = {
             { name = 'Membre', isboss = true },
         },
     },
+    nightkidz = {
+        label = 'Night Kidz',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Membre' },
+            { name = 'Second', isboss = true },
+            { name = 'Chef', isboss = true },
+        },
+    },
 }
