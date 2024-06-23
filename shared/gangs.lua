@@ -64,7 +64,7 @@ QBShared.Gangs = {
         },
     },
     nemesis = {
-        label = 'Fuerza Espinoza',
+        label = 'Némésis',
         grades = {
             { name = 'Aspirant' },
             { name = 'Associé' },
@@ -208,6 +208,12 @@ QBShared.Gangs = {
             { name = 'Membre' },
             { name = 'Second', isboss = true },
             { name = 'Chef', isboss = true },
+        },
+    },
+    kcorp = {
+        label = 'Kcorp',
+        grades = {
+            { name = 'Membre', isboss = true },
         },
     },
 }
