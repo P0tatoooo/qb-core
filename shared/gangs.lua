@@ -216,4 +216,14 @@ QBShared.Gangs = {
             { name = 'Membre', isboss = true },
         },
     },
+    crips = {
+        label = 'Crips',
+        grades = {
+            { name = 'Homies' },
+            { name = 'Gangsta' },
+            { name = 'R.G' },
+            { name = 'Y.G' },
+            { name = 'O.G', isboss = true },
+        },
+    },
 }
