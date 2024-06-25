@@ -73,7 +73,7 @@ QBShared.Gangs = {
             { name = 'Padre', isboss = true },
         },
     },
-    ferzaespinoza = {
+    fuerzaespinoza = {
         label = 'Fuerza Espinoza',
         grades = {
             { name = 'Teniente' },
