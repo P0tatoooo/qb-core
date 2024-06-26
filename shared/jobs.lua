@@ -51,6 +51,7 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
+            { name = 'Agent d\'Accueil', payment = 50 },
 			{ name = 'Conseiller du Gouvernement', payment = 50 },
 			{ name = 'Procureur', payment = 75 },
 			{ name = 'Juge', payment = 100 },
