@@ -680,6 +680,8 @@ function QBCore.Functions.SpawnVehicle(vehicle, coords, heading, networked)
     SetModelAsNoLongerNeeded(model)
     SetVehRadioStation(vehicle, 'OFF')
     SetVehicleRadioEnabled(vehicle, false)
+    SetVehicleDoorsLocked(vehicle, 1)
+    SetVehicleDoorsLockedForAllPlayers(vehicle, false)
 
     RequestCollisionAtCoord(vector.xyz)
     while not HasCollisionLoadedAroundEntity(vehicle) do
@@ -723,7 +725,7 @@ end
 
 function QBCore.Functions.IsVehicleLocked(vehicle)
     local doorsStatus = GetVehicleDoorLockStatus(vehicle)
-    return doorsStatus > 1
+    return doorsStatus ~= 1
 end
 
 function QBCore.Functions.GetVehicleLabel(vehicle)
