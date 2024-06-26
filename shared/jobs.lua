@@ -220,7 +220,7 @@ QBShared.Jobs = {
 	},
 
     mcevent = {
-		label = 'Kalypso',
+		label = 'MC Event',
 		type = 'mcevent',
 		defaultDuty = false,
 		offDutyPay = false,
