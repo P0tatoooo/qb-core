@@ -63,6 +63,7 @@ AddEventHandler('playerConnecting', onPlayerConnecting)
 
 -- Open & Close Server (prevents players from joining)
 
+--[[
 RegisterNetEvent('QBCore:Server:CloseServer', function(reason)
     local src = source
     if QBCore.Functions.HasPermission(src, 'admin') then
@@ -86,7 +87,7 @@ RegisterNetEvent('QBCore:Server:OpenServer', function()
     else
         QBCore.Functions.Kick(src, Lang:t('error.no_permission'), nil, nil)
     end
-end)
+end)]]
 
 -- Callback Events --
 

@@ -154,6 +154,7 @@ end, 'god')
 
 -- Open & Close Server
 
+--[[
 QBCore.Commands.Add('openserver', Lang:t('command.openserver.help'), {}, false, function(source)
     if not QBCore.Config.Server.Closed then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.server_already_open'), 'error')
@@ -185,7 +186,7 @@ QBCore.Commands.Add('closeserver', Lang:t('command.closeserver.help'), { { name 
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
     end
-end, 'admin')
+end, 'admin')]]
 
 -- Vehicle
 
