@@ -226,4 +226,12 @@ QBShared.Gangs = {
             { name = 'O.G', isboss = true },
         },
     },
+    latinscorpion = {
+        label = 'Latin Scorpion',
+        grades = {
+            { name = 'Habitante' },
+            { name = 'Pequeno' },
+            { name = 'Grande', isboss = true },
+        },
+    },
 }
