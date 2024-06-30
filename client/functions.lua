@@ -688,6 +688,10 @@ function QBCore.Functions.SpawnVehicle(vehicle, coords, heading, networked)
         Wait(0)
     end
 
+    if model == `forklift` or model == `trflat` or model == `graintrailer` or model == `raketrailer` then
+        SetEntityInvincible(vehicle, true)
+    end
+
     return vehicle
 end
 
