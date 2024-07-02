@@ -146,7 +146,7 @@ QBShared.Jobs = {
 	},
 
     farmer = {
-		label = 'Miller\'s Farm',
+		label = 'La Ferme des 4 Saisons',
 		type = 'farmer',
 		defaultDuty = false,
 		offDutyPay = false,
@@ -191,7 +191,7 @@ QBShared.Jobs = {
 	},
 
     foundry = {
-		label = 'Fonderie',
+		label = 'Jerimac Mine',
 		type = 'foundry',
 		defaultDuty = false,
 		offDutyPay = false,
@@ -277,7 +277,7 @@ QBShared.Jobs = {
 	},
 
     blacktop = {
-		label = 'The BlackTop',
+		label = 'The Black Top',
 		type = 'blacktop',
 		defaultDuty = false,
 		offDutyPay = false,
@@ -407,21 +407,6 @@ QBShared.Jobs = {
 		},
 	},
 
-    youtool = {
-		label = 'Youtool',
-		type = 'youtool',
-		defaultDuty = false,
-		offDutyPay = false,
-		grades = {
-			{ name = 'Décorateur', payment = 50 },
-			{ name = 'Chauffeur livreur', payment = 75 },
-			{ name = 'Vendeur', payment = 100 },
-			{ name = 'Manager', payment = 125 },
-			{ name = 'Co-Patron', isboss = true, payment = 150 },
-            { name = 'Patron', isboss = true, payment = 150 },
-		},
-	},
-
     barber = {
 		label = 'Coiffeur',
 		type = 'barber',
@@ -450,7 +435,23 @@ QBShared.Jobs = {
 		},
 	},
 
-    --[[tabac = {
+    --[[
+    youtool = {
+		label = 'Youtool',
+		type = 'youtool',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Décorateur', payment = 50 },
+			{ name = 'Chauffeur livreur', payment = 75 },
+			{ name = 'Vendeur', payment = 100 },
+			{ name = 'Manager', payment = 125 },
+			{ name = 'Co-Patron', isboss = true, payment = 150 },
+            { name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
+
+    tabac = {
 		label = 'Tabarico',
 		type = 'tabac',
 		defaultDuty = false,
