@@ -117,15 +117,15 @@ QBShared.Gangs = {
             { name = 'Oyabun', isboss = true },
         },
     },
-    parabelum = {
-        label = 'Parabelum',
+    bmf = {
+        label = 'BMF',
         grades = {
-            { name = 'Pequeno' },
-            { name = 'Soldado' },
-            { name = 'Teniente' },
-            { name = 'Consultor' },
-            { name = 'Secundo', isboss = true },
-            { name = 'Jefe', isboss = true },
+            { name = 'Recrue' },
+            { name = 'Homme de Main' },
+            { name = 'Gangster' },
+            { name = 'Lieutenant' },
+            { name = 'Second', isboss = true },
+            { name = 'Boss', isboss = true },
         },
     },
     irishbearded = {
