@@ -925,6 +925,17 @@ end
 
 function QBCore.Functions.SetVehicleProperties(vehicle, props)
     if DoesEntityExist(vehicle) and props then
+        QBCore.Functions.RequestControlEntity(vehicle)
+        
+        SetVehicleModKit(vehicle, 0)
+
+        --[[local attempt = 0
+        while GetVehicleModKit(vehicle) ~= 0 and DoesEntityExist(vehicle) and attempt < 40 do
+            attempt = attempt + 1
+            SetVehicleModKit(vehicle, 0)
+            Wait(0)
+        end]]
+
         if props.extras then
             for id, enabled in pairs(props.extras) do
                 if enabled then
@@ -937,7 +948,6 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
 
         local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
         local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
-        SetVehicleModKit(vehicle, 0)
         if props.plate then
             SetVehicleNumberPlateText(vehicle, props.plate)
         end
