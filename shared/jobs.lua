@@ -436,6 +436,22 @@ QBShared.Jobs = {
 		},
 	},
 
+    security = {
+		label = 'LS Security',
+		type = 'security',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+            { name = 'Recrue', payment = 50 },
+            { name = 'Agent de Sécurité', payment = 50 },
+			{ name = 'Agent de Sécurité Confirmé', payment = 50 },
+			{ name = 'Chef Sécurité', payment = 75 },
+			{ name = 'Responsable', payment = 100 },
+            { name = 'Co-Lead', isboss = true, payment = 125 },
+			{ name = 'Lead', isboss = true, payment = 125 },
+		},
+	},
+
     --[[
     youtool = {
 		label = 'Youtool',
