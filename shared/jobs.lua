@@ -23,7 +23,7 @@ QBShared.Jobs = {
             { name = 'Officier III', payment = 125 },
             { name = 'Détective', payment = 125 },
             { name = 'SLO', payment = 125 },
-            { name = 'Sergent', payment = 125 },
+            { name = 'Sergent I', payment = 125 },
             { name = 'Sergent II', payment = 125 },
             { name = 'Lieutenant', payment = 125 },
 			{ name = 'Capitaine', isboss = true, payment = 150 },
