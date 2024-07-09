@@ -26,15 +26,14 @@ QBShared.Gangs = {
             { name = 'Major', isboss = true },
         },
     },
-    paoli = {
-        label = 'Famille Paoli',
+    hoovers = {
+        label = 'Hoovers',
         grades = {
-            { name = 'Recrue' },
-            { name = 'Soldat' },
-            { name = 'Meneur' },
-            { name = 'Chef d\'équipe' },
+            { name = 'Petit' },
+            { name = 'Aster' },
+            { name = 'Cuz' },
             { name = 'Second', isboss = true },
-            { name = 'Chef', isboss = true },
+            { name = 'OG', isboss = true },
         },
     },
     losvalentinos = {
@@ -232,6 +231,32 @@ QBShared.Gangs = {
             { name = 'Habitante' },
             { name = 'Pequeno' },
             { name = 'Grande', isboss = true },
+        },
+    },
+    cjng = {
+        label = 'Cartel Jalisco Nouvelle Generation',
+        grades = {
+            { name = 'Narcomenuedistas' },
+            { name = 'Miembro de Plaza' },
+            { name = 'Sicario' },
+            { name = 'Teniente' },
+            { name = 'Jefes de Sicarios' },
+            { name = 'Lideres de Plaza', isboss = true },
+            { name = 'Capo Los Santos Country', isboss = true },
+            { name = 'Capo Blaine County', isboss = true },
+            { name = 'Comandantes', isboss = true },
+            { name = 'Jefe del Territorio', isboss = true },
+        },
+    },
+    ttk = {
+        label = 'Train To Kill',
+        grades = {
+            { name = 'Lil\' Guy' },
+            { name = 'Gangster' },
+            { name = 'Hustler' },
+            { name = 'OG', isboss = true },
+            { name = 'Underboss', isboss = true },
+            { name = 'Boss', isboss = true },
         },
     },
 }
