@@ -243,6 +243,12 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         return self.PlayerData.metadata[meta]
     end
 
+    function self.Functions.GetCoords()
+        local playerPed = GetPlayerPed(self.PlayerData.source)
+        local playerCoords = GetEntityCoords(playerPed)
+        return playerCoords or vector3(0,0,0)
+    end
+
     function self.Functions.AddJobReputation(amount)
         if not amount then return end
         amount = tonumber(amount)
