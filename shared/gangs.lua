@@ -259,4 +259,17 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    dsr = {
+        label = 'Dark Street Runners',
+        grades = {
+            { name = 'Urban Novice' },
+            { name = 'Lunar Navigateur' },
+            { name = 'Dark Mechanic' },
+            { name = 'Eclipse Enforcer' },
+            { name = 'Phantom Driver' },
+            { name = 'Shadow Strategist' },
+            { name = 'Night Co-Leader', isboss = true },
+            { name = 'Night Leader', isboss = true },
+        },
+    },
 }
