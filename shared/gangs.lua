@@ -272,4 +272,16 @@ QBShared.Gangs = {
             { name = 'Night Leader', isboss = true },
         },
     },
+    reapers = {
+        label = 'Reapers',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Homme de Main' },
+            { name = 'Lieutenant' },
+            { name = 'Conseiller' },
+            { name = 'Caporal', isboss = true },
+            { name = 'Second', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
