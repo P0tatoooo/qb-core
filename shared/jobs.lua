@@ -452,7 +452,6 @@ QBShared.Jobs = {
 		},
 	},
 
-    --[[
     youtool = {
 		label = 'Youtool',
 		type = 'youtool',
@@ -467,7 +466,7 @@ QBShared.Jobs = {
             { name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
-
+--[[
     tabac = {
 		label = 'Tabarico',
 		type = 'tabac',
