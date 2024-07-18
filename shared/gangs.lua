@@ -284,4 +284,13 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    scavengers = {
+        label = 'Scavengers',
+        grades = {
+            { name = 'Miteux' },
+            { name = 'Charognard' },
+            { name = 'Punk à Chien', isboss = true },
+            { name = 'Le Roi des égouts', isboss = true },
+        },
+    },
 }
