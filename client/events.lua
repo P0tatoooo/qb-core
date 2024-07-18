@@ -7,6 +7,11 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     if not QBCore.Config.Server.PVP then return end
     SetCanAttackFriendly(PlayerPedId(), true, false)
     NetworkSetFriendlyFireOption(true)
+    exports['soz-voip']:MutePlayer(false)
+    TriggerEvent('MyCity_Clothing:InitCharacter')
+    TriggerEvent('qb-weathersync:client:EnableSync')
+    TriggerEvent("qb-multicharacter:CharacterChosen")
+    TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
