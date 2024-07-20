@@ -10,7 +10,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     exports['soz-voip']:MutePlayer(false)
     TriggerEvent('MyCity_Clothing:InitCharacter')
     TriggerEvent('qb-weathersync:client:EnableSync')
-    TriggerEvent("qb-multicharacter:CharacterChosen")
+    TriggerEvent("MyCity_MultiCharacter:CharacterChosen")
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
 end)
 
