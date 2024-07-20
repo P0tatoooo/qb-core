@@ -552,18 +552,47 @@ function QBCore.Player.ForceDeleteCharacter(citizenid)
         local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
 
         if Player then
-            DropPlayer(Player.PlayerData.source, 'An admin deleted the character which you are currently using')
-        end
-        for i = 1, tableCount do
-            local v = playertables[i]
-            queries[i] = { query = query:format(v.table), values = { citizenid } }
+            DropPlayer(Player.PlayerData.source, 'Votre personnage a été wipe par un administrateur')
         end
 
-        MySQL.transaction(queries, function(result2)
-            if result2 then
-                TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Character Force Deleted', 'red', 'Character **' .. citizenid .. '** got deleted')
-            end
-        end)
+        local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
+
+        local result = MySQL.query.await('DELETE FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
+        local result = MySQL.query.await('DELETE FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no"', {
+            ['@citizenid'] = citizenid
+        })
+
+        local result = MySQL.query.await('SELECT plate FROM player_vehicles WHERE citizenid = @citizenid', {
+            ['@citizenid'] = citizenid
+        })
+
+        for k,v in pairs(result) do
+            print('user has ', v.plate)
+            ExecuteCommand('togarage ' .. v.plate)
+            exports.ox_inventory:ClearInventory('glovebox' .. v.plate, false)
+            exports.ox_inventory:ClearInventory('trunk' .. v.plate, false)
+            local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk WHERE plate = @plate', {
+                ['@fakeplate'] = '',
+                ['@carkeys'] = '{}',
+                ['@glovebox'] = nil,
+                ['@trunk'] = nil,
+                ['@plate'] = v.plate
+            })
+        end
+
+        local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
+        local resultproperties = MySQL.query.await('SELECT * FROM properties WHERE owner=@owner', {
+            ['owner'] = citizenid
+        })
+        for k,v in pairs(resultproperties) do
+            print('##############################################')
+            print('La personne possède la propriété ' .. v.name .. ' sous le nom de ' ..  v.ownername)
+            print('##############################################')
+            TriggerEvent('MyCity_Core:PropertyWipes:Logs', "Wipe de propriété à faire", Player.PlayerData.rpname .. ' possède la propriété ' .. v.name .. ' (id : ' .. v.id .. ') sous le nom de ' ..  v.ownername)
+        end
+
+        local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
+        TriggerEvent('MyCity_Core:Wipe:Logs', "Wipe", message)
     end
 end
 
