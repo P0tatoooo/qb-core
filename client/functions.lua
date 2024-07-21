@@ -677,11 +677,11 @@ function QBCore.Functions.SpawnVehicle(vehicle, coords, heading, networked)
 
     SetVehicleHasBeenOwnedByPlayer(vehicle, true)
     SetVehicleNeedsToBeHotwired(vehicle, false)
-    SetModelAsNoLongerNeeded(model)
     SetVehRadioStation(vehicle, 'OFF')
     SetVehicleRadioEnabled(vehicle, false)
     SetVehicleDoorsLocked(vehicle, 1)
     SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+    SetVehicleDirtLevel(vehicle, 0.0)
 
     RequestCollisionAtCoord(vector.xyz)
     while not HasCollisionLoadedAroundEntity(vehicle) do
@@ -691,6 +691,8 @@ function QBCore.Functions.SpawnVehicle(vehicle, coords, heading, networked)
     if model == `forklift` or model == `trflat` or model == `graintrailer` or model == `raketrailer` then
         SetEntityInvincible(vehicle, true)
     end
+
+    SetModelAsNoLongerNeeded(model)
 
     return vehicle
 end
@@ -926,7 +928,7 @@ end
 function QBCore.Functions.SetVehicleProperties(vehicle, props)
     if DoesEntityExist(vehicle) and props then
         QBCore.Functions.RequestControlEntity(vehicle)
-        
+
         SetVehicleModKit(vehicle, 0)
 
         --[[local attempt = 0
@@ -1372,7 +1374,6 @@ function QBCore.Functions.GetGroundZCoord(coords)
         return vector3(coords.x, coords.y, groundZ)
     else
         print('Couldn\'t find Ground Z Coordinates given 3D Coordinates')
-        print(coords)
         return coords
     end
 end
