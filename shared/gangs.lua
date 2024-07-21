@@ -104,16 +104,18 @@ QBShared.Gangs = {
             { name = 'Chef', isboss = true },
         },
     },
-    yakuza = {
-        label = 'Yakuza',
+    triade = {
+        label = 'Triade Xin Yi An',
         grades = {
-            { name = 'Shatei' },
-            { name = 'Kadei' },
-            { name = 'Kyodai' },
-            { name = 'Wakagashira' },
-            { name = 'Shateigashira' },
-            { name = 'Saiki-komon', isboss = true },
-            { name = 'Oyabun', isboss = true },
+            { name = 'Membre' },
+            { name = 'Officier d\'Execution' },
+            { name = 'Officier Général' },
+            { name = 'Officier d\'Administration' },
+            { name = 'Officier des Liaisons' },
+            { name = 'Maitre des Opérations' },
+            { name = 'Maitre des Cérémonies' },
+            { name = 'Seconde Tête', isboss = true },
+            { name = 'Tête de Dragon', isboss = true },
         },
     },
     bmf = {
