@@ -151,7 +151,6 @@ RegisterNetEvent('QBCore:Command:DeleteVehicle', function(radius)
 		radius = radius + 0.01
 		local vehicles = QBCore.Functions.GetVehiclesInArea(GetEntityCoords(PlayerPedId()), radius)
 		for k,entity in pairs(vehicles) do
-            print(k,entity)
             QBCore.Functions.DeleteEntity(entity)
 		end
 	else
