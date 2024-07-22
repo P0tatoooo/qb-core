@@ -295,4 +295,17 @@ QBShared.Gangs = {
             { name = 'Le Roi des égouts', isboss = true },
         },
     },
+    malvabundos = {
+        label = 'Malvabundos',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Road Captain' },
+            { name = 'Trésorier' },
+            { name = 'Secrétaire' },
+            { name = 'Sgt At Arms' },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
