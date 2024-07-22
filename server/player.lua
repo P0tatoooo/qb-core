@@ -567,7 +567,6 @@ function QBCore.Player.ForceDeleteCharacter(citizenid)
         })
 
         for k,v in pairs(result) do
-            print('user has ', v.plate)
             ExecuteCommand('togarage ' .. v.plate)
             exports.ox_inventory:ClearInventory('glovebox' .. v.plate, false)
             exports.ox_inventory:ClearInventory('trunk' .. v.plate, false)
