@@ -308,4 +308,23 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    gitans = {
+        label = 'Gitans',
+        grades = {
+            { name = 'Cousins' },
+            { name = 'Sous-Patriarche', isboss = true },
+            { name = 'Patriarche', isboss = true },
+        },
+    },
+    greenhustler = {
+        label = 'Green Hustler',
+        grades = {
+            { name = 'Little G' },
+            { name = 'Gangsta' },
+            { name = 'Hustler' },
+            { name = 'Big Hustler' },
+            { name = 'Young-G', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
