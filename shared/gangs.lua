@@ -178,15 +178,15 @@ QBShared.Gangs = {
             { name = 'Big Head', isboss = true },
         },
     },
-    pcc = {
-        label = 'Primeiro Comando da Capital',
+    ms13 = {
+        label = 'MS13',
         grades = {
             { name = 'Pequeno' },
             { name = 'Soldado' },
-            { name = 'Commandante' },
-            { name = 'Teniente' },
-            { name = 'Segundo', isboss = true },
-            { name = 'Jefe', isboss = true },
+            { name = 'Grande' },
+            { name = 'Sergendo' },
+            { name = 'Mano Derecha', isboss = true },
+            { name = 'Jefe/a', isboss = true },
         },
     },
     lco = {
