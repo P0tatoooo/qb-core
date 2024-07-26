@@ -377,6 +377,33 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         self[fieldName] = data
     end
 
+    function self.Functions.AddItem(item, count, metadata, slot)
+        return exports.ox_inventory:AddItem(self.PlayerData.source, item, count, metadata, slot)
+    end
+
+    function self.Functions.RemoveItem(item, count, metadata, slot)
+        return exports.ox_inventory:RemoveItem(self.PlayerData.source, item, count, metadata, slot)
+    end
+
+    function self.Functions.GetItemBySlot(slot)
+        return exports.ox_inventory:GetSlot(self.PlayerData.source, slot)
+    end
+
+    function self.Functions.GetItemByName(name, metadata, strict)
+        local result = exports.ox_inventory:GetSlotWithItem(self.PlayerData.source, name, metadata, strict)
+        if result then
+            return result
+        else
+            local items = exports.ox_inventory:Items()
+            return {count = 0, label = items[name]?.label or "N/A"}
+        end
+    end
+
+    function self.Functions.GetItemsByName(name, metadata, strict)
+        local result = exports.ox_inventory:GetSlotsWithItem(self.PlayerData.source, name, metadata, strict)
+        return result
+    end
+
     if self.Offline then
         return self
     else
