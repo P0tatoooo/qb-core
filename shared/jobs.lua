@@ -37,11 +37,11 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
-            { name = 'Sécurité', payment = 50 },
+            { name = 'Personnel', payment = 50 },
 			{ name = 'Urgentiste', payment = 50 },
 			{ name = 'Docteur', payment = 75 },
 			{ name = 'Chef de Service', payment = 100 },
-			{ name = 'Vice-Directeur', payment = 125 },
+			{ name = 'Vice-Directeur', isboss = true, payment = 125 },
 			{ name = 'Queen', isboss = true, payment = 150 },
 		},
 	},
