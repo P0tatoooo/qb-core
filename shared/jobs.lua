@@ -314,6 +314,7 @@ QBShared.Jobs = {
 		grades = {
 			{ name = 'Sécurité', payment = 50 },
 			{ name = 'Barman/maid', payment = 75 },
+            { name = 'Chef d\'Equipe', payment = 75 },
 			{ name = 'Co-Gérant', isboss = true, payment = 100 },
 			{ name = 'Gérant ', isboss = true, payment = 125 },
 		},
