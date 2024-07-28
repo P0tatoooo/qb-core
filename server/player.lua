@@ -14,7 +14,10 @@ function QBCore.Player.Login(source, citizenid, newData)
             if PlayerData and license == PlayerData.license then
                 PlayerData.money = json.decode(PlayerData.money)
                 PlayerData.job = json.decode(PlayerData.job)
-                PlayerData.job.grade.level = tonumber(PlayerData.job.grade.level)
+                PlayerData.job.grade.level = tonumber(PlayerData.job.grade.level) or 1
+                if PlayerData.job.grade.level == 0 then
+                    PlayerData.job.grade.level = 1
+                end
                 if QBCore.Shared.Jobs[PlayerData.job.name].grades[PlayerData.job.grade.level].name ~= PlayerData.job.grade.name then
                     for k,v in pairs(QBCore.Shared.Jobs[PlayerData.job.name].grades) do
                         if v.name == PlayerData.job.grade.name then
@@ -25,7 +28,10 @@ function QBCore.Player.Login(source, citizenid, newData)
                 end
 
                 PlayerData.gang = json.decode(PlayerData.gang)
-                PlayerData.gang.grade.level = tonumber(PlayerData.gang.grade.level)
+                PlayerData.gang.grade.level = tonumber(PlayerData.gang.grade.level) or 1
+                if PlayerData.gang.grade.level == 0 then
+                    PlayerData.gang.grade.level = 1
+                end
                 if QBCore.Shared.Gangs[PlayerData.gang.name].grades[PlayerData.gang.grade.level].name ~= PlayerData.gang.grade.name then
                     for k,v in pairs(QBCore.Shared.Gangs[PlayerData.gang.name].grades) do
                         if v.name == PlayerData.gang.grade.name then
