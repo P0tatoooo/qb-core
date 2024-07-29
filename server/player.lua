@@ -693,9 +693,10 @@ end
 
 function QBCore.Functions.CreatePhoneNumber()
     local PhoneNumber ="555-" .. QBCore.Shared.RandomInt(4)
-    local result = MySQL.prepare.await('SELECT 1 FROM sim WHERE phone_number=?', { PhoneNumber })
-    if not result then return PhoneNumber end
-    return QBCore.Functions.CreatePhoneNumber()
+    --local result = MySQL.prepare.await('SELECT 1 FROM sim WHERE phone_number=?', { PhoneNumber })
+    --if not result then return PhoneNumber end
+    --return QBCore.Functions.CreatePhoneNumber()
+    return PhoneNumber
 end
 
 function QBCore.Player.CreateFingerId()

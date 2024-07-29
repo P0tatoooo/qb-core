@@ -338,4 +338,7 @@ QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.
             TriggerClientEvent('QBCore:Command:ShowMe3D', Player, source, msg)
         end
     end
+
+    local xPlayer = QBCore.Functions.GetPlayer(source)
+    TriggerEvent('MyCity_Core:MeCommand:Logs', xPlayer.PlayerData.rpname, msg, xPlayer.PlayerData.source)
 end, 'user')
