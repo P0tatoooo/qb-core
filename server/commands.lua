@@ -89,6 +89,11 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
             if target ~= 0 then
                 local coords = GetEntityCoords(target)
                 TriggerClientEvent('QBCore:Command:TeleportToPlayer', source, coords)
+
+                if source ~= 0 then
+                    local xPlayer = QBCore.Functions.GetPlayer(source)
+                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. args[1], xPlayer.PlayerData.source)
+                end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
             end
@@ -96,6 +101,11 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
             local location = QBShared.Locations[args[1]]
             if location then
                 TriggerClientEvent('QBCore:Command:TeleportToCoords', source, location.x, location.y, location.z, location.w)
+
+                if source ~= 0 then
+                    local xPlayer = QBCore.Functions.GetPlayer(source)
+                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. location.x .. ' ' .. location.y .. ' ' .. location.z, xPlayer.PlayerData.source)
+                end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.location_not_exist'), 'error')
             end
@@ -107,6 +117,11 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
             local z = tonumber((args[3]:gsub(',', ''))) + .0
             if x ~= 0 and y ~= 0 and z ~= 0 then
                 TriggerClientEvent('QBCore:Command:TeleportToCoords', source, x, y, z)
+
+                if source ~= 0 then
+                    local xPlayer = QBCore.Functions.GetPlayer(source)
+                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. x .. ' ' .. y .. ' ' .. z, xPlayer.PlayerData.source)
+                end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.wrong_format'), 'error')
             end
@@ -118,11 +133,10 @@ end, 'admin')
 
 QBCore.Commands.Add('tpm', Lang:t('command.tpm.help'), {}, false, function(source)
     TriggerClientEvent('QBCore:Command:GoToMarker', source)
-end, 'admin')
-
-QBCore.Commands.Add('togglepvp', Lang:t('command.togglepvp.help'), {}, false, function()
-    QBCore.Config.Server.PVP = not QBCore.Config.Server.PVP
-    TriggerClientEvent('QBCore:Client:PvpHasToggled', -1, QBCore.Config.Server.PVP)
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tpm', xPlayer.PlayerData.source)
+    end
 end, 'admin')
 
 -- Permissions
@@ -137,6 +151,11 @@ QBCore.Commands.Add('addpermission', Lang:t('command.addpermission.help'), { { n
             ['@identifier'] = Player.PlayerData.license,
             ['@group'] = permission,
         })
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'addpermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
+        end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
@@ -147,6 +166,15 @@ QBCore.Commands.Add('removepermission', Lang:t('command.removepermission.help'),
     local permission = tostring(args[2]):lower()
     if Player then
         QBCore.Functions.RemovePermission(Player.PlayerData.source, permission)
+
+        local result = MySQL.query.await('DELETE FROM adminmembers WHERE `identifier` = @identifier', {
+            ['@identifier'] = Player.PlayerData.license
+        })
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'removepermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
+        end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
@@ -154,26 +182,30 @@ end, 'god')
 
 -- Open & Close Server
 
---[[
 QBCore.Commands.Add('openserver', Lang:t('command.openserver.help'), {}, false, function(source)
     if not QBCore.Config.Server.Closed then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.server_already_open'), 'error')
         return
     end
-    if QBCore.Functions.HasPermission(source, 'admin') then
+    if QBCore.Functions.HasPermission(source, 'god') then
         QBCore.Config.Server.Closed = false
         TriggerClientEvent('QBCore:Notify', source, Lang:t('success.server_opened'), 'success')
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'openserver', xPlayer.PlayerData.source)
+        end
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
     end
-end, 'admin')
+end, 'god')
 
 QBCore.Commands.Add('closeserver', Lang:t('command.closeserver.help'), { { name = Lang:t('command.closeserver.params.reason.name'), help = Lang:t('command.closeserver.params.reason.help') } }, false, function(source, args)
     if QBCore.Config.Server.Closed then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.server_already_closed'), 'error')
         return
     end
-    if QBCore.Functions.HasPermission(source, 'admin') then
+    if QBCore.Functions.HasPermission(source, 'god') then
         local reason = args[1] or 'No reason specified'
         QBCore.Config.Server.Closed = true
         QBCore.Config.Server.ClosedReason = reason
@@ -183,43 +215,73 @@ QBCore.Commands.Add('closeserver', Lang:t('command.closeserver.help'), { { name 
             end
         end
         TriggerClientEvent('QBCore:Notify', source, Lang:t('success.server_closed'), 'success')
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'closeserver', xPlayer.PlayerData.source)
+        end
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
     end
-end, 'admin')]]
+end, 'god')
 
 -- Vehicle
 
-QBCore.Commands.Add('car', Lang:t('command.car.help'), { { name = Lang:t('command.car.params.model.name'), help = Lang:t('command.car.params.model.help') } }, true, function(source, args)
+QBCore.Commands.Add('car', Lang:t('command.car.help'), { { name = Lang:t('command.car.params.model.name'), help = Lang:t('command.car.params.model.help') } }, false, function(source, args)
+    if not args[1] then
+        args[1] = 'sultan'
+    end
+    
     TriggerClientEvent('QBCore:Command:SpawnVehicle', source, args[1])
+
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'car ' .. args[1], xPlayer.PlayerData.source)
+    end
 end, 'admin')
 
 QBCore.Commands.Add('dv', Lang:t('command.dv.help'), { { name = "radius", help = "rayon en mètres" } }, false, function(source, args)
     TriggerClientEvent('QBCore:Command:DeleteVehicle', source, (args[1] and tonumber(args[1])) or nil)
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dv ' .. (tonumber(args[1]) or ''), xPlayer.PlayerData.source)
+    end
 end, 'admin')
 
-QBCore.Commands.Add('dvall', Lang:t('command.dvall.help'), {}, false, function()
+QBCore.Commands.Add('dvall', Lang:t('command.dvall.help'), {}, false, function(source)
     local vehicles = GetAllVehicles()
     for _, vehicle in ipairs(vehicles) do
         DeleteEntity(vehicle)
+    end
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvall', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
 -- Peds
 
-QBCore.Commands.Add('dvp', Lang:t('command.dvp.help'), {}, false, function()
+QBCore.Commands.Add('dvp', Lang:t('command.dvp.help'), {}, false, function(source)
     local peds = GetAllPeds()
     for _, ped in ipairs(peds) do
         DeleteEntity(ped)
+    end
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvp', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
 -- Objects
 
-QBCore.Commands.Add('dvo', Lang:t('command.dvo.help'), {}, false, function()
+QBCore.Commands.Add('dvo', Lang:t('command.dvo.help'), {}, false, function(source)
     local objects = GetAllObjects()
     for _, object in ipairs(objects) do
         DeleteEntity(object)
+    end
+    if source ~= 0 then
+        local xPlayer = QBCore.Functions.GetPlayer(source)
+        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvo', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -229,6 +291,11 @@ QBCore.Commands.Add('givemoney', Lang:t('command.givemoney.help'), { { name = La
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     if Player then
         Player.Functions.AddMoney(tostring(args[2]), tonumber(args[3]), 'Admin give money')
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'givemoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
+        end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
@@ -238,6 +305,11 @@ QBCore.Commands.Add('setmoney', Lang:t('command.setmoney.help'), { { name = Lang
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     if Player then
         Player.Functions.SetMoney(tostring(args[2]), tonumber(args[3]))
+
+        if source ~= 0 then
+            local xPlayer = QBCore.Functions.GetPlayer(source)
+            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setmoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
+        end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
@@ -258,6 +330,11 @@ QBCore.Commands.Add('setjob', Lang:t("command.setjob.help"), { { name = Lang:t("
         if QBCore.Functions.DoesJobExist(args[2], args[3]) then
             Player.Functions.SetJob(args[2], args[3])
             TriggerClientEvent('QBCore:Notify', source, "Le job de " .. QBCore.Functions.GetPlayerName(Player.PlayerData.source) .. " a bien été changé")
+        
+            if source ~= 0 then
+                local xPlayer = QBCore.Functions.GetPlayer(source)
+                TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setjob ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
+            end
         else
             TriggerClientEvent('QBCore:Notify', source, "Le job ou le grade n'existe pas", 'error')
         end
@@ -279,6 +356,11 @@ QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t
         if QBCore.Functions.DoesGangExist(args[2], args[3]) then
             Player.Functions.SetGang(args[2], args[3])
             TriggerClientEvent('QBCore:Notify', source, "Le gang de " .. QBCore.Functions.GetPlayerName(Player.PlayerData.source) .. " a bien été changé")
+        
+            if source ~= 0 then
+                local xPlayer = QBCore.Functions.GetPlayer(source)
+                TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setgang ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
+            end
         else
             TriggerClientEvent('QBCore:Notify', source, "Le gang ou le grade n'existe pas", 'error')
         end
@@ -287,40 +369,7 @@ QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t
     end
 end, 'admin')
 
--- Out of Character Chat
-QBCore.Commands.Add('ooc', Lang:t('command.ooc.help'), {}, false, function(source, args)
-    local message = table.concat(args, ' ')
-    local Players = QBCore.Functions.GetPlayers()
-    local Player = QBCore.Functions.GetPlayer(source)
-    local playerCoords = GetEntityCoords(GetPlayerPed(source))
-    for _, v in pairs(Players) do
-        if v == source then
-            TriggerClientEvent('chat:addMessage', v, {
-                color = QBCore.Config.Commands.OOCColor,
-                multiline = true,
-                args = { 'OOC | ' .. GetPlayerName(source), message }
-            })
-        elseif #(playerCoords - GetEntityCoords(GetPlayerPed(v))) < 20.0 then
-            TriggerClientEvent('chat:addMessage', v, {
-                color = QBCore.Config.Commands.OOCColor,
-                multiline = true,
-                args = { 'OOC | ' .. GetPlayerName(source), message }
-            })
-        elseif QBCore.Functions.HasPermission(v, 'admin') then
-            if QBCore.Functions.IsOptin(v) then
-                TriggerClientEvent('chat:addMessage', v, {
-                    color = QBCore.Config.Commands.OOCColor,
-                    multiline = true,
-                    args = { 'Proximity OOC | ' .. GetPlayerName(source), message }
-                })
-                TriggerEvent('qb-log:server:CreateLog', 'ooc', 'OOC', 'white', '**' .. GetPlayerName(source) .. '** (CitizenID: ' .. Player.PlayerData.citizenid .. ' | ID: ' .. source .. ') **Message:** ' .. message, false)
-            end
-        end
-    end
-end, 'user')
-
 -- Me command
-
 QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.me.params.message.name'), help = Lang:t('command.me.params.message.help') } }, true, function(source, args)
     if #args < 1 then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.missing_args2'), 'error')
