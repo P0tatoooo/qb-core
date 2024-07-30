@@ -135,9 +135,11 @@ RegisterNetEvent('QBCore:ToggleDuty', function()
     if Player.PlayerData.job.onduty then
         Player.Functions.SetJobDuty(false)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.off_duty'))
+        TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Fin de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
     else
         Player.Functions.SetJobDuty(true)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.on_duty'))
+        TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Prise de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
     end
 
     TriggerEvent('QBCore:Server:SetDuty', src, Player.PlayerData.job.onduty)
