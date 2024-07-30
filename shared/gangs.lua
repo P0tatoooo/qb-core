@@ -327,4 +327,19 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    verdugos = {
+        label = 'Verdugos MC',
+        grades = {
+            { name = 'Support' },
+            { name = 'Prospect' },
+            { name = 'Tailgunner' },
+            { name = 'Enforcer' },
+            { name = 'Full Patch' },
+            { name = 'Road Captain' },
+            { name = 'Sergent d\'Armes' },
+            { name = 'Trésorier' },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
