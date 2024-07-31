@@ -26,7 +26,8 @@ function QBShared.SplitStr(str, delimiter)
     local result = {}
     local from = 1
     local delim_from, delim_to = string.find(str, delimiter, from)
-    while delim_from do
+    local timeout = GetGameTimer() + 2000
+    while delim_from and GetGameTimer() < timeout do
         result[#result + 1] = string.sub(str, from, delim_from - 1)
         from = delim_to + 1
         delim_from, delim_to = string.find(str, delimiter, from)
