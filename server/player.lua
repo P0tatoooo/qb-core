@@ -407,7 +407,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         return exports.ox_inventory:AddItem(self.PlayerData.source, item, count, metadata, slot)
     end
 
-    function self.Functions.RemoveItem(item, count, metadata, slot)
+    function self.Functions.RemoveItem(item, count, slot, metadata)
         return exports.ox_inventory:RemoveItem(self.PlayerData.source, item, count, metadata, slot)
     end
 
