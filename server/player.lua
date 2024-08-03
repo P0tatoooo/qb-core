@@ -558,7 +558,7 @@ end
 -- Delete character
 
 local playertables = { -- Add tables as needed
-    { table = 'players' },
+    --{ table = 'players' },
     --{ table = 'apartments' },
     --{ table = 'bank_accounts' },
     --{ table = 'crypto_transactions' },
@@ -569,10 +569,10 @@ local playertables = { -- Add tables as needed
     --{ table = 'player_houses' },
     --{ table = 'player_mails' },
     --{ table = 'player_outfits' },
-    { table = 'player_vehicles' }
+    --{ table = 'player_vehicles' }
 }
 
-function QBCore.Player.DeleteCharacter(source, citizenid)
+--[[ function QBCore.Player.DeleteCharacter(source, citizenid)
     local license = QBCore.Functions.GetIdentifier(source, 'license')
     local result = MySQL.scalar.await('SELECT license FROM players where citizenid = ?', { citizenid })
     if license == result then
@@ -594,14 +594,11 @@ function QBCore.Player.DeleteCharacter(source, citizenid)
         DropPlayer(source, Lang:t('info.exploit_dropped'))
         TriggerEvent('qb-log:server:CreateLog', 'anticheat', 'Anti-Cheat', 'white', GetPlayerName(source) .. ' Has Been Dropped For Character Deletion Exploit', true)
     end
-end
+end ]]
 
 function QBCore.Player.ForceDeleteCharacter(citizenid)
     local result = MySQL.scalar.await('SELECT license FROM players where citizenid = ?', { citizenid })
     if result then
-        local query = 'DELETE FROM %s WHERE citizenid = ?'
-        local tableCount = #playertables
-        local queries = table.create(tableCount, 0)
         local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
 
         if Player then
@@ -609,6 +606,9 @@ function QBCore.Player.ForceDeleteCharacter(citizenid)
         end
 
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
+
+        local resultPlayer = MySQL.query.await('INSERT INTO old_players SELECT * FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
+        local resultPlayer = MySQL.query.await('INSERT INTO old_player_vehicles SELECT * FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no"', {['@citizenid'] = citizenid})
 
         local result = MySQL.query.await('DELETE FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
         local result = MySQL.query.await('DELETE FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no"', {
