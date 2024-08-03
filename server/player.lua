@@ -503,7 +503,7 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -515,6 +515,7 @@ function QBCore.Player.Save(source)
             gang = json.encode(PlayerData.gang),
             position = json.encode(pcoords),
             metadata = json.encode(PlayerData.metadata),
+            favemotes = json.encode(PlayerData.favemotes),
             tattoos = json.encode(PlayerData.tattoos),
             furnitures = json.encode(PlayerData.furnitures),
             currentproperty = PlayerData.currentproperty,
@@ -530,7 +531,7 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -542,6 +543,7 @@ function QBCore.Player.SaveOffline(PlayerData)
             gang = json.encode(PlayerData.gang),
             position = json.encode(PlayerData.position),
             metadata = json.encode(PlayerData.metadata),
+            favemotes = json.encode(PlayerData.favemotes),
             tattoos = json.encode(PlayerData.tattoos),
             furnitures = json.encode(PlayerData.furnitures),
             currentproperty = PlayerData.currentproperty,
