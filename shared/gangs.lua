@@ -129,19 +129,19 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
-    irishbearded = {
-        label = 'Irish Bearded Original Grade',
+    soa = {
+        label = 'Sons Of Anarchy',
         grades = {
-            { name = 'Support' },
+            { name = 'Nomades' },
             { name = 'Propspect' },
-            { name = 'Membre' },
-            { name = 'Road Captain' },
+            { name = 'Tail Gunner' },
+            { name = 'Ass Kicker' },
             { name = 'Enforcer' },
             { name = 'Treasurer' },
-            { name = 'Advistor' },
+            { name = 'Road Captain' },
             { name = 'Secretary' },
             { name = 'Sgt At Arms' },
-            { name = 'Vice-président', isboss = true },
+            { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
         },
     },
@@ -340,6 +340,14 @@ QBShared.Gangs = {
             { name = 'Trésorier' },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
+        },
+    },
+    silentdeath = {
+        label = 'Silent Death',
+        grades = {
+            { name = 'Umbra' },
+            { name = 'Phantasma' },
+            { name = 'Spiritus', isboss = true },
         },
     },
 }
