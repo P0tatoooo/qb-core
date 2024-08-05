@@ -350,4 +350,13 @@ QBShared.Gangs = {
             { name = 'Spiritus', isboss = true },
         },
     },
+    ubc = {
+        label = 'UBC',
+        grades = {
+            { name = 'Petit Nouveau' },
+            { name = 'Membre Confirmé' },
+            { name = 'Second', isboss = true },
+            { name = 'Chef', isboss = true },
+        },
+    },
 }
