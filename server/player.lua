@@ -550,7 +550,7 @@ function QBCore.Player.SaveOffline(PlayerData)
             gang = json.encode(PlayerData.gang),
             position = json.encode(PlayerData.position),
             metadata = json.encode(PlayerData.metadata),
-            bodyparts = json.decode(PlayerData.bodyparts),
+            bodyparts = json.encode(PlayerData.bodyparts),
             favemotes = json.encode(PlayerData.favemotes),
             tattoos = json.encode(PlayerData.tattoos),
             furnitures = json.encode(PlayerData.furnitures),
