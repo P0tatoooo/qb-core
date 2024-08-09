@@ -128,10 +128,23 @@ RegisterNetEvent('QBCore:UpdatePlayer', function()
     Player.Functions.Save()
 end)
 
-RegisterNetEvent('QBCore:ToggleDuty', function()
+RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
+
+    local bool = Player.PlayerData.job.onduty
+
+    if forcetoggle == 'on' then
+        if Player.PlayerData.job.onduty then
+            return
+        end
+    elseif forcetoggle == 'off' then
+        if not Player.PlayerData.job.onduty then
+            return
+        end
+    end
+
     if Player.PlayerData.job.onduty then
         Player.Functions.SetJobDuty(false)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.off_duty'))
