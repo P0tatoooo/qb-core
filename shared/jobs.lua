@@ -392,21 +392,15 @@ QBShared.Jobs = {
 	},
 
     realestate = {
-		label = 'Dynasty 9 Hargreeves',
+		label = 'Dynasty 9',
 		type = 'realestate',
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
-			{ name = 'Recrue', payment = 50 },
-			{ name = 'Convoyeur', payment = 75 },
-			{ name = 'Vigile', payment = 100 },
-			{ name = 'Banquier', payment = 125 },
 			{ name = 'Agent Immobilier', payment = 150 },
-            { name = 'Famille Hargreeves', payment = 150 },
-            { name = 'Fratrie Hargreeves', payment = 150 },
             { name = 'DRH', payment = 150 },
-            { name = 'Co-Directeur', isboss = true, payment = 150 },
-            { name = 'Directrice', isboss = true, payment = 150 },
+            { name = 'Co-Patron', isboss = true, payment = 150 },
+            { name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
 
