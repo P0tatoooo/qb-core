@@ -359,4 +359,43 @@ QBShared.Gangs = {
             { name = 'Chef', isboss = true },
         },
     },
+    lost = {
+        label = 'The LOST MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Représentant' },
+            { name = 'Trésorier' },
+            { name = 'Secrétaire' },
+            { name = 'Sergent At Arms' },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    mogila = {
+        label = 'Mogila',
+        grades = {
+            { name = 'Varbama' },
+            { name = 'Ani' },
+            { name = 'Gunna Grain' },
+            { name = 'Tenente' },
+            { name = 'King Guard' },
+            { name = 'Warchief', isboss = true },
+            { name = 'Koroleva', isboss = true },
+            { name = 'Korot', isboss = true },
+        },
+    },
+    comptonwest = {
+        label = 'Compton West',
+        grades = {
+            { name = 'Habitant' },
+            { name = 'Rookie' },
+            { name = 'Young Gangsta' },
+            { name = 'Leader' },
+            { name = 'Original Gangsta' },
+            { name = 'Real Gangsta', isboss = true },
+            { name = 'Old Gangsta', isboss = true },
+            { name = 'Gangsta King', isboss = true },
+        },
+    },
 }
