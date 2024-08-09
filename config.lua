@@ -79,6 +79,7 @@ QBConfig.Player.PlayerDefaults = {
     },
     position = QBConfig.DefaultSpawn,
     items = {},
+    bodyparts = {},
     favemotes = {},
     tattoos = {},
     furnitures = {},

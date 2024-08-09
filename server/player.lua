@@ -44,6 +44,7 @@ function QBCore.Player.Login(source, citizenid, newData)
                 PlayerData.position = json.decode(PlayerData.position)
                 PlayerData.metadata = json.decode(PlayerData.metadata)
                 PlayerData.charinfo = json.decode(PlayerData.charinfo)
+                PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
                 PlayerData.favemotes = json.decode(PlayerData.favemotes)
                 PlayerData.tattoos = json.decode(PlayerData.tattoos)
                 PlayerData.furnitures = json.decode(PlayerData.furnitures)
@@ -71,6 +72,7 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
             PlayerData.gang = json.decode(PlayerData.gang)
             PlayerData.position = json.decode(PlayerData.position)
             PlayerData.metadata = json.decode(PlayerData.metadata)
+            PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
             PlayerData.charinfo = json.decode(PlayerData.charinfo)
             PlayerData.favemotes = json.decode(PlayerData.favemotes)
             PlayerData.tattoos = json.decode(PlayerData.tattoos)
@@ -103,6 +105,7 @@ function QBCore.Player.GetOfflinePlayerByLicense(license)
             PlayerData.position = json.decode(PlayerData.position)
             PlayerData.metadata = json.decode(PlayerData.metadata)
             PlayerData.charinfo = json.decode(PlayerData.charinfo)
+            PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
             PlayerData.favemotes = json.decode(PlayerData.favemotes)
             PlayerData.tattoos = json.decode(PlayerData.tattoos)
             PlayerData.furnitures = json.decode(PlayerData.furnitures)
@@ -506,7 +509,7 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, bodyparts, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -518,6 +521,7 @@ function QBCore.Player.Save(source)
             gang = json.encode(PlayerData.gang),
             position = json.encode(pcoords),
             metadata = json.encode(PlayerData.metadata),
+            bodyparts = json.encode(PlayerData.bodyparts),
             favemotes = json.encode(PlayerData.favemotes),
             tattoos = json.encode(PlayerData.tattoos),
             furnitures = json.encode(PlayerData.furnitures),
@@ -534,7 +538,7 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, bodyparts, favemotes, tattoos, furnitures, currentproperty, mugshot, phone) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :favemotes, :tattoos, :furnitures, :currentproperty, :mugshot, :phone) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, favemotes = :favemotes, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -546,6 +550,7 @@ function QBCore.Player.SaveOffline(PlayerData)
             gang = json.encode(PlayerData.gang),
             position = json.encode(PlayerData.position),
             metadata = json.encode(PlayerData.metadata),
+            bodyparts = json.decode(PlayerData.bodyparts),
             favemotes = json.encode(PlayerData.favemotes),
             tattoos = json.encode(PlayerData.tattoos),
             furnitures = json.encode(PlayerData.furnitures),
