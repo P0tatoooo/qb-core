@@ -398,4 +398,15 @@ QBShared.Gangs = {
             { name = 'Gangsta King', isboss = true },
         },
     },
+    lossalvador = {
+        label = 'Los Salvador',
+        grades = {
+            { name = 'Executant' },
+            { name = 'Soldat' },
+            { name = 'Chef de Régime' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Consiglio', isboss = true },
+            { name = 'Parrain', isboss = true },
+        },
+    },
 }
