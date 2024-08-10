@@ -630,15 +630,16 @@ function QBCore.Player.ForceDeleteCharacter(citizenid)
         })
 
         for k,v in pairs(result) do
-            ExecuteCommand('togarage ' .. v.plate)
             exports.ox_inventory:ClearInventory('glovebox' .. v.plate, false)
             exports.ox_inventory:ClearInventory('trunk' .. v.plate, false)
-            local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk WHERE plate = @plate', {
+            local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk, status = @status, garage = @garage WHERE plate = @plate', {
                 ['@fakeplate'] = '',
                 ['@carkeys'] = '{}',
                 ['@glovebox'] = nil,
                 ['@trunk'] = nil,
-                ['@plate'] = v.plate
+                ['@plate'] = v.plate,
+                ['@status'] = 'parking',
+                ['@garage'] = 'Parking Divin',
             })
         end
 
