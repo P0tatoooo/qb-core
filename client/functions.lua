@@ -1009,7 +1009,7 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
             SetVehicleEngineHealth(vehicle, props.engineHealth + 0.0)
         end
         if props.tankHealth then
-            SetVehiclePetrolTankHealth(vehicle, props.tankHealth)
+            --SetVehiclePetrolTankHealth(vehicle, props.tankHealth)
         end
         if props.fuelLevel then
             SetVehicleFuelLevel(vehicle, props.fuelLevel + 0.0)
