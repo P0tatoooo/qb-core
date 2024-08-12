@@ -958,6 +958,7 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
                     colorPrimary = props.finish1
                 end
             end
+            ClearVehicleCustomPrimaryColour(vehicle)
         end
 
         if props.color2 then
@@ -968,10 +969,9 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
                     colorSecondary = props.finish2
                 end
             end
+            ClearVehicleCustomSecondaryColour(vehicle)
         end
 
-        ClearVehicleCustomPrimaryColour(vehicle)
-        ClearVehicleCustomSecondaryColour(vehicle)
         SetVehicleColours(vehicle, colorPrimary, colorSecondary)
 
         if props.color1 and type(props.color1) == "table" then
