@@ -791,7 +791,7 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
         end
 
         local modLivery = GetVehicleMod(vehicle, 48)
-        if GetVehicleMod(vehicle, 48) == -1 then
+        if modLivery == -1 then
             modLivery = GetVehicleLivery(vehicle)
         end
 
@@ -921,7 +921,7 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             deformation = exports.MyCity_CoreV2:GetVehicleDeformation(vehicle)
         }
     else
-        return
+        return {}
     end
 end
 
@@ -949,7 +949,53 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         end
 
         local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
+
+        if props.color1 then
+            if type(props.color1) == "number" then
+                colorPrimary = props.color1
+            else
+                if props.finish1 then
+                    colorPrimary = props.finish1
+                end
+            end
+        end
+
+        if props.color2 then
+            if type(props.color2) == "number" then
+                colorSecondary = props.color2
+            else
+                if props.finish2 then
+                    colorSecondary = props.finish2
+                end
+            end
+        end
+
+        ClearVehicleCustomPrimaryColour(vehicle)
+        ClearVehicleCustomSecondaryColour(vehicle)
+        SetVehicleColours(vehicle, colorPrimary, colorSecondary)
+
+        if props.color1 and type(props.color1) == "table" then
+            SetVehicleCustomPrimaryColour(vehicle, props.color1[1], props.color1[2], props.color1[3])
+        end
+
+        if props.color2 and type(props.color2) == "table" then
+            SetVehicleCustomSecondaryColour(vehicle, props.color2[1], props.color2[2], props.color2[3])
+        end
+
         local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
+
+        if props.pearlescentColor or props.wheelColor then
+            SetVehicleExtraColours(vehicle, props.pearlescentColor or pearlescentColor, props.wheelColor or wheelColor)
+        end
+
+        if props.interiorColor then
+            SetVehicleInteriorColor(vehicle, props.interiorColor)
+        end
+
+        if props.dashboardColor then
+            SetVehicleDashboardColour(vehicle, props.dashboardColor)
+        end
+
         if props.plate then
             SetVehicleNumberPlateText(vehicle, props.plate)
         end
@@ -975,40 +1021,7 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.oilLevel then
             SetVehicleOilLevel(vehicle, props.oilLevel)
         end
-        if props.color1 then
-            if type(props.color1) == "number" then
-                ClearVehicleCustomPrimaryColour(vehicle)
-                SetVehicleColours(vehicle, props.color1, colorSecondary)
-            else
-                if props.finish1 then
-                    SetVehicleColours(vehicle, props.finish1, colorSecondary)
-                end
-                SetVehicleCustomPrimaryColour(vehicle, props.color1[1], props.color1[2], props.color1[3])
-            end
-        end
-        if props.color2 then
-            if type(props.color2) == "number" then
-                ClearVehicleCustomSecondaryColour(vehicle)
-                SetVehicleColours(vehicle, props.color1 or colorPrimary, props.color2)
-            else
-                if props.finish2 then
-                    SetVehicleColours(vehicle, colorPrimary, props.finish2)
-                end
-                SetVehicleCustomSecondaryColour(vehicle, props.color2[1], props.color2[2], props.color2[3])
-            end
-        end
-        if props.pearlescentColor then
-            SetVehicleExtraColours(vehicle, props.pearlescentColor, wheelColor)
-        end
-        if props.interiorColor then
-            SetVehicleInteriorColor(vehicle, props.interiorColor)
-        end
-        if props.dashboardColor then
-            SetVehicleDashboardColour(vehicle, props.dashboardColor)
-        end
-        if props.wheelColor then
-            SetVehicleExtraColours(vehicle, props.pearlescentColor or pearlescentColor, props.wheelColor)
-        end
+
         if props.wheels then
             SetVehicleWheelType(vehicle, props.wheels)
         end
@@ -1144,15 +1157,9 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
             end
         end
         if props.modFrontWheels then
-            SetVehicleMod(vehicle, 23, props.modFrontWheels, false)
-        end
-        if props.modBackWheels then
-            SetVehicleMod(vehicle, 24, props.modBackWheels, false)
-        end
-        if props.modCustomTiresF then
             SetVehicleMod(vehicle, 23, props.modFrontWheels, props.modCustomTiresF)
         end
-        if props.modCustomTiresR then
+        if props.modBackWheels then
             SetVehicleMod(vehicle, 24, props.modBackWheels, props.modCustomTiresR)
         end
         if props.modPlateHolder then
