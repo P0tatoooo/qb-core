@@ -1012,6 +1012,9 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
             --SetVehiclePetrolTankHealth(vehicle, props.tankHealth)
         end
         if props.fuelLevel then
+            if props.fuelLevel > 100.0 then
+                props.fuelLevel = 100.0
+            end
             SetVehicleFuelLevel(vehicle, props.fuelLevel + 0.0)
             DecorSetFloat(vehicle, "_FUEL_LEVEL", GetVehicleFuelLevel(vehicle))
         end
