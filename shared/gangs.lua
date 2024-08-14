@@ -92,16 +92,12 @@ QBShared.Gangs = {
             { name = 'Leader', isboss = true },
         },
     },
-    casano = {
-        label = 'Clan Casano',
+    lapiovra = {
+        label = 'La Piovra',
         grades = {
-            { name = 'Chauffeur' },
-            { name = 'Soldat' },
-            { name = 'Guarde Rapprochée' },
-            { name = 'Conseiller' },
-            { name = 'Ambassadrice' },
-            { name = 'Gérant', isboss = true },
-            { name = 'Chef', isboss = true },
+            { name = 'Tentacule Visible' },
+            { name = 'Tentacule Invisible' },
+            { name = 'Leader', isboss = true },
         },
     },
     triade = {
