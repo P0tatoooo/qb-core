@@ -462,6 +462,20 @@ QBShared.Jobs = {
             { name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
+
+    workshop = {
+		label = 'Shutoko Workshop',
+		type = 'workshop',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Stagiaire', payment = 50 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Chef d\'atelier', payment = 100 },
+			{ name = 'Co-Patron', payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
 --[[
     tabac = {
 		label = 'Tabarico',
