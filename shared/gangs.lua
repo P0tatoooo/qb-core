@@ -405,4 +405,17 @@ QBShared.Gangs = {
             { name = 'Parrain', isboss = true },
         },
     },
+    comando = {
+        label = 'Comando Vermelho',
+        grades = {
+            { name = 'Novinho' },
+            { name = 'Soldado' },
+            { name = 'Favelado' },
+            { name = 'Chef de Divisao' },
+            { name = 'Terro' },
+            { name = 'Chef Geral', isboss = true },
+            { name = 'Braco Direito', isboss = true },
+            { name = 'Chef', isboss = true },
+        },
+    },
 }
