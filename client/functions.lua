@@ -437,12 +437,15 @@ function QBCore.Functions.GetClosestPlayer(coords, blacklist)
     local closestPlayer = -1
     for i = 1, #closestPlayers, 1 do
         if closestPlayers[i] ~= PlayerId() and closestPlayers[i] ~= -1 and not blackListIds[closestPlayers[i]] then
-            local pos = GetEntityCoords(GetPlayerPed(closestPlayers[i]))
-            local distance = #(pos - coords)
+            local ped = GetPlayerPed(closestPlayers[i])
+            if IsEntityVisible(ped) then
+                local pos = GetEntityCoords(ped)
+                local distance = #(pos - coords)
 
-            if closestDistance == -1 or closestDistance > distance then
-                closestPlayer = closestPlayers[i]
-                closestDistance = distance
+                if closestDistance == -1 or closestDistance > distance then
+                    closestPlayer = closestPlayers[i]
+                    closestDistance = distance
+                end
             end
         end
     end
