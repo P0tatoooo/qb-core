@@ -26,16 +26,6 @@ QBShared.Gangs = {
             { name = 'Major', isboss = true },
         },
     },
-    hoovers = {
-        label = 'Hoovers',
-        grades = {
-            { name = 'Petit' },
-            { name = 'Aster' },
-            { name = 'Cuz' },
-            { name = 'Second', isboss = true },
-            { name = 'OG', isboss = true },
-        },
-    },
     losvalentinos = {
         label = 'Los Valentinos',
         grades = {
@@ -416,6 +406,31 @@ QBShared.Gangs = {
             { name = 'Chef Geral', isboss = true },
             { name = 'Braco Direito', isboss = true },
             { name = 'Chef', isboss = true },
+        },
+    },
+    hoovers = {
+        label = 'Hoovers',
+        grades = {
+            { name = 'Novato' },
+            { name = 'La Madrina' },
+            { name = 'Soldado' },
+            { name = 'Peroguardian' },
+            { name = 'El Teniente', isboss = true },
+            { name = 'El Segundo', isboss = true },
+            { name = 'El Jefe', isboss = true },
+        },
+    },
+    blackd = {
+        label = 'Black D',
+        grades = {
+            { name = 'Petite Frappe' },
+            { name = 'Trafiquant' },
+            { name = 'Grangster' },
+            { name = 'Big Gangster' },
+            { name = 'G Boy', isboss = true },
+            { name = 'Joker', isboss = true },
+            { name = 'Kipster', isboss = true },
+            { name = 'Top G', isboss = true },
         },
     },
 }
