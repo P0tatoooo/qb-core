@@ -155,6 +155,7 @@ QBShared.Jobs = {
 		grades = {
 			{ name = 'Intérimaire', payment = 50 },
 			{ name = 'Fermier', payment = 75 },
+            { name = 'Fermier Confirmé', payment = 75 },
 			{ name = 'Chef d\'équipe', payment = 100 },
 			{ name = 'Co-PDG', isboss = true, payment = 125 },
 			{ name = 'PDG', isboss = true, payment = 150 },
