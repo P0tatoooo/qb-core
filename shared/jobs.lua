@@ -148,7 +148,7 @@ QBShared.Jobs = {
 	},
 
     farmer = {
-		label = 'La Ferme des 4 Saisons',
+		label = 'La Ferme Meuh-Meuh',
 		type = 'farmer',
 		defaultDuty = false,
 		offDutyPay = false,
