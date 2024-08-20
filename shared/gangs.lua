@@ -415,6 +415,7 @@ QBShared.Gangs = {
             { name = 'La Madrina' },
             { name = 'Soldado' },
             { name = 'Peroguardian' },
+            { name = 'Grande' },
             { name = 'El Teniente', isboss = true },
             { name = 'El Segundo', isboss = true },
             { name = 'El Jefe', isboss = true },
