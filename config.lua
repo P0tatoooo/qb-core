@@ -84,7 +84,7 @@ QBConfig.Player.PlayerDefaults = {
     tattoos = {},
     furnitures = {},
     currentproperty = '',
-    skills = {strength = {level = 0, progress = 0}, stamina = {level = 0, progress = 0}, lungcap = {level = 0, progress = 0}}
+    skills = {strength = {level = 0, progress = 0}, stamina = {level = 0, progress = 0}, lungcap = {level = 0, progress = 0}},
     phone = function() return QBCore.Functions.CreatePhoneNumber() end,
 }
 
