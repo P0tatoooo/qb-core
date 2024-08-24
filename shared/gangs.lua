@@ -421,6 +421,19 @@ QBShared.Gangs = {
             { name = 'El Jefe', isboss = true },
         },
     },
+    blackd = {
+        label = 'Black D',
+        grades = {
+            { name = 'Petite Frappe' },
+            { name = 'Trafiquant' },
+            { name = 'Grangster' },
+            { name = 'Big Gangster' },
+            { name = 'G Boy', isboss = true },
+            { name = 'Joker', isboss = true },
+            { name = 'Kipster', isboss = true },
+            { name = 'Top G', isboss = true },
+        },
+    },
     crew = {
         label = 'Crew',
         grades = {
