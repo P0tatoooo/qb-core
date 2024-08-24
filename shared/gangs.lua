@@ -134,11 +134,10 @@ QBShared.Gangs = {
     cosanostra = {
         label = 'Cosa Nostra',
         grades = {
-            { name = 'Soldat' },
-            { name = 'Caporal' },
-            { name = 'Sergent' },
-            { name = 'Major' },
-            { name = 'Bras Droit', isboss = true },
+            { name = 'Picciollo' },
+            { name = 'Soldado' },
+            { name = 'Capo', isboss = true },
+            { name = 'Consigliere', isboss = true },
             { name = 'Don', isboss = true },
         },
     },
