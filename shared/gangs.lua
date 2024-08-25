@@ -445,4 +445,14 @@ QBShared.Gangs = {
             { name = 'OG du Canapé', isboss = true },
         },
     },
+    carrington = {
+        label = 'Famille Carrington',
+        grades = {
+            { name = 'Sicarios' },
+            { name = 'Teniente' },
+            { name = 'Consejero', isboss = true },
+            { name = 'Vice-Jefe', isboss = true },
+            { name = 'Jefe', isboss = true },
+        },
+    },
 }
