@@ -386,17 +386,17 @@ function QBCore.Functions.IsWearingGloves()
     local armIndex = GetPedDrawableVariation(ped, 3)
     local model = GetEntityModel(ped)
     if model == `mp_m_freemode_01` then
-        if QBCore.Shared.MaleNoGloves[armIndex] then
-            return false
+        if QBCore.Shared.MaleGloves[armIndex] then
+            return true
         end
     elseif model == `mp_f_freemode_01` then
-        if QBCore.Shared.FemaleNoGloves[armIndex] then
-            return false
+        if QBCore.Shared.FemaleGloves[armIndex] then
+            return true
         end
     else
         return true
     end
-    return true
+    return false
 end
 
 function QBCore.Functions.IsWearingBag()
