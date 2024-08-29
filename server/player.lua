@@ -604,12 +604,12 @@ local playertables = { -- Add tables as needed
     end
 end ]]
 
-function QBCore.Player.ForceDeleteCharacter(citizenid)
+function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
     local result = MySQL.scalar.await('SELECT license FROM players where citizenid = ?', { citizenid })
     if result then
         local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
 
-        if Player then
+        if Player and Player.PlayerData.source ~= sourceplayer then
             DropPlayer(Player.PlayerData.source, 'Votre personnage a été wipe par un administrateur')
         end
 
@@ -641,19 +641,21 @@ function QBCore.Player.ForceDeleteCharacter(citizenid)
             })
         end
 
-        local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
+        --local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
+
+        local result = MySQL.query.await('INSERT INTO old_properties SELECT * FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
+        local result = MySQL.query.await('DELETE FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
+
+        local propertiesText = ""
         local resultproperties = MySQL.query.await('SELECT * FROM properties WHERE owner=@owner', {
             ['owner'] = citizenid
         })
         for k,v in pairs(resultproperties) do
-            print('##############################################')
-            print('La personne possède la propriété ' .. v.name .. ' sous le nom de ' ..  v.ownername)
-            print('##############################################')
-            TriggerEvent('MyCity_Core:PropertyWipes:Logs', "Wipe de propriété à faire", Player.PlayerData.rpname .. ' possède la propriété ' .. v.name .. ' (id : ' .. v.id .. ') sous le nom de ' ..  v.ownername)
+            propertiesText = propertiesText + '\nPropriété ' .. v.name .. ' (id : ' .. v.id .. ') sous le nom de ' ..  v.ownername
         end
 
-        local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
-        TriggerEvent('MyCity_Core:Wipe:Logs', "Wipe", message)
+        local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nJob : **' .. Player.PlayerData.gang.label .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
+        TriggerEvent('MyCity_Core:Wipe:Logs', "Wipe", message, sourceplayer)
     end
 end
 
