@@ -417,6 +417,23 @@ function QBCore.Functions.IsWearingBag()
     return false
 end
 
+function QBCore.Functions.IsABulletproofVest(index)
+    local ped = PlayerPedId()
+    local model = GetEntityModel(ped)
+    if model == `mp_m_freemode_01` then
+        if QBCore.Shared.MaleBags[index] then
+            return true
+        end
+    elseif model == `mp_f_freemode_01` then
+        if QBCore.Shared.FemaleBags[index] then
+            return true
+        end
+    else
+        return true
+    end
+    return false
+end
+
 function QBCore.Functions.GetClosestPlayer(coords, blacklist)
     local ped = PlayerPedId()
     if coords then
