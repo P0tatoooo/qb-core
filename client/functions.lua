@@ -417,19 +417,15 @@ function QBCore.Functions.IsWearingBag()
     return false
 end
 
-function QBCore.Functions.IsABulletproofVest(index)
-    local ped = PlayerPedId()
-    local model = GetEntityModel(ped)
-    if model == `mp_m_freemode_01` then
+function QBCore.Functions.IsABulletproofVest(sex, index)
+    if sex == 'male' then
         if QBCore.Shared.MaleBags[index] then
             return true
         end
-    elseif model == `mp_f_freemode_01` then
+    elseif sex == 'female' then
         if QBCore.Shared.FemaleBags[index] then
             return true
         end
-    else
-        return true
     end
     return false
 end
