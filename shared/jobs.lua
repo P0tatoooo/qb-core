@@ -113,8 +113,8 @@ QBShared.Jobs = {
 			{ name = 'Stagiaire', payment = 50 },
 			{ name = 'Employé', payment = 75 },
 			{ name = 'Chef d\'atelier', payment = 100 },
-			{ name = 'Co patron', payment = 125 },
-			{ name = 'Patron', isboss = true, payment = 150 },
+			{ name = 'Co-Patron', payment = 125, isboss = true },
+			{ name = 'Patron', payment = 150, isboss = true },
 		},
 	},
 
