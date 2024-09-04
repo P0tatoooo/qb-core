@@ -6,7 +6,9 @@ AddEventHandler('MyCity:CoreV2:AdminMenu:AutoHeal', function(bool)
     if autohealing then
         Citizen.CreateThread(function()
             while autohealing do
-                ExecuteCommand('heal')
+                if GetEntityHealth(PlayerPedId()) < 200 then
+                    ExecuteCommand('heal')
+                end
                 Citizen.Wait(60000)
             end
         end)
