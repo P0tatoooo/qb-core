@@ -300,11 +300,11 @@ QBShared.Gangs = {
     brs = {
         label = 'BRS',
         grades = {
-            { name = 'Little G' },
+            { name = 'Little Gangsta' },
             { name = 'Gangsta' },
+            { name = 'Big gangsta' },
             { name = 'Hustler' },
-            { name = 'Big Hustler' },
-            { name = 'Young-G', isboss = true },
+            { name = 'YG', isboss = true },
             { name = 'OG', isboss = true },
         },
     },
