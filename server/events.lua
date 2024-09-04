@@ -16,10 +16,13 @@ AddEventHandler('playerDropped', function(reason)
     Player.Functions.Save()
     QBCore.Player_Buckets[Player.PlayerData.license] = nil
     QBCore.Players[src] = nil
+
+    local result = MySQL.query.await('UPDATE players SET lastloggedout=NOW() WHERE citizenid=@citizenid',{
+        ["@citizenid"] = Player.PlayerData.citizenid
+    })
 end)
 
 -- Player Connecting
-
 local function onPlayerConnecting(name, _, deferrals)
     local src = source
     deferrals.defer()
