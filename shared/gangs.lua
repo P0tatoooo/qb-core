@@ -303,7 +303,7 @@ QBShared.Gangs = {
             { name = 'Little Gangsta' },
             { name = 'Gangsta' },
             { name = 'Big gangsta' },
-            { name = 'Hustler' },
+            { name = 'Hustler', isboss = true },
             { name = 'YG', isboss = true },
             { name = 'OG', isboss = true },
         },
