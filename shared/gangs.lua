@@ -118,15 +118,11 @@ QBShared.Gangs = {
     soa = {
         label = 'Sons Of Anarchy',
         grades = {
-            { name = 'Nomades' },
-            { name = 'Propspect' },
-            { name = 'Tail Gunner' },
-            { name = 'Ass Kicker' },
-            { name = 'Enforcer' },
-            { name = 'Treasurer' },
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
             { name = 'Road Captain' },
             { name = 'Secretary' },
-            { name = 'Sgt At Arms' },
+            { name = 'Sgt at Arms' },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
         },
@@ -301,8 +297,8 @@ QBShared.Gangs = {
             { name = 'Patriarche', isboss = true },
         },
     },
-    greenhustler = {
-        label = 'Green Hustler',
+    brs = {
+        label = 'BRS',
         grades = {
             { name = 'Little G' },
             { name = 'Gangsta' },
@@ -455,4 +451,26 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
+    mayans = {
+        label = 'Mayans MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Miembro' },
+            { name = 'Capitan del Camino' },
+            { name = 'El Secretario' },
+            { name = 'El Pacificador', isboss = true },
+            { name = 'Vice Presidente', isboss = true },
+            { name = 'Presidente', isboss = true },
+        },
+    },
+    duggan = {
+        label = 'Duggan',
+        grades = {
+            { name = 'Associé' },
+            { name = 'Comptable' },
+            { name = 'Leader', isboss = true },
+            { name = 'Bras droit', isboss = true },
+            { name = 'Chief', isboss = true },
+        },
+    }
 }
