@@ -169,21 +169,19 @@ RegisterNetEvent('QBCore:Client:VehicleInfo', function(info)
     local plate = QBCore.Functions.GetPlate(info.vehicle)
     local hasKeys = true
 
-    if GetResourceState('qb-vehiclekeys') == 'started' then
-        hasKeys = exports['qb-vehiclekeys']:HasKeys()
+    if DoesEntityExist(info.vehicle) then
+        local data = {
+            vehicle = info.vehicle,
+            seat = info.seat,
+            name = info.modelName,
+            plate = plate,
+            driver = GetPedInVehicleSeat(info.vehicle, -1),
+            inseat = GetPedInVehicleSeat(info.vehicle, info.seat),
+            haskeys = hasKeys
+        }
+
+        TriggerEvent('QBCore:Client:' .. info.event .. 'Vehicle', data)
     end
-
-    local data = {
-        vehicle = info.vehicle,
-        seat = info.seat,
-        name = info.modelName,
-        plate = plate,
-        driver = GetPedInVehicleSeat(info.vehicle, -1),
-        inseat = GetPedInVehicleSeat(info.vehicle, info.seat),
-        haskeys = hasKeys
-    }
-
-    TriggerEvent('QBCore:Client:' .. info.event .. 'Vehicle', data)
 end)
 
 -- Other stuff
