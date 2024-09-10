@@ -41,6 +41,14 @@ function QBCore.Player.Login(source, citizenid, newData)
                     end
                 end
 
+                PlayerData.coins = 0
+                local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
+                    ['@license'] = PlayerData.license
+                })
+                if result[1] then
+                    PlayerData.coins = result[1].coins
+                end
+
                 PlayerData.position = json.decode(PlayerData.position)
                 PlayerData.metadata = json.decode(PlayerData.metadata)
                 PlayerData.charinfo = json.decode(PlayerData.charinfo)
@@ -68,6 +76,14 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
     if citizenid then
         local PlayerData = MySQL.prepare.await('SELECT * FROM players where citizenid = ?', { citizenid })
         if PlayerData then
+            PlayerData.coins = 0
+            local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
+                ['@license'] = PlayerData.license
+            })
+            if result[1] then
+                PlayerData.coins = result[1].coins
+            end
+
             PlayerData.money = json.decode(PlayerData.money)
             PlayerData.job = json.decode(PlayerData.job)
             PlayerData.gang = json.decode(PlayerData.gang)
@@ -101,6 +117,14 @@ function QBCore.Player.GetOfflinePlayerByLicense(license)
     if license then
         local PlayerData = MySQL.prepare.await('SELECT * FROM players where license = ?', { license })
         if PlayerData then
+            PlayerData.coins = 0
+            local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
+                ['@license'] = PlayerData.license
+            })
+            if result[1] then
+                PlayerData.coins = result[1].coins
+            end
+
             PlayerData.money = json.decode(PlayerData.money)
             PlayerData.job = json.decode(PlayerData.job)
             PlayerData.gang = json.decode(PlayerData.gang)
