@@ -165,7 +165,7 @@ QBShared.Jobs = {
 	},
 
     ranch = {
-		label = 'Red River Ranch',
+		label = 'Abattoir Raven',
 		type = 'ranch',
 		defaultDuty = false,
 		offDutyPay = false,
