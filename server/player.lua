@@ -10,8 +10,11 @@ function QBCore.Player.Login(source, citizenid, newData)
     if source and source ~= '' then
         if citizenid then
             local license = QBCore.Functions.GetIdentifier(source, 'license')
+            local steam = QBCore.Functions.GetIdentifier(source, 'steam')
             local PlayerData = MySQL.prepare.await('SELECT * FROM players where citizenid = ?', { citizenid })
+
             if PlayerData and license == PlayerData.license then
+                PlayerData.steam = steam or ''
                 PlayerData.money = json.decode(PlayerData.money)
                 PlayerData.job = json.decode(PlayerData.job)
                 PlayerData.job.grade.level = tonumber(PlayerData.job.grade.level) or 1
@@ -166,10 +169,6 @@ function QBCore.Player.CheckPlayerData(source, PlayerData)
     end
 
     applyDefaults(PlayerData, QBCore.Config.Player.PlayerDefaults)
-
-    if GetResourceState('qb-inventory') ~= 'missing' then
-        PlayerData.items = exports['qb-inventory']:LoadInventory(PlayerData.source, PlayerData.citizenid)
-    end
 
     return QBCore.Player.CreatePlayer(PlayerData, Offline)
 end
@@ -529,11 +528,12 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
             name = PlayerData.name:gsub("[^%w%s]", ""),
+            steam = PlayerData.steam,
             rpname = PlayerData.rpname,
             money = json.encode(PlayerData.money),
             charinfo = json.encode(PlayerData.charinfo),
@@ -558,11 +558,12 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
             name = PlayerData.name:gsub("[^%w%s]", ""),
+            steam = PlayerData.steam,
             rpname = PlayerData.rpname,
             money = json.encode(PlayerData.money),
             charinfo = json.encode(PlayerData.charinfo),
