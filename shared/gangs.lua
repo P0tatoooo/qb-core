@@ -472,5 +472,12 @@ QBShared.Gangs = {
             { name = 'Bras droit', isboss = true },
             { name = 'Chief', isboss = true },
         },
-    }
+    },
+    bhb = {
+        label = 'BHB',
+        grades = {
+            { name = 'BHB' },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
