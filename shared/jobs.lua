@@ -249,6 +249,7 @@ QBShared.Jobs = {
 			{ name = 'Livreur PL', payment = 75 },
 			{ name = 'Livreur confirmé', payment = 100 },
 			{ name = 'Chef d\'exploitation', payment = 125 },
+			{ name = 'Gestionnaire', payment = 150 },
 			{ name = 'Co-patron', isboss = true, payment = 150 },
             { name = 'Patron', isboss = true, payment = 150 },
 		},
