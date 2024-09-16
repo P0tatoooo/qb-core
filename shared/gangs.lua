@@ -417,7 +417,7 @@ QBShared.Gangs = {
         },
     },
     blackd = {
-        label = 'Black D',
+        label = 'Black Disciples',
         grades = {
             { name = 'Lil Gangsta' },
             { name = 'Gangsta' },
