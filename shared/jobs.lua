@@ -494,6 +494,22 @@ QBShared.Jobs = {
 			{ name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
+
+	gruppe6 = {
+        label = 'Gruppe 6',
+		type = 'gruppe6',
+		defaultDuty = false,
+		offDutyPay = false,
+        grades = {
+            { name = 'Agent de Sécurité', payment = 50 },
+            { name = 'Agent Certifié', payment = 50 },
+            { name = 'Chef de section', payment = 50 },
+            { name = 'Instructeur', payment = 50 },
+            { name = 'Responsable Sécurité', payment = 50, isboss = true },
+            { name = 'Responsable Logistique', payment = 50, isboss = true },
+            { name = 'Directeur d\'Agence', payment = 50, isboss = true },
+        },
+    },
 --[[
     tabac = {
 		label = 'Tabarico',
