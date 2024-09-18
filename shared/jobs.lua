@@ -510,6 +510,34 @@ QBShared.Jobs = {
             { name = 'Directeur d\'Agence', payment = 50, isboss = true },
         },
     },
+
+	pharmacy = {
+		label = 'Pharmacie',
+		type = 'pharmacy',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Recrue', payment = 50 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Chef d\'équipe', payment = 100 },
+			{ name = 'Co-Patron', isboss = true, payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
+
+	ammunation = {
+		label = 'Ammunation',
+		type = 'ammunation',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Intérimaire', payment = 50 },
+			{ name = 'Vendeur', payment = 75 },
+			{ name = 'Fabricant', payment = 100 },
+			{ name = 'Co-Patron', isboss = true, payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
 --[[
     tabac = {
 		label = 'Tabarico',
