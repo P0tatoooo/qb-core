@@ -477,4 +477,16 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    syndicat = {
+        label = 'Le Syndicat',
+        grades = {
+            { name = 'Executant' },
+            { name = 'Soldat' },
+            { name = 'Homme de Main' },
+            { name = 'Assassin' },
+            { name = 'Capo', isboss = true },
+            { name = 'Bras droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
