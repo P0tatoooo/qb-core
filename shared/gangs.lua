@@ -489,4 +489,14 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    lameute = {
+        label = 'La Meute',
+        grades = {
+            { name = 'Louveteau' },
+            { name = 'Loup' },
+            { name = 'Loup Omega' },
+            { name = 'Beta', isboss = true },
+            { name = 'Alpha', isboss = true },
+        },
+    },
 }
