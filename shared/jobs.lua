@@ -512,7 +512,7 @@ QBShared.Jobs = {
     },
 
 	pharmacy = {
-		label = 'Pharmacie',
+		label = 'Umbrella Health Pharmacie',
 		type = 'pharmacy',
 		defaultDuty = false,
 		offDutyPay = false,
