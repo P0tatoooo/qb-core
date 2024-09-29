@@ -396,7 +396,7 @@ QBShared.Jobs = {
 	},
 
     tattooshop = {
-		label = 'Blazing Tattoo',
+		label = 'Thompson\'s Tattoo Studio',
 		type = 'tattooshop',
 		defaultDuty = false,
 		offDutyPay = false,
