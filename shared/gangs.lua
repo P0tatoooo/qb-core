@@ -201,11 +201,13 @@ QBShared.Gangs = {
     crips = {
         label = 'Crips',
         grades = {
-            { name = 'Homies' },
-            { name = 'Gangsta' },
-            { name = 'R.G' },
-            { name = 'Y.G' },
-            { name = 'O.G', isboss = true },
+            { name = 'Rookie Crips' },
+            { name = 'Young Crips' },
+            { name = 'Leader Crips' },
+            { name = 'Thug Crips' },
+            { name = 'Crips', isboss = true },
+            { name = 'OG Crips', isboss = true },
+            { name = 'King Crips', isboss = true },
         },
     },
     latinscorpion = {
