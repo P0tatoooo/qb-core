@@ -248,7 +248,7 @@ QBCore.Commands.Add('dv', Lang:t('command.dv.help'), { { name = "radius", help =
     end
 end, 'admin')
 
-QBCore.Commands.Add('dvall', Lang:t('command.dvall.help'), {}, false, function(source)
+QBCore.Commands.Add('dvall', "Supprimer tous les véhicules aux alentours", {}, false, function(source)
     local vehicles = GetAllVehicles()
     for _, vehicle in ipairs(vehicles) do
         DeleteEntity(vehicle)
@@ -261,7 +261,7 @@ end, 'admin')
 
 -- Peds
 
-QBCore.Commands.Add('dvp', Lang:t('command.dvp.help'), {}, false, function(source)
+QBCore.Commands.Add('dvp', "Supprimer tous les peds aux alentours", {}, false, function(source)
     local peds = GetAllPeds()
     for _, ped in ipairs(peds) do
         DeleteEntity(ped)
@@ -274,7 +274,7 @@ end, 'admin')
 
 -- Objects
 
-QBCore.Commands.Add('dvo', Lang:t('command.dvo.help'), {}, false, function(source)
+QBCore.Commands.Add('dvo',  "Supprimer tous les objets aux alentours", {}, false, function(source)
     local objects = GetAllObjects()
     for _, object in ipairs(objects) do
         DeleteEntity(object)
