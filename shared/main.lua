@@ -622,3 +622,12 @@ QBShared.SalaryPeriods = {
     { label = "30 minutes", time = 30 * 60000 },
     { label = "1 heure", time = 60 * 60000 },
 }
+
+QBShared.PublicJobs = {
+    ["police"] = 0,
+    ["ambulance"] = 0, 
+    ['government'] = 0,
+    ['lawyer'] = 0,
+    ['gruppe6'] = 0,
+    ['ammunation'] = 0,
+}
