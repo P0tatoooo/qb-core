@@ -53,9 +53,9 @@ QBShared.Jobs = {
 		offDutyPay = false,
 		grades = {
             { name = 'Agent d\'Accueil', payment = 50 },
-            { name = 'Agent de Sécurité', payment = 50 },
-            { name = 'Responsable de la Sécurité', payment = 50 },
-			{ name = 'Conseiller du Gouvernement', payment = 50 },
+            { name = 'Agent Confirmé', payment = 50 },
+            { name = 'Conseiller', payment = 50 },
+			{ name = 'Conseiller Principal', payment = 50 },
 			{ name = 'Procureur', payment = 75 },
 			{ name = 'Juge', payment = 100 },
 			{ name = 'Gouverneur-Adjoint', isboss = true, payment = 125 },
