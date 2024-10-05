@@ -499,4 +499,12 @@ QBShared.Gangs = {
             { name = 'Chef', isboss = true },
         },
     },
+    tij = {
+        label = 'La TIJ',
+        grades = {
+            { name = 'Membre' },
+            { name = 'Co-Boss', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
