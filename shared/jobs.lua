@@ -553,6 +553,20 @@ QBShared.Jobs = {
             { name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
+
+	tattooshop2 = {
+		label = 'Green Ink Tattoo',
+		type = 'tattooshop2',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Apprenti Tatoueur', payment = 50 },
+			{ name = 'Tatoueur', payment = 75 },
+			{ name = 'Manager', payment = 100 },
+			{ name = 'Co-Patron', isboss = true, payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
 --[[
     tabac = {
 		label = 'Tabarico',
