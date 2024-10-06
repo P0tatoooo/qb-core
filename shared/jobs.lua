@@ -540,6 +540,19 @@ QBShared.Jobs = {
 			{ name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
+
+	boatdealer = {
+		label = 'Evasion Marina',
+		type = 'boatdealer',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Vendeur/Mécano', payment = 100 },
+			{ name = 'Navigateur', payment = 125 },
+			{ name = 'Co-Patron', isboss = true, payment = 150 },
+            { name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
 --[[
     tabac = {
 		label = 'Tabarico',
