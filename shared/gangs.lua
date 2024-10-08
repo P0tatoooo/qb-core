@@ -507,4 +507,22 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    one9ers = {
+        label = 'ONE 9\'ERS',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    oclock = {
+        label = '12 O\'clock Boys',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
