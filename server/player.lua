@@ -646,13 +646,19 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             ['@citizenid'] = citizenid
         })
 
-        local result = MySQL.query.await('SELECT plate FROM player_vehicles WHERE citizenid = @citizenid', {
+        local result = MySQL.query.await('SELECT plate,type FROM player_vehicles WHERE citizenid = @citizenid', {
             ['@citizenid'] = citizenid
         })
 
         for k,v in pairs(result) do
             exports.ox_inventory:ClearInventory('glovebox' .. v.plate, false)
             exports.ox_inventory:ClearInventory('trunk' .. v.plate, false)
+
+            local targetGarage = 'Parking Divin'
+            if v.type == "boat" then
+                targetGarage = 'Parking Bateaux Marina'
+            end
+
             local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk, status = @status, garage = @garage WHERE plate = @plate', {
                 ['@fakeplate'] = '',
                 ['@carkeys'] = '{}',
@@ -660,7 +666,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
                 ['@trunk'] = nil,
                 ['@plate'] = v.plate,
                 ['@status'] = 'parking',
-                ['@garage'] = 'Parking Divin',
+                ['@garage'] = targetGarage,
             })
         end
 
