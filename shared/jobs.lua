@@ -81,6 +81,7 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
+			{ name = 'Livreur de Journaux', payment = 50 },
 			{ name = 'Technicien', payment = 50 },
 			{ name = 'Journaliste', payment = 75 },
 			{ name = 'Rédacteur en Chef', payment = 100 },
