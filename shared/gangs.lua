@@ -525,4 +525,13 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    dnk = {
+        label = 'Dark Night Killers',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Membre' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
