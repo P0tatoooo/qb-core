@@ -536,4 +536,15 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    rosanegra = {
+        label = 'Cartel de la Rosa Negra',
+        grades = {
+            { name = 'Sicario' },
+            { name = 'Soldado' },
+            { name = 'Teniente', isboss = true },
+            { name = 'Lideres', isboss = true },
+            { name = 'Brazo Derecho', isboss = true },
+            { name = 'Jefe', isboss = true },
+        },
+    },
 }
