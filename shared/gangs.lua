@@ -107,12 +107,11 @@ QBShared.Gangs = {
     bmf = {
         label = 'BMF',
         grades = {
-            { name = 'Recrue' },
-            { name = 'Homme de Main' },
-            { name = 'Gangster' },
-            { name = 'Lieutenant' },
-            { name = 'Second', isboss = true },
-            { name = 'Boss', isboss = true },
+            { name = 'Young Gunners' },
+            { name = 'Street Captains' },
+            { name = 'Hustler' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Big', isboss = true },
         },
     },
     soa = {
@@ -545,6 +544,17 @@ QBShared.Gangs = {
             { name = 'Lideres', isboss = true },
             { name = 'Brazo Derecho', isboss = true },
             { name = 'Jefe', isboss = true },
+        },
+    },
+    yokai = {
+        label = 'Yokai',
+        grades = {
+            { name = 'Shatei' },
+            { name = 'Kyodai' },
+            { name = 'Saiki-Komon', isboss = true },
+            { name = 'Shatei-Gashira', isboss = true },
+            { name = 'Waka-gashira', isboss = true },
+            { name = 'Oyabun', isboss = true },
         },
     },
 }
