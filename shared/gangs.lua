@@ -561,4 +561,31 @@ QBShared.Gangs = {
             { name = 'Oyabun', isboss = true },
         },
     },
+    crusaders = {
+        label = 'Crusaders MC',
+        grades = {
+            { name = 'Membre' },
+            { name = 'Le Prêtre' },
+            { name = 'Road Captain' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    punishers = {
+        label = 'Punishers MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
+            { name = 'Tailgunner' },
+            { name = 'Capitaine de Route' },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
