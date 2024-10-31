@@ -1,7 +1,8 @@
 QBShared = QBShared or {}
 QBShared.Gangs = {
     civil = { label = 'Civil', grades = { { name = 'Sans Affiliation' } } },
-    miamiboyz = {
+
+    --[[ miamiboyz = {
         label = 'Miami Boyz',
         grades = {
             { name = 'Habitant' },
@@ -11,44 +12,6 @@ QBShared.Gangs = {
             { name = 'Big Hustler' },
             { name = 'Triple OG', isboss = true },
             { name = 'Double OG', isboss = true },
-            { name = 'OG', isboss = true },
-        },
-    },
-    braithemb = {
-        label = 'Braithem B',
-        grades = {
-            { name = 'Private E-1' },
-            { name = 'Private E-2' },
-            { name = 'Caporal' },
-            { name = 'Sergent' },
-            { name = '1er Lieutenant' },
-            { name = 'Capitaine', isboss = true },
-            { name = 'Major', isboss = true },
-        },
-    },
-    losvalentinos = {
-        label = 'Los Valentinos',
-        grades = {
-            { name = 'Parasite' },
-            { name = 'Postulant' },
-            { name = 'Membre Honoraire' },
-            { name = 'Membre Attitré' },
-            { name = '1ère Classe' },
-            { name = 'Caporal' },
-            { name = 'Sergent d\'Armes' },
-            { name = 'Trésorier' },
-            { name = 'Secrétaire', isboss = true },
-            { name = 'Vice-Président', isboss = true },
-            { name = 'Président', isboss = true },
-        },
-    },
-    piru = {
-        label = 'Piru Streetboys',
-        grades = {
-            { name = 'Petit' },
-            { name = 'Moyen' },
-            { name = 'Grand' },
-            { name = 'Bras Droit', isboss = true },
             { name = 'OG', isboss = true },
         },
     },
@@ -104,26 +67,16 @@ QBShared.Gangs = {
             { name = 'Tête de Dragon', isboss = true },
         },
     },
-    bmf = {
-        label = 'BMF',
+    braithemb = {
+        label = 'Braithem B',
         grades = {
-            { name = 'Young Gunners' },
-            { name = 'Street Captains' },
-            { name = 'Hustler' },
-            { name = 'Bras Droit', isboss = true },
-            { name = 'Big', isboss = true },
-        },
-    },
-    soa = {
-        label = 'Sons Of Anarchy',
-        grades = {
-            { name = 'Prospect' },
-            { name = 'Full Patch' },
-            { name = 'Road Captain' },
-            { name = 'Secretary' },
-            { name = 'Sgt at Arms' },
-            { name = 'Vice-Président', isboss = true },
-            { name = 'Président', isboss = true },
+            { name = 'Private E-1' },
+            { name = 'Private E-2' },
+            { name = 'Caporal' },
+            { name = 'Sergent' },
+            { name = '1er Lieutenant' },
+            { name = 'Capitaine', isboss = true },
+            { name = 'Major', isboss = true },
         },
     },
     cosanostra = {
@@ -147,17 +100,6 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
-    mob = {
-        label = 'MOB',
-        grades = {
-            { name = 'Young Boy' },
-            { name = 'Boy' },
-            { name = 'Youg Gangster' },
-            { name = 'Gangster' },
-            { name = 'Head', isboss = true },
-            { name = 'Big Head', isboss = true },
-        },
-    },
     ms13 = {
         label = 'MS13',
         grades = {
@@ -169,52 +111,10 @@ QBShared.Gangs = {
             { name = 'Jefe/a', isboss = true },
         },
     },
-    lco = {
-        label = 'LCO',
-        grades = {
-            { name = 'Recrue' },
-            { name = 'Membre', isboss = true },
-        },
-    },
     hargreeves = {
         label = 'Famille Hargreeves',
         grades = {
             { name = 'Membre', isboss = true },
-        },
-    },
-    nightkidz = {
-        label = 'Night Kidz',
-        grades = {
-            { name = 'Recrue' },
-            { name = 'Membre' },
-            { name = 'Second', isboss = true },
-            { name = 'Chef', isboss = true },
-        },
-    },
-    kcorp = {
-        label = 'Kcorp',
-        grades = {
-            { name = 'Membre', isboss = true },
-        },
-    },
-    crips = {
-        label = 'Crips',
-        grades = {
-            { name = 'Rookie Crips' },
-            { name = 'Young Crips' },
-            { name = 'Leader Crips' },
-            { name = 'Thug Crips' },
-            { name = 'Crips', isboss = true },
-            { name = 'OG Crips', isboss = true },
-            { name = 'King Crips', isboss = true },
-        },
-    },
-    latinscorpion = {
-        label = 'Latin Scorpion',
-        grades = {
-            { name = 'Habitante' },
-            { name = 'Pequeno' },
-            { name = 'Grande', isboss = true },
         },
     },
     cjng = {
@@ -268,13 +168,12 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
-    scavengers = {
-        label = 'Scavengers',
+    latinscorpion = {
+        label = 'Latin Scorpion',
         grades = {
-            { name = 'Miteux' },
-            { name = 'Charognard' },
-            { name = 'Punk à Chien', isboss = true },
-            { name = 'Le Roi des égouts', isboss = true },
+            { name = 'Habitante' },
+            { name = 'Pequeno' },
+            { name = 'Grande', isboss = true },
         },
     },
     malvabundos = {
@@ -290,25 +189,6 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
-    gitans = {
-        label = 'Gitans',
-        grades = {
-            { name = 'Cousins' },
-            { name = 'Sous-Patriarche', isboss = true },
-            { name = 'Patriarche', isboss = true },
-        },
-    },
-    brs = {
-        label = 'BRS',
-        grades = {
-            { name = 'Little Gangsta' },
-            { name = 'Gangsta' },
-            { name = 'Big gangsta' },
-            { name = 'Hustler', isboss = true },
-            { name = 'YG', isboss = true },
-            { name = 'OG', isboss = true },
-        },
-    },
     verdugos = {
         label = 'Verdugos MC',
         grades = {
@@ -322,14 +202,6 @@ QBShared.Gangs = {
             { name = 'Trésorier' },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
-        },
-    },
-    silentdeath = {
-        label = 'Silent Death',
-        grades = {
-            { name = 'Umbra' },
-            { name = 'Phantasma' },
-            { name = 'Spiritus', isboss = true },
         },
     },
     ubc = {
@@ -352,19 +224,6 @@ QBShared.Gangs = {
             { name = 'Sergent At Arms' },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
-        },
-    },
-    mogila = {
-        label = 'Mogila',
-        grades = {
-            { name = 'Varbama' },
-            { name = 'Ani' },
-            { name = 'Gunna Grain' },
-            { name = 'Tenente' },
-            { name = 'King Guard' },
-            { name = 'Warchief', isboss = true },
-            { name = 'Koroleva', isboss = true },
-            { name = 'Korot', isboss = true },
         },
     },
     comptonwest = {
@@ -402,19 +261,6 @@ QBShared.Gangs = {
             { name = 'Chef Geral', isboss = true },
             { name = 'Braco Direito', isboss = true },
             { name = 'Chef', isboss = true },
-        },
-    },
-    hoovers = {
-        label = 'Hoovers',
-        grades = {
-            { name = 'Novato' },
-            { name = 'La Madrina' },
-            { name = 'Soldado' },
-            { name = 'Peroguardian' },
-            { name = 'Grande', isboss = true },
-            { name = 'El Teniente', isboss = true },
-            { name = 'El Segundo', isboss = true },
-            { name = 'El Jefe', isboss = true },
         },
     },
     blackd = {
@@ -459,6 +305,175 @@ QBShared.Gangs = {
             { name = 'El Pacificador', isboss = true },
             { name = 'Vice Presidente', isboss = true },
             { name = 'Presidente', isboss = true },
+        },
+    }, 
+    dnk = {
+        label = 'Dark Night Killers',
+        grades = {
+            { name = 'Escouade D' },
+            { name = 'Escouade C' },
+            { name = 'Escouade B' },
+            { name = 'Escouade A' },
+            { name = 'Chef d\'Escouade', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },]]
+
+
+
+    losvalentinos = {
+        label = 'Los Valentinos',
+        grades = {
+            { name = 'Parasite' },
+            { name = 'Postulant' },
+            { name = 'Membre Honoraire' },
+            { name = 'Membre Attitré' },
+            { name = '1ère Classe' },
+            { name = 'Caporal' },
+            { name = 'Sergent d\'Armes' },
+            { name = 'Trésorier' },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    piru = {
+        label = 'Piru Streetboys',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Moyen' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    bmf = {
+        label = 'BMF',
+        grades = {
+            { name = 'Young Gunners' },
+            { name = 'Street Captains' },
+            { name = 'Hustler' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Big', isboss = true },
+        },
+    },
+    soa = {
+        label = 'Sons Of Anarchy',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
+            { name = 'Road Captain' },
+            { name = 'Secretary' },
+            { name = 'Sgt at Arms' },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    mob = {
+        label = 'MOB',
+        grades = {
+            { name = 'Young Boy' },
+            { name = 'Boy' },
+            { name = 'Youg Gangster' },
+            { name = 'Gangster' },
+            { name = 'Head', isboss = true },
+            { name = 'Big Head', isboss = true },
+        },
+    },
+    lco = {
+        label = 'LCO',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Membre', isboss = true },
+        },
+    },
+    nightkidz = {
+        label = 'Night Kidz',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Membre' },
+            { name = 'Second', isboss = true },
+            { name = 'Chef', isboss = true },
+        },
+    },
+    kcorp = {
+        label = 'Kcorp',
+        grades = {
+            { name = 'Membre', isboss = true },
+        },
+    },
+    crips = {
+        label = 'Crips',
+        grades = {
+            { name = 'Rookie Crips' },
+            { name = 'Young Crips' },
+            { name = 'Leader Crips' },
+            { name = 'Thug Crips' },
+            { name = 'Crips', isboss = true },
+            { name = 'OG Crips', isboss = true },
+            { name = 'King Crips', isboss = true },
+        },
+    },
+    scavengers = {
+        label = 'Scavengers',
+        grades = {
+            { name = 'Miteux' },
+            { name = 'Charognard' },
+            { name = 'Punk à Chien', isboss = true },
+            { name = 'Le Roi des égouts', isboss = true },
+        },
+    },
+    gitans = {
+        label = 'Gitans',
+        grades = {
+            { name = 'Cousins' },
+            { name = 'Sous-Patriarche', isboss = true },
+            { name = 'Patriarche', isboss = true },
+        },
+    },
+    brs = {
+        label = 'BRS',
+        grades = {
+            { name = 'Little Gangsta' },
+            { name = 'Gangsta' },
+            { name = 'Big gangsta' },
+            { name = 'Hustler', isboss = true },
+            { name = 'YG', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    silentdeath = {
+        label = 'Silent Death',
+        grades = {
+            { name = 'Umbra' },
+            { name = 'Phantasma' },
+            { name = 'Spiritus', isboss = true },
+        },
+    },
+    mogila = {
+        label = 'Mogila',
+        grades = {
+            { name = 'Varbama' },
+            { name = 'Ani' },
+            { name = 'Gunna Grain' },
+            { name = 'Tenente' },
+            { name = 'King Guard' },
+            { name = 'Warchief', isboss = true },
+            { name = 'Koroleva', isboss = true },
+            { name = 'Korot', isboss = true },
+        },
+    },
+    hoovers = {
+        label = 'Hoovers',
+        grades = {
+            { name = 'Novato' },
+            { name = 'La Madrina' },
+            { name = 'Soldado' },
+            { name = 'Peroguardian' },
+            { name = 'Grande', isboss = true },
+            { name = 'El Teniente', isboss = true },
+            { name = 'El Segundo', isboss = true },
+            { name = 'El Jefe', isboss = true },
         },
     },
     duggan = {
@@ -521,17 +536,6 @@ QBShared.Gangs = {
             { name = 'Petit' },
             { name = 'Grand' },
             { name = 'Bras Droit', isboss = true },
-            { name = 'Boss', isboss = true },
-        },
-    },
-    dnk = {
-        label = 'Dark Night Killers',
-        grades = {
-            { name = 'Escouade D' },
-            { name = 'Escouade C' },
-            { name = 'Escouade B' },
-            { name = 'Escouade A' },
-            { name = 'Chef d\'Escouade', isboss = true },
             { name = 'Boss', isboss = true },
         },
     },

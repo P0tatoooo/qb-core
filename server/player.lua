@@ -35,11 +35,13 @@ function QBCore.Player.Login(source, citizenid, newData)
                 if PlayerData.gang.grade.level == 0 then
                     PlayerData.gang.grade.level = 1
                 end
-                if QBCore.Shared.Gangs[PlayerData.gang.name].grades[PlayerData.gang.grade.level]?.name ~= PlayerData.gang.grade.name then
-                    for k,v in pairs(QBCore.Shared.Gangs[PlayerData.gang.name].grades) do
-                        if v.name == PlayerData.gang.grade.name then
-                            PlayerData.gang.grade.level = k
-                            break
+                if QBCore.Shared.Gangs[PlayerData.gang.name] then
+                    if QBCore.Shared.Gangs[PlayerData.gang.name].grades[PlayerData.gang.grade.level]?.name ~= PlayerData.gang.grade.name then
+                        for k,v in pairs(QBCore.Shared.Gangs[PlayerData.gang.name].grades) do
+                            if v.name == PlayerData.gang.grade.name then
+                                PlayerData.gang.grade.level = k
+                                break
+                            end
                         end
                     end
                 end
