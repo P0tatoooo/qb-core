@@ -569,32 +569,17 @@ QBShared.Jobs = {
 			{ name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
---[[
-    tabac = {
-		label = 'Tabarico',
-		type = 'tabac',
+
+	nightclub = {
+		label = 'NightMoore',
+		type = 'nightclub',
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
-			{ name = 'Recruit', payment = 50 },
-			{ name = 'Novice', payment = 75 },
-			{ name = 'Experienced', payment = 100 },
-			{ name = 'Advanced', payment = 125 },
-			{ name = 'Manager', isboss = true, payment = 150 },
+			{ name = 'Barman', payment = 75 },
+			{ name = 'Manager', payment = 100 },
+			{ name = 'Co-Patron', isboss = true, payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
-
-    tequilala = {
-		label = 'Tequilala',
-		type = 'tequilala',
-		defaultDuty = false,
-		offDutyPay = false,
-		grades = {
-			{ name = 'Recruit', payment = 50 },
-			{ name = 'Novice', payment = 75 },
-			{ name = 'Experienced', payment = 100 },
-			{ name = 'Advanced', payment = 125 },
-			{ name = 'Manager', isboss = true, payment = 150 },
-		},
-	},]]
 }
