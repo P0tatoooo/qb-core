@@ -576,7 +576,8 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
-			{ name = 'Barman', payment = 75 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Videur', payment = 75 },
 			{ name = 'Manager', payment = 100 },
 			{ name = 'Co-Patron', isboss = true, payment = 125 },
 			{ name = 'Patron', isboss = true, payment = 150 },
