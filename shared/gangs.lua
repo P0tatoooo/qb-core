@@ -588,4 +588,15 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    brokers = {
+        label = 'Brokers',
+        grades = {
+            { name = 'Lil Young' },
+            { name = 'Big Young' },
+            { name = 'Gangsta' },
+            { name = 'Hustler', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
