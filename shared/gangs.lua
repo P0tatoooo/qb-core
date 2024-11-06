@@ -295,18 +295,6 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
-    mayans = {
-        label = 'Mayans MC',
-        grades = {
-            { name = 'Prospect' },
-            { name = 'Miembro' },
-            { name = 'Capitan del Camino' },
-            { name = 'El Secretario' },
-            { name = 'El Pacificador', isboss = true },
-            { name = 'Vice Presidente', isboss = true },
-            { name = 'Presidente', isboss = true },
-        },
-    }, 
     dnk = {
         label = 'Dark Night Killers',
         grades = {
@@ -599,4 +587,15 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    mayans = {
+        label = 'Mayans MC',
+        grades = {
+            { name = 'Los Soldados' },
+            { name = 'Los Capitanos' },
+            { name = 'El consejero' },
+            { name = 'El Secretario', isboss = true },
+            { name = 'El Brazo Derecho', isboss = true },
+            { name = 'El Patron', isboss = true },
+        },
+    }, 
 }
