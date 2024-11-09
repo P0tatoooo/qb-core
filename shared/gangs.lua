@@ -305,9 +305,68 @@ QBShared.Gangs = {
             { name = 'Chef d\'Escouade', isboss = true },
             { name = 'Boss', isboss = true },
         },
+    },
+    yokai = {
+        label = 'Yokai',
+        grades = {
+            { name = 'Shatei' },
+            { name = 'Kyodai' },
+            { name = 'Saiki-Komon', isboss = true },
+            { name = 'Shatei-Gashira', isboss = true },
+            { name = 'Waka-gashira', isboss = true },
+            { name = 'Oyabun', isboss = true },
+        },
+    },
+    piru = {
+        label = 'Piru Streetboys',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Moyen' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    brs = {
+        label = 'BRS',
+        grades = {
+            { name = 'Little Gangsta' },
+            { name = 'Gangsta' },
+            { name = 'Big gangsta' },
+            { name = 'Hustler', isboss = true },
+            { name = 'YG', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    hoovers = {
+        label = 'Hoovers',
+        grades = {
+            { name = 'Novato' },
+            { name = 'La Madrina' },
+            { name = 'Soldado' },
+            { name = 'Peroguardian' },
+            { name = 'Grande', isboss = true },
+            { name = 'El Teniente', isboss = true },
+            { name = 'El Segundo', isboss = true },
+            { name = 'El Jefe', isboss = true },
+        },
+    },
+    bhb = {
+        label = 'BHB',
+        grades = {
+            { name = 'BHB' },
+            { name = 'OG', isboss = true },
+        },
+    },
+    oclock = {
+        label = '12 O\'clock Boys',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
     },]]
-
-
 
     losvalentinos = {
         label = 'Los Valentinos',
@@ -323,16 +382,6 @@ QBShared.Gangs = {
             { name = 'Secrétaire', isboss = true },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
-        },
-    },
-    piru = {
-        label = 'Piru Streetboys',
-        grades = {
-            { name = 'Petit' },
-            { name = 'Moyen' },
-            { name = 'Grand' },
-            { name = 'Bras Droit', isboss = true },
-            { name = 'OG', isboss = true },
         },
     },
     bmf = {
@@ -419,17 +468,6 @@ QBShared.Gangs = {
             { name = 'Patriarche', isboss = true },
         },
     },
-    brs = {
-        label = 'BRS',
-        grades = {
-            { name = 'Little Gangsta' },
-            { name = 'Gangsta' },
-            { name = 'Big gangsta' },
-            { name = 'Hustler', isboss = true },
-            { name = 'YG', isboss = true },
-            { name = 'OG', isboss = true },
-        },
-    },
     silentdeath = {
         label = 'Silent Death',
         grades = {
@@ -451,19 +489,6 @@ QBShared.Gangs = {
             { name = 'Korot', isboss = true },
         },
     },
-    hoovers = {
-        label = 'Hoovers',
-        grades = {
-            { name = 'Novato' },
-            { name = 'La Madrina' },
-            { name = 'Soldado' },
-            { name = 'Peroguardian' },
-            { name = 'Grande', isboss = true },
-            { name = 'El Teniente', isboss = true },
-            { name = 'El Segundo', isboss = true },
-            { name = 'El Jefe', isboss = true },
-        },
-    },
     duggan = {
         label = 'Duggan',
         grades = {
@@ -472,13 +497,6 @@ QBShared.Gangs = {
             { name = 'Leader', isboss = true },
             { name = 'Bras droit', isboss = true },
             { name = 'Chief', isboss = true },
-        },
-    },
-    bhb = {
-        label = 'BHB',
-        grades = {
-            { name = 'BHB' },
-            { name = 'OG', isboss = true },
         },
     },
     syndicat = {
@@ -518,15 +536,6 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
-    oclock = {
-        label = '12 O\'clock Boys',
-        grades = {
-            { name = 'Petit' },
-            { name = 'Grand' },
-            { name = 'Bras Droit', isboss = true },
-            { name = 'Boss', isboss = true },
-        },
-    },
     rosanegra = {
         label = 'Cartel de la Rosa Negra',
         grades = {
@@ -536,17 +545,6 @@ QBShared.Gangs = {
             { name = 'Lideres', isboss = true },
             { name = 'Brazo Derecho', isboss = true },
             { name = 'Jefe', isboss = true },
-        },
-    },
-    yokai = {
-        label = 'Yokai',
-        grades = {
-            { name = 'Shatei' },
-            { name = 'Kyodai' },
-            { name = 'Saiki-Komon', isboss = true },
-            { name = 'Shatei-Gashira', isboss = true },
-            { name = 'Waka-gashira', isboss = true },
-            { name = 'Oyabun', isboss = true },
         },
     },
     crusaders = {
