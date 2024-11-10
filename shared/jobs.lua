@@ -500,6 +500,20 @@ QBShared.Jobs = {
 		},
 	},
 
+	bikeworkshop = {
+		label = 'Bike Workshop',
+		type = 'bikeworkshop',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Stagiaire', payment = 50 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Chef d\'atelier', payment = 100 },
+			{ name = 'Co-Patron', payment = 125 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
+
 	gruppe6 = {
         label = 'Gruppe 6',
 		type = 'gruppe6',
