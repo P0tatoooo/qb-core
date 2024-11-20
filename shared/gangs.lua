@@ -602,6 +602,7 @@ QBShared.Gangs = {
             { name = 'Nuevo' },
             { name = 'Soldado' },
             { name = 'Combatiente' },
+            { name = 'Teniente', isboss = true },
             { name = 'Tesorero', isboss = true },
             { name = 'Segundo', isboss = true },
             { name = 'Jefe', isboss = true },
