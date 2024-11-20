@@ -607,4 +607,15 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     }, 
+    santarosario = {
+        label = 'Santa Rosario',
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Caporal' },
+            { name = 'Capitaine', isboss = true },
+            { name = 'Bras Gauche', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Jefe', isboss = true },
+        },
+    }, 
 }
