@@ -618,5 +618,13 @@ QBShared.Gangs = {
             { name = 'Bras Droit', isboss = true },
             { name = 'Jefe', isboss = true },
         },
+    },
+    peoplenation = {
+        label = 'People Nation',
+        grades = {
+            { name = 'Gangsta' },
+            { name = 'Double OG', isboss = true },
+            { name = 'Triple OG', isboss = true },
+        },
     }, 
 }
