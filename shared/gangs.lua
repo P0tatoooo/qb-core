@@ -627,4 +627,17 @@ QBShared.Gangs = {
             { name = 'Triple OG', isboss = true },
         },
     }, 
+    segadores = {
+        label = 'Segadores MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Miembro' },
+            { name = 'Tresorero', isboss = true },
+            { name = 'El secretaro', isboss = true },
+            { name = 'El Pacificator', isboss = true },
+            { name = 'Captain del Camino', isboss = true },
+            { name = 'VP', isboss = true },
+            { name = 'Presidente', isboss = true },
+        },
+    },
 }
