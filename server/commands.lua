@@ -87,27 +87,11 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
         if tonumber(args[1]) then
             local target = GetPlayerPed(tonumber(args[1]))
             if target ~= 0 then
-                local coords = GetEntityCoords(target)
-                TriggerClientEvent('QBCore:Command:TeleportToPlayer', source, coords)
-
                 if source ~= 0 then
-                    local xPlayer = QBCore.Functions.GetPlayer(source)
-                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. args[1], xPlayer.PlayerData.source)
+                    TriggerEvent("MyCity_CoreV2:AdminMenu:TP", tonumber(args[1]), false, source)
                 end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
-            end
-        else
-            local location = QBShared.Locations[args[1]]
-            if location then
-                TriggerClientEvent('QBCore:Command:TeleportToCoords', source, location.x, location.y, location.z, location.w)
-
-                if source ~= 0 then
-                    local xPlayer = QBCore.Functions.GetPlayer(source)
-                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. location.x .. ' ' .. location.y .. ' ' .. location.z, xPlayer.PlayerData.source)
-                end
-            else
-                TriggerClientEvent('QBCore:Notify', source, Lang:t('error.location_not_exist'), 'error')
             end
         end
     else
