@@ -640,4 +640,16 @@ QBShared.Gangs = {
             { name = 'Presidente', isboss = true },
         },
     },
+    ndrangheta = {
+        label = 'Ndrangheta',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Soldat' },
+            { name = 'Homme de main' },
+            { name = 'Lead OP', isboss = true },
+            { name = 'Second', isboss = true },
+            { name = 'Marraine', isboss = true },
+            { name = 'Parrain', isboss = true },
+        },
+    },
 }
