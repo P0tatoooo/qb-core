@@ -652,4 +652,14 @@ QBShared.Gangs = {
             { name = 'Parrain', isboss = true },
         },
     },
+    bloodjys = {
+        label = 'Bloodjys',
+        grades = {
+            { name = 'Habitant' },
+            { name = 'Soldat' },
+            { name = 'Lieutenant', isboss = true },
+            { name = 'Chef de guerre', isboss = true },
+            { name = 'Commandant', isboss = true },
+        },
+    },
 }
