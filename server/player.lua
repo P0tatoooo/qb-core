@@ -530,10 +530,11 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
+            discord = PlayerData.discord,
             name = PlayerData.name:gsub("[^%w%s]", ""),
             steam = PlayerData.steam or '',
             rpname = PlayerData.rpname,
@@ -560,10 +561,11 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
+            discord = PlayerData.discord,
             name = PlayerData.name:gsub("[^%w%s]", ""),
             steam = PlayerData.steam or '',
             rpname = PlayerData.rpname,

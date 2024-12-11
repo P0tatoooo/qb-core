@@ -22,6 +22,7 @@ QBConfig.Player.PlayerDefaults = {
     citizenid = function() return QBCore.Player.CreateCitizenId() end,
     cid = 1,
     rpname = '',
+    discord = '',
     money = function()
         local moneyDefaults = {}
         for moneytype, startamount in pairs(QBConfig.Money.MoneyTypes) do
