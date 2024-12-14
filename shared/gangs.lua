@@ -89,17 +89,6 @@ QBShared.Gangs = {
             { name = 'Don', isboss = true },
         },
     },
-    vagos = {
-        label = 'Vagos',
-        grades = {
-            { name = 'Pequeno' },
-            { name = 'Soldado' },
-            { name = 'Commandante' },
-            { name = 'Teniente' },
-            { name = 'Segundo', isboss = true },
-            { name = 'Jefe', isboss = true },
-        },
-    },
     ms13 = {
         label = 'MS13',
         grades = {
@@ -660,6 +649,14 @@ QBShared.Gangs = {
             { name = 'Lieutenant', isboss = true },
             { name = 'Chef de guerre', isboss = true },
             { name = 'Commandant', isboss = true },
+        },
+    },
+    vagos = {
+        label = 'Vagos',
+        grades = {
+            { name = 'Vagos' },
+            { name = 'Consultor', isboss = true },
+            { name = 'Jefe', isboss = true },
         },
     },
 }
