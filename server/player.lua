@@ -54,6 +54,7 @@ function QBCore.Player.Login(source, citizenid, newData)
                     PlayerData.coins = result[1].coins
                 end
 
+                PlayerData.discord = tonumber(PlayerData.discord)
                 PlayerData.position = json.decode(PlayerData.position)
                 PlayerData.metadata = json.decode(PlayerData.metadata)
                 PlayerData.charinfo = json.decode(PlayerData.charinfo)
@@ -89,6 +90,7 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
                 PlayerData.coins = result[1].coins
             end
 
+            PlayerData.discord = tonumber(PlayerData.discord)
             PlayerData.money = json.decode(PlayerData.money)
             PlayerData.job = json.decode(PlayerData.job)
             PlayerData.gang = json.decode(PlayerData.gang)
@@ -130,6 +132,7 @@ function QBCore.Player.GetOfflinePlayerByLicense(license)
                 PlayerData.coins = result[1].coins
             end
 
+            PlayerData.discord = tonumber(PlayerData.discord)
             PlayerData.money = json.decode(PlayerData.money)
             PlayerData.job = json.decode(PlayerData.job)
             PlayerData.gang = json.decode(PlayerData.gang)
