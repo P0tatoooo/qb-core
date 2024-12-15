@@ -654,8 +654,15 @@ QBShared.Gangs = {
     vagos = {
         label = 'Vagos',
         grades = {
+            { name = 'Pequeno' },
             { name = 'Vagos' },
+            { name = 'Teniente' },
+            { name = 'Comandante' },
+            { name = 'Tresorero', isboss = true },
+            { name = 'Secretario', isboss = true },
+            { name = 'Sergento', isboss = true },
             { name = 'Consultor', isboss = true },
+            { name = 'Segundo', isboss = true },
             { name = 'Jefe', isboss = true },
         },
     },
