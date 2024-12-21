@@ -632,4 +632,5 @@ QBShared.PublicJobs = {
     ['lawyer'] = 0,
     ['gruppe6'] = 0,
     ['ammunation'] = 0,
+    ['mcnews'] = 0,
 }
