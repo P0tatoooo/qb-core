@@ -666,4 +666,20 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
+    jagerfly = {
+        label = 'Jagerfly MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
+            { name = 'Ass kicker' },
+            { name = 'Tail gunner' },
+            { name = 'Enforcer' },
+            { name = 'Road Captain' },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
