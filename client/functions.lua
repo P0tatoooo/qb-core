@@ -419,11 +419,11 @@ end
 
 function QBCore.Functions.IsABulletproofVest(sex, index)
     if sex == 'male' then
-        if QBCore.Shared.MaleBags[index] then
+        if QBCore.Shared.MaleBulletproof[index] then
             return true
         end
     elseif sex == 'female' then
-        if QBCore.Shared.FemaleBags[index] then
+        if QBCore.Shared.FemaleBulletproof[index] then
             return true
         end
     end
