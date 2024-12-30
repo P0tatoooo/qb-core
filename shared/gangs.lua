@@ -682,4 +682,20 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    phoenixorder = {
+        label = 'Phoenix Order MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Loyal' },
+            { name = 'Enforcer' },
+            { name = 'Ass kicker' },
+            { name = 'Tail gunner' },
+            { name = 'Road Captain' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
