@@ -698,4 +698,16 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    valhalla = {
+        label = 'Valhalla MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Capitaine de Route' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
