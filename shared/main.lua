@@ -43,6 +43,7 @@ end
 
 function QBShared.FirstToUpper(value)
     if not value then return nil end
+    value = value:lower()
     return (value:gsub("^%l", string.upper))
 end
 
