@@ -710,4 +710,21 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    ballas = {
+        label = 'Ballas',
+        grades = {
+            { name = 'Planner' },
+            { name = 'Fighter' },
+            { name = 'Driver' },
+            { name = 'Eclaireurs' },
+            { name = 'Snitchers' },
+            { name = 'Banker' },
+            { name = 'Tanlent scouts' },
+            { name = 'Scouts' },
+            { name = 'Homies' },
+            { name = 'Big Homies', isboss = true },
+            { name = 'Underboss', isboss = true },
+            { name = 'Triple OG', isboss = true },
+        },
+    },
 }
