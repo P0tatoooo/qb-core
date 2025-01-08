@@ -429,7 +429,7 @@ QBShared.Jobs = {
 	},
 
     barber = {
-		label = 'Coiffeur',
+		label = "Atmosp'Hair",
 		type = 'barber',
 		defaultDuty = false,
 		offDutyPay = false,
