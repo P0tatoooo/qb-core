@@ -591,7 +591,7 @@ QBShared.Jobs = {
 	},
 
 	tattooshop2 = {
-		label = 'Green Ink Tattoo',
+		label = 'GreenInk Tattoo',
 		type = 'tattooshop2',
 		defaultDuty = false,
 		offDutyPay = false,
