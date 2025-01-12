@@ -596,7 +596,7 @@ QBShared.Gangs = {
             { name = 'Segundo', isboss = true },
             { name = 'Jefe', isboss = true },
         },
-    }, 
+    },
     santarosario = {
         label = 'Santa Rosario',
         grades = {
@@ -612,6 +612,7 @@ QBShared.Gangs = {
         label = 'People Nation',
         grades = {
             { name = 'Gangsta' },
+            { name = 'OG' },
             { name = 'Double OG', isboss = true },
             { name = 'Triple OG', isboss = true },
         },
@@ -725,6 +726,17 @@ QBShared.Gangs = {
             { name = 'Big Homies', isboss = true },
             { name = 'Underboss', isboss = true },
             { name = 'Triple OG', isboss = true },
+        },
+    },
+    hustler17th = {
+        label = '17th Hustler',
+        grades = {
+            { name = 'Little G' },
+            { name = 'Gansta' },
+            { name = 'Hustler' },
+            { name = 'Big Hustler' },
+            { name = 'Young G' },
+            { name = 'OG', isboss = true },
         },
     },
 }
