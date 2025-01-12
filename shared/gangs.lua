@@ -739,4 +739,17 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    unypink = {
+        label = 'Uny Pink',
+        grades = {
+            { name = 'Lil Homies' },
+            { name = 'Homies' },
+            { name = 'True Homies' },
+            { name = 'Murda' },
+            { name = 'Big Hustler' },
+            { name = 'YG' },
+            { name = 'Double OG', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
