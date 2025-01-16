@@ -506,13 +506,14 @@ QBShared.Jobs = {
 	},
 
 	bikeworkshop = {
-		label = 'Bike Workshop',
+		label = "Chrome's Motors Garage",
 		type = 'bikeworkshop',
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
 			{ name = 'Stagiaire', payment = 50 },
 			{ name = 'Employé', payment = 75 },
+			{ name = 'Mécano Confirmé', payment = 75 },
 			{ name = 'Chef d\'atelier', payment = 100 },
 			{ name = 'Co-Patron', isboss = true, payment = 125 },
 			{ name = 'Patron', isboss = true, payment = 150 },
