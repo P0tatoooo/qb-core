@@ -310,7 +310,7 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
-			{ name = 'Agent de sécurité', payment = 50 },
+			{ name = 'Apprenti', payment = 50 },
 			{ name = 'Serveur', payment = 75 },
 			{ name = 'Barman', payment = 100 },
 			{ name = 'Co-patron', isboss = true, payment = 125 },
@@ -424,6 +424,8 @@ QBShared.Jobs = {
 		defaultDuty = false,
 		offDutyPay = false,
 		grades = {
+			{ name = 'Stagiaire', payment = 150 },
+			{ name = "Décorateur d'Intérieur", payment = 150 },
 			{ name = 'Agent Immobilier', payment = 150 },
             { name = 'DRH', payment = 150 },
             { name = 'Co-Patron', isboss = true, payment = 150 },
