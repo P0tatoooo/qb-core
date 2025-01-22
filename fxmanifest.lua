@@ -1,3 +1,4 @@
+shared_script '@offsey/ai_module_fg-obfuscated.lua'
 fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
