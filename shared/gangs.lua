@@ -424,14 +424,6 @@ QBShared.Gangs = {
             { name = 'King Crips', isboss = true },
         },
     },
-    gitans = {
-        label = 'Gitans',
-        grades = {
-            { name = 'Cousins' },
-            { name = 'Sous-Patriarche', isboss = true },
-            { name = 'Patriarche', isboss = true },
-        },
-    },
     silentdeath = {
         label = 'Silent Death',
         grades = {
@@ -670,6 +662,7 @@ QBShared.Gangs = {
     jagerfly = {
         label = 'Jagerfly MC',
         grades = {
+            { name = 'Support' },
             { name = 'Prospect' },
             { name = 'Full Patch' },
             { name = 'Ass kicker' },
@@ -753,6 +746,26 @@ QBShared.Gangs = {
             { name = 'YG' },
             { name = 'Double OG', isboss = true },
             { name = 'OG', isboss = true },
+        },
+    },
+    gitans = {
+        label = 'Gitans',
+        grades = {
+            { name = 'La Nièce' },
+            { name = 'Les Jus de Bite' },
+            { name = 'Les Grands', isboss = true },
+            { name = "L'Ancien", isboss = true },
+        },
+    },
+    bcb = {
+        label = 'BCB',
+        grades = {
+            { name = 'Esbirro' },
+            { name = 'Soldado' },
+            { name = 'Sergento' },
+            { name = 'Teniente', isboss = true },
+            { name = 'Socio', isboss = true },
+            { name = 'Lider', isboss = true },
         },
     },
 }
