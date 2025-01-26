@@ -646,14 +646,14 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
 
         local resultPlayer = MySQL.query.await('INSERT INTO old_players SELECT * FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
-        local resultPlayer = MySQL.query.await('INSERT INTO old_player_vehicles SELECT * FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no"', {['@citizenid'] = citizenid})
+        local resultPlayer = MySQL.query.await('INSERT INTO old_player_vehicles SELECT * FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no" AND job = "civ"', {['@citizenid'] = citizenid})
 
         local result = MySQL.query.await('DELETE FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
-        local result = MySQL.query.await('DELETE FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no"', {
+        local result = MySQL.query.await('DELETE FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no" AND job = "civ"', {
             ['@citizenid'] = citizenid
         })
 
-        local result = MySQL.query.await('SELECT plate,type FROM player_vehicles WHERE citizenid = @citizenid', {
+        local result = MySQL.query.await('SELECT plate,type FROM player_vehicles WHERE citizenid = @citizenid AND job = "civ"', {
             ['@citizenid'] = citizenid
         })
 
