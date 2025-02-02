@@ -768,4 +768,15 @@ QBShared.Gangs = {
             { name = 'Lider', isboss = true },
         },
     },
+    bws = {
+        label = 'BWS',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Homme de Main' },
+            { name = 'Soldat' },
+            { name = 'Lieutenant', isboss = true },
+            { name = 'Second', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
