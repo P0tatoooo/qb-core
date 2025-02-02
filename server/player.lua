@@ -11,7 +11,7 @@ function QBCore.Player.Login(source, citizenid, newData)
         if citizenid then
             local license = QBCore.Functions.GetIdentifier(source, 'license')
             local steam = QBCore.Functions.GetIdentifier(source, 'steam')
-            local PlayerData = MySQL.prepare.await('SELECT * FROM players where citizenid = ?', { citizenid })
+            local PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where citizenid = ?', { citizenid })
 
             if PlayerData and license == PlayerData.license then
                 PlayerData.steam = steam or ''
@@ -80,7 +80,7 @@ end
 
 function QBCore.Player.GetOfflinePlayer(citizenid)
     if citizenid then
-        local PlayerData = MySQL.prepare.await('SELECT * FROM players where citizenid = ?', { citizenid })
+        local PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where citizenid = ?', { citizenid })
         if PlayerData then
             PlayerData.coins = 0
             local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
@@ -122,7 +122,7 @@ end
 
 function QBCore.Player.GetOfflinePlayerByLicense(license)
     if license then
-        local PlayerData = MySQL.prepare.await('SELECT * FROM players where license = ?', { license })
+        local PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where license = ?', { license })
         if PlayerData then
             PlayerData.coins = 0
             local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
