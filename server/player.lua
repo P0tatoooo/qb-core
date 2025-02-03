@@ -649,6 +649,12 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
 
+        if GetConvarInt('mc_debug', 0) == 0 then
+            if Player.PlayerData.job.name ~= "unemployed" then
+                TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name)
+            end
+        end
+
         local resultPlayer = MySQL.query.await('INSERT INTO old_players SELECT * FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
         local resultPlayer = MySQL.query.await('INSERT INTO old_player_vehicles SELECT * FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no" AND job = "civ"', {['@citizenid'] = citizenid})
 
