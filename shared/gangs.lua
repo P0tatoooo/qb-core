@@ -779,4 +779,15 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    theorder = {
+        label = 'The Order',
+        grades = {
+            { name = '1ère Classe' },
+            { name = 'Caporal' },
+            { name = 'Sergent' },
+            { name = 'Capitaine', isboss = true },
+            { name = 'Colonel', isboss = true },
+            { name = 'Général', isboss = true },
+        },
+    },
 }
