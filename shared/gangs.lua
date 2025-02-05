@@ -717,6 +717,7 @@ QBShared.Gangs = {
             { name = 'Scouts' },
             { name = 'Homies' },
             { name = 'Big Homies' },
+            { name = 'Young Gangsta' },
             { name = 'Gangsta', isboss = true },
             { name = 'Hustler', isboss = true },
             { name = 'OG', isboss = true },
