@@ -208,7 +208,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         job = job:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
-        if self.PlayerData.job.name ~= 'unemployed' then
+        if self.PlayerData.job.name ~= 'unemployed' and self.PlayerData.job.name ~= job then
             TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", self.PlayerData.discord, self.PlayerData.job.name)
         end
         TriggerEvent("MyCity_CoreV2:AddDiscordRole", self.PlayerData.discord, job)
