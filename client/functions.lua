@@ -934,7 +934,8 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             modLivery = modLivery,
             modKit49 = GetVehicleMod(vehicle, 49),
             liveryRoof = GetVehicleRoofLivery(vehicle),
-            deformation = exports.MyCity_CoreV2:GetVehicleDeformation(vehicle)
+            deformation = exports.MyCity_CoreV2:GetVehicleDeformation(vehicle),
+            airbags = Entity(vehicle).state.airbags
         }
     else
         return {}
@@ -1263,8 +1264,11 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.deformation then
             exports.MyCity_CoreV2:SetVehicleDeformation(vehicle, props.deformation)
         end
+        if props.airbags then
+            exports.MyCity_CoreV2:AddAirbags(vehicle)
+        end
 
-        exports.nakres_lightbar:loadLightbarInCar(spawnedVehicle)
+        exports.nakres_lightbar:loadLightbarInCar(vehicle)
     end
 end
 
