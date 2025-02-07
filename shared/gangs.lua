@@ -526,6 +526,45 @@ QBShared.Gangs = {
             { name = 'Commandant', isboss = true },
         },
     },
+    santarosario = {
+        label = 'Santa Rosario',
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Caporal' },
+            { name = 'Capitaine', isboss = true },
+            { name = 'Bras Gauche', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Jefe', isboss = true },
+        },
+    },
+    jagerfly = {
+        label = 'Jagerfly MC',
+        grades = {
+            { name = 'Support' },
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
+            { name = 'Ass kicker' },
+            { name = 'Tail gunner' },
+            { name = 'Enforcer' },
+            { name = 'Road Captain' },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    bws = {
+        label = 'BWS',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Homme de Main' },
+            { name = 'Soldat' },
+            { name = 'Lieutenant', isboss = true },
+            { name = 'Second', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
@@ -611,17 +650,6 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
-    santarosario = {
-        label = 'Santa Rosario',
-        grades = {
-            { name = 'Soldat' },
-            { name = 'Caporal' },
-            { name = 'Capitaine', isboss = true },
-            { name = 'Bras Gauche', isboss = true },
-            { name = 'Bras Droit', isboss = true },
-            { name = 'Jefe', isboss = true },
-        },
-    },
     peoplenation = {
         label = 'People Nation',
         grades = {
@@ -657,23 +685,6 @@ QBShared.Gangs = {
             { name = 'Consultor' },
             { name = 'Segundo', isboss = true },
             { name = 'Jefe', isboss = true },
-        },
-    },
-    jagerfly = {
-        label = 'Jagerfly MC',
-        grades = {
-            { name = 'Support' },
-            { name = 'Prospect' },
-            { name = 'Full Patch' },
-            { name = 'Ass kicker' },
-            { name = 'Tail gunner' },
-            { name = 'Enforcer' },
-            { name = 'Road Captain' },
-            { name = 'Secrétaire', isboss = true },
-            { name = 'Trésorier', isboss = true },
-            { name = 'Sergent d\'Armes', isboss = true },
-            { name = 'Vice-Président', isboss = true },
-            { name = 'Président', isboss = true },
         },
     },
     phoenixorder = {
@@ -767,17 +778,6 @@ QBShared.Gangs = {
             { name = 'Teniente', isboss = true },
             { name = 'Socio', isboss = true },
             { name = 'Lider', isboss = true },
-        },
-    },
-    bws = {
-        label = 'BWS',
-        grades = {
-            { name = 'Recrue' },
-            { name = 'Homme de Main' },
-            { name = 'Soldat' },
-            { name = 'Lieutenant', isboss = true },
-            { name = 'Second', isboss = true },
-            { name = 'Boss', isboss = true },
         },
     },
     theorder = {
