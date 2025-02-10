@@ -675,6 +675,7 @@ QBShared.Gangs = {
     vagos = {
         label = 'Vagos',
         grades = {
+            { name = 'Habitant' },
             { name = 'Pequeno' },
             { name = 'Vagos' },
             { name = 'Teniente' },
