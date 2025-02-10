@@ -1264,7 +1264,7 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.deformation then
             exports.MyCity_CoreV2:SetVehicleDeformation(vehicle, props.deformation)
         end
-        if props.airbags then
+        if props.airbags and NetworkGetEntityIsNetworked(vehicle) then
             exports.MyCity_CoreV2:AddAirbags(vehicle)
         end
 
