@@ -382,18 +382,6 @@ QBShared.Gangs = {
             { name = 'Big', isboss = true },
         },
     },
-    soa = {
-        label = 'Sons Of Anarchy',
-        grades = {
-            { name = 'Prospect' },
-            { name = 'Full Patch' },
-            { name = 'Road Captain' },
-            { name = 'Secretary' },
-            { name = 'Sgt at Arms' },
-            { name = 'Vice-Président', isboss = true },
-            { name = 'Président', isboss = true },
-        },
-    },
     mob = {
         label = 'MOB',
         grades = {
@@ -491,17 +479,6 @@ QBShared.Gangs = {
             { name = 'Hustler', isboss = true },
             { name = 'Bras Droit', isboss = true },
             { name = 'Boss', isboss = true },
-        },
-    },
-    mayans = {
-        label = 'Mayans MC',
-        grades = {
-            { name = 'Los Soldados' },
-            { name = 'Los Capitanos' },
-            { name = 'El consejero' },
-            { name = 'El Secretario', isboss = true },
-            { name = 'El Brazo Derecho', isboss = true },
-            { name = 'El Patron', isboss = true },
         },
     },
     ndrangheta = {
@@ -790,6 +767,43 @@ QBShared.Gangs = {
             { name = 'Capitaine', isboss = true },
             { name = 'Colonel', isboss = true },
             { name = 'Général', isboss = true },
+        },
+    },
+    soa = {
+        label = 'Sons Of Anarchy',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Full Patch' },
+            { name = 'Enforcer' },
+            { name = 'Sergent d\'Armes' },
+            { name = 'Road Captain' },
+            { name = 'Old Lady', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    mayans = {
+        label = 'Mayans MC',
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Vétéran' },
+            { name = 'Secrétaire' },
+            { name = 'Sergent d\'Armes' },
+            { name = 'Capitaine de Route' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Conseiller', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    babydriver = {
+        label = 'Baby Driver',
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Driver Confirmé' },
+            { name = 'Pilote' },
+            { name = 'Wheelman', isboss = true },
         },
     },
 }
