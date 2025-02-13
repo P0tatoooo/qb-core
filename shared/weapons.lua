@@ -148,4 +148,11 @@ QBShared.Weapons = {
 	-- Animals
     [`weapon_animal`]               = {['name'] = 'weapon_animal',	['label'] = 'Animal',	['emsreason'] = 'Griffures', ['weapontype'] = 'Animals',	['ammotype'] = nil,	['damagereason'] = 'Mordu'},
     [`weapon_cougar`]               = {['name'] = 'weapon_cougar',	['label'] = 'Cougar',	['emsreason'] = 'Griffures', ['weapontype'] = 'Animals',	['ammotype'] = nil,	['damagereason'] = 'Mordu'},
+
+	-- Airsoft
+	[`WEAPON_AIRSOFTGLOCK20`] 					 = {['name'] = 'WEAPON_AIRSOFTGLOCK20', 			['label'] = 'GLOCK Airsoft', 			['emsreason'] = 'Airsoft', ['weapontype'] = 'Airsoft',	['ammotype'] = 'airsoftball',	['damagereason'] = 'Abattu par une arme Airsoft'},
+	[`WEAPON_AIRSOFTAK47`] 					 = {['name'] = 'WEAPON_AIRSOFTAK47', 			['label'] = 'AK47 Airsoft', 			['emsreason'] = 'Airsoft', ['weapontype'] = 'Airsoft',	['ammotype'] = 'airsoftball',	['damagereason'] = 'Abattu par une arme Airsoft'},
+	[`WEAPON_AIRSOFTG36C`] 					 = {['name'] = 'WEAPON_AIRSOFTG36C', 			['label'] = 'G36C Airsoft', 			['emsreason'] = 'Airsoft', ['weapontype'] = 'Airsoft',	['ammotype'] = 'airsoftball',	['damagereason'] = 'Abattu par une arme Airsoft'},
+	[`WEAPON_AIRSOFTMP5`] 					 = {['name'] = 'WEAPON_AIRSOFTMP5', 			['label'] = 'MP5 Airsoft', 			['emsreason'] = 'Airsoft', ['weapontype'] = 'Airsoft',	['ammotype'] = 'airsoftball',	['damagereason'] = 'Abattu par une arme Airsoft'},
+	[`WEAPON_AIRSOFTUZIMICRO`] 					 = {['name'] = 'WEAPON_AIRSOFTUZIMICRO', 			['label'] = 'UZI Airsoft', 			['emsreason'] = 'Airsoft', ['weapontype'] = 'Airsoft',	['ammotype'] = 'airsoftball',	['damagereason'] = 'Abattu par une arme Airsoft'},
 }
