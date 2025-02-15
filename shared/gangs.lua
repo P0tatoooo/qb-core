@@ -770,6 +770,7 @@ QBShared.Gangs = {
         label = 'Uny Pink',
         type = "gang",
         grades = {
+            { name = 'Habitant' },
             { name = 'Lil Homies' },
             { name = 'Homies' },
             { name = 'True Homies' },
