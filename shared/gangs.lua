@@ -1,9 +1,16 @@
 QBShared = QBShared or {}
 QBShared.Gangs = {
-    civil = { label = 'Civil', grades = { { name = 'Sans Affiliation' } } },
+    civil = { 
+        label = 'Civil', 
+        type = 'civil',
+        grades = { 
+            { name = 'Sans Affiliation' } 
+        } 
+    },
 
     --[[ miamiboyz = {
         label = 'Miami Boyz',
+        type = 'gang',
         grades = {
             { name = 'Habitant' },
             { name = 'Homies' },
@@ -17,6 +24,7 @@ QBShared.Gangs = {
     },
     nemesis = {
         label = 'Némésis',
+        type = "organization",
         grades = {
             { name = 'Aspirant' },
             { name = 'Associé' },
@@ -27,6 +35,7 @@ QBShared.Gangs = {
     },
     fuerzaespinoza = {
         label = 'Fuerza Espinoza',
+        type = "organization",
         grades = {
             { name = 'Teniente' },
             { name = 'Segundo' },
@@ -36,6 +45,7 @@ QBShared.Gangs = {
     },
     endofwatch = {
         label = 'End Of Watch',
+        type = "organization",
         grades = {
             { name = 'Recrue' },
             { name = 'Homme de Main' },
@@ -47,6 +57,7 @@ QBShared.Gangs = {
     },
     lapiovra = {
         label = 'La Piovra',
+        type = "organization",
         grades = {
             { name = 'Tentacule Visible' },
             { name = 'Tentacule Invisible' },
@@ -55,6 +66,7 @@ QBShared.Gangs = {
     },
     triade = {
         label = 'Triade Xin Yi An',
+        type = "organization",
         grades = {
             { name = 'Membre' },
             { name = 'Officier d\'Execution' },
@@ -69,6 +81,7 @@ QBShared.Gangs = {
     },
     braithemb = {
         label = 'Braithem B',
+        type = "organization",
         grades = {
             { name = 'Private E-1' },
             { name = 'Private E-2' },
@@ -81,6 +94,7 @@ QBShared.Gangs = {
     },
     cosanostra = {
         label = 'Cosa Nostra',
+        type = "organization",
         grades = {
             { name = 'Picciollo' },
             { name = 'Soldado' },
@@ -91,6 +105,7 @@ QBShared.Gangs = {
     },
     ms13 = {
         label = 'MS13',
+        type = "organization",
         grades = {
             { name = 'Pequeno' },
             { name = 'Soldado' },
@@ -100,14 +115,9 @@ QBShared.Gangs = {
             { name = 'Jefe/a', isboss = true },
         },
     },
-    hargreeves = {
-        label = 'Famille Hargreeves',
-        grades = {
-            { name = 'Membre', isboss = true },
-        },
-    },
     cjng = {
         label = 'Cartel Jalisco Nouvelle Generation',
+        type = "organization",
         grades = {
             { name = 'Narcomenuedistas' },
             { name = 'Miembro de Plaza' },
@@ -123,6 +133,7 @@ QBShared.Gangs = {
     },
     ttk = {
         label = 'Train To Kill',
+        type = 'gang',
         grades = {
             { name = 'Lil\' Guy' },
             { name = 'Gangster' },
@@ -134,6 +145,7 @@ QBShared.Gangs = {
     },
     dsr = {
         label = 'Dark Street Runners',
+        type = 'gang',
         grades = {
             { name = 'Urban Novice' },
             { name = 'Lunar Navigateur' },
@@ -147,6 +159,7 @@ QBShared.Gangs = {
     },
     reapers = {
         label = 'Reapers',
+        type = "organization",
         grades = {
             { name = 'Recrue' },
             { name = 'Homme de Main' },
@@ -159,6 +172,7 @@ QBShared.Gangs = {
     },
     latinscorpion = {
         label = 'Latin Scorpion',
+        type = 'gang',
         grades = {
             { name = 'Habitante' },
             { name = 'Pequeno' },
@@ -167,6 +181,7 @@ QBShared.Gangs = {
     },
     malvabundos = {
         label = 'Malvabundos',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Membre' },
@@ -180,6 +195,7 @@ QBShared.Gangs = {
     },
     verdugos = {
         label = 'Verdugos MC',
+        type = "biker",
         grades = {
             { name = 'Support' },
             { name = 'Prospect' },
@@ -193,17 +209,9 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
-    ubc = {
-        label = 'UBC',
-        grades = {
-            { name = 'Petit Nouveau' },
-            { name = 'Membre Confirmé' },
-            { name = 'Second', isboss = true },
-            { name = 'Chef', isboss = true },
-        },
-    },
     lost = {
         label = 'The LOST MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Membre' },
@@ -217,6 +225,7 @@ QBShared.Gangs = {
     },
     comptonwest = {
         label = 'Compton West',
+        type = 'gang',
         grades = {
             { name = 'Habitant' },
             { name = 'Rookie' },
@@ -230,6 +239,7 @@ QBShared.Gangs = {
     },
     lossalvador = {
         label = 'Los Salvador',
+        type = "organization",
         grades = {
             { name = 'Executant' },
             { name = 'Soldat' },
@@ -241,6 +251,7 @@ QBShared.Gangs = {
     },
     comando = {
         label = 'Comando Vermelho',
+        type = "organization",
         grades = {
             { name = 'Novinho' },
             { name = 'Soldado' },
@@ -254,6 +265,7 @@ QBShared.Gangs = {
     },
     blackd = {
         label = 'Black Disciples',
+        type = 'gang',
         grades = {
             { name = 'Lil Gangsta' },
             { name = 'Gangsta' },
@@ -264,6 +276,7 @@ QBShared.Gangs = {
     },
     crew = {
         label = 'Crew',
+        type = 'little',
         grades = {
             { name = 'OG des OGM', isboss = true },
             { name = 'OG des Culs de Joints', isboss = true },
@@ -276,6 +289,7 @@ QBShared.Gangs = {
     },
     carrington = {
         label = 'Famille Carrington',
+        type = "organization",
         grades = {
             { name = 'Sicarios' },
             { name = 'Teniente' },
@@ -286,6 +300,7 @@ QBShared.Gangs = {
     },
     dnk = {
         label = 'Dark Night Killers',
+        type = "organization",
         grades = {
             { name = 'Escouade D' },
             { name = 'Escouade C' },
@@ -297,6 +312,7 @@ QBShared.Gangs = {
     },
     yokai = {
         label = 'Yokai',
+        type = "organization",
         grades = {
             { name = 'Shatei' },
             { name = 'Kyodai' },
@@ -308,6 +324,7 @@ QBShared.Gangs = {
     },
     piru = {
         label = 'Piru Streetboys',
+        type = 'gang',
         grades = {
             { name = 'Petit' },
             { name = 'Moyen' },
@@ -318,6 +335,7 @@ QBShared.Gangs = {
     },
     brs = {
         label = 'BRS',
+        type = 'gang',
         grades = {
             { name = 'Little Gangsta' },
             { name = 'Gangsta' },
@@ -329,6 +347,7 @@ QBShared.Gangs = {
     },
     hoovers = {
         label = 'Hoovers',
+        type = 'gang',
         grades = {
             { name = 'Novato' },
             { name = 'La Madrina' },
@@ -342,6 +361,7 @@ QBShared.Gangs = {
     },
     bhb = {
         label = 'BHB',
+        type = 'gang',
         grades = {
             { name = 'BHB' },
             { name = 'OG', isboss = true },
@@ -349,6 +369,7 @@ QBShared.Gangs = {
     },
     oclock = {
         label = '12 O\'clock Boys',
+        type = 'gang',
         grades = {
             { name = 'Petit' },
             { name = 'Grand' },
@@ -358,6 +379,7 @@ QBShared.Gangs = {
     },
     losvalentinos = {
         label = 'Los Valentinos',
+        type = "biker",
         grades = {
             { name = 'Parasite' },
             { name = 'Postulant' },
@@ -374,6 +396,7 @@ QBShared.Gangs = {
     },
     bmf = {
         label = 'BMF',
+        type = "organization",
         grades = {
             { name = 'Young Gunners' },
             { name = 'Street Captains' },
@@ -384,6 +407,7 @@ QBShared.Gangs = {
     },
     mob = {
         label = 'MOB',
+        type = 'gang',
         grades = {
             { name = 'Young Boy' },
             { name = 'Boy' },
@@ -395,6 +419,7 @@ QBShared.Gangs = {
     },
     lco = {
         label = 'LCO',
+        type = "neutral",
         grades = {
             { name = 'Recrue' },
             { name = 'Membre', isboss = true },
@@ -402,6 +427,7 @@ QBShared.Gangs = {
     },
     crips = {
         label = 'Crips',
+        type = 'gang',
         grades = {
             { name = 'Rookie Crips' },
             { name = 'Young Crips' },
@@ -414,6 +440,7 @@ QBShared.Gangs = {
     },
     silentdeath = {
         label = 'Silent Death',
+        type = "organization",
         grades = {
             { name = 'Umbra' },
             { name = 'Phantasma' },
@@ -422,6 +449,7 @@ QBShared.Gangs = {
     },
     syndicat = {
         label = 'Le Syndicat',
+        type = "organization",
         grades = {
             { name = 'Executant' },
             { name = 'Soldat' },
@@ -434,6 +462,7 @@ QBShared.Gangs = {
     },
     rosanegra = {
         label = 'Cartel de la Rosa Negra',
+        type = "organization",
         grades = {
             { name = 'Sicario' },
             { name = 'Soldado' },
@@ -445,6 +474,7 @@ QBShared.Gangs = {
     },
     crusaders = {
         label = 'Crusaders MC',
+        type = "biker",
         grades = {
             { name = 'Membre' },
             { name = 'Le Prêtre' },
@@ -458,6 +488,7 @@ QBShared.Gangs = {
     },
     punishers = {
         label = 'Punishers MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Full Patch' },
@@ -472,6 +503,7 @@ QBShared.Gangs = {
     },
     brokers = {
         label = 'Brokers',
+        type = 'gang',
         grades = {
             { name = 'Lil Young' },
             { name = 'Big Young' },
@@ -483,6 +515,7 @@ QBShared.Gangs = {
     },
     ndrangheta = {
         label = 'Ndrangheta',
+        type = "organization",
         grades = {
             { name = 'Recrue' },
             { name = 'Soldat' },
@@ -495,6 +528,7 @@ QBShared.Gangs = {
     },
     bloodjys = {
         label = 'Bloodjys',
+        type = 'gang',
         grades = {
             { name = 'Habitant' },
             { name = 'Soldat' },
@@ -505,6 +539,7 @@ QBShared.Gangs = {
     },
     santarosario = {
         label = 'Santa Rosario',
+        type = "organization",
         grades = {
             { name = 'Soldat' },
             { name = 'Caporal' },
@@ -516,6 +551,7 @@ QBShared.Gangs = {
     },
     jagerfly = {
         label = 'Jagerfly MC',
+        type = "biker",
         grades = {
             { name = 'Support' },
             { name = 'Prospect' },
@@ -531,20 +567,10 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
-    bws = {
-        label = 'BWS',
-        grades = {
-            { name = 'Recrue' },
-            { name = 'Homme de Main' },
-            { name = 'Soldat' },
-            { name = 'Lieutenant', isboss = true },
-            { name = 'Second', isboss = true },
-            { name = 'Boss', isboss = true },
-        },
-    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
+        type = "neutral",
         grades = {
             { name = 'Recrue' },
             { name = 'Membre' },
@@ -554,12 +580,14 @@ QBShared.Gangs = {
     },
     kcorp = {
         label = 'Kcorp',
+        type = "neutral",
         grades = {
             { name = 'Membre', isboss = true },
         },
     },
     scavengers = {
         label = 'Scavengers',
+        type = "neutral",
         grades = {
             { name = 'Miteux' },
             { name = 'Charognard' },
@@ -569,6 +597,7 @@ QBShared.Gangs = {
     },
     mogila = {
         label = 'Mogila',
+        type = "organization",
         grades = {
             { name = 'Varbama' },
             { name = 'Ani' },
@@ -582,6 +611,7 @@ QBShared.Gangs = {
     },
     duggan = {
         label = 'Duggan',
+        type = "organization",
         grades = {
             { name = 'Associé' },
             { name = 'Comptable' },
@@ -592,6 +622,7 @@ QBShared.Gangs = {
     },
     lameute = {
         label = 'La Meute',
+        type = "gang",
         grades = {
             { name = 'Membre' },
             { name = 'Bras Droit', isboss = true },
@@ -600,6 +631,7 @@ QBShared.Gangs = {
     },
     tij = {
         label = 'La TIJ',
+        type = "neutral",
         grades = {
             { name = 'Membre' },
             { name = 'Co-Boss', isboss = true },
@@ -608,6 +640,7 @@ QBShared.Gangs = {
     },
     one9ers = {
         label = 'ONE 9\'ERS',
+        type = "gang",
         grades = {
             { name = 'Petit' },
             { name = 'Grand' },
@@ -617,6 +650,7 @@ QBShared.Gangs = {
     },
     reyes = {
         label = 'Famille Reyes',
+        type = "organization",
         grades = {
             { name = 'Nuevo' },
             { name = 'Soldado' },
@@ -629,6 +663,7 @@ QBShared.Gangs = {
     },
     peoplenation = {
         label = 'People Nation',
+        type = "organization",
         grades = {
             { name = 'Gangsta' },
             { name = 'OG' },
@@ -638,6 +673,7 @@ QBShared.Gangs = {
     }, 
     segadores = {
         label = 'Segadores MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Miembro' },
@@ -651,6 +687,7 @@ QBShared.Gangs = {
     },
     vagos = {
         label = 'Vagos',
+        type = "gang",
         grades = {
             { name = 'Habitant' },
             { name = 'Pequeno' },
@@ -667,6 +704,7 @@ QBShared.Gangs = {
     },
     phoenixorder = {
         label = 'Phoenix Order MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Loyal' },
@@ -683,6 +721,7 @@ QBShared.Gangs = {
     },
     valhalla = {
         label = 'Valhalla MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Membre' },
@@ -695,6 +734,7 @@ QBShared.Gangs = {
     },
     ballas = {
         label = 'Ballas',
+        type = "gang",
         grades = {
             { name = 'Planner' },
             { name = 'Fighter' },
@@ -716,6 +756,7 @@ QBShared.Gangs = {
     },
     hustler17th = {
         label = '17th Hustler',
+        type = "gang",
         grades = {
             { name = 'Little G' },
             { name = 'Gansta' },
@@ -727,6 +768,7 @@ QBShared.Gangs = {
     },
     unypink = {
         label = 'Uny Pink',
+        type = "gang",
         grades = {
             { name = 'Lil Homies' },
             { name = 'Homies' },
@@ -740,6 +782,7 @@ QBShared.Gangs = {
     },
     gitans = {
         label = 'Gitans',
+        type = "gang",
         grades = {
             { name = 'La Nièce' },
             { name = 'Les Jus de Bite' },
@@ -749,6 +792,7 @@ QBShared.Gangs = {
     },
     bcb = {
         label = 'BCB',
+        type = "gang",
         grades = {
             { name = 'Esbirro' },
             { name = 'Soldado' },
@@ -760,6 +804,7 @@ QBShared.Gangs = {
     },
     theorder = {
         label = 'The Order',
+        type = "organization",
         grades = {
             { name = '1ère Classe' },
             { name = 'Caporal' },
@@ -771,6 +816,7 @@ QBShared.Gangs = {
     },
     soa = {
         label = 'Sons Of Anarchy',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Full Patch' },
@@ -784,6 +830,7 @@ QBShared.Gangs = {
     },
     mayans = {
         label = 'Mayans MC',
+        type = "biker",
         grades = {
             { name = 'Prospect' },
             { name = 'Membre' },
@@ -799,6 +846,7 @@ QBShared.Gangs = {
     },
     babydriver = {
         label = 'Baby Driver',
+        type = "little",
         grades = {
             { name = 'Recrue' },
             { name = 'Driver Confirmé' },

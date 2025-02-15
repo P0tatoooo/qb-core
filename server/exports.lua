@@ -234,7 +234,7 @@ QBCore.Functions.AddGang = AddGang
 exports('AddGang', AddGang)
 
 -- Multiple Add Gangs
-local function AddGangs(gangs)
+local function UpdateGangs(gangs)
     local shouldContinue = true
     local message = 'success'
     local errorItem = nil
@@ -249,7 +249,7 @@ local function AddGangs(gangs)
 
         if QBCore.Shared.Gangs[key] then
             message = 'gang_exists'
-            shouldContinue = false
+            --shouldContinue = false
             errorItem = gangs[key]
             break
         end
@@ -263,8 +263,8 @@ local function AddGangs(gangs)
     return true, message, nil
 end
 
-QBCore.Functions.AddGangs = AddGangs
-exports('AddGangs', AddGangs)
+QBCore.Functions.UpdateGangs = UpdateGangs
+exports('UpdateGangs', UpdateGangs)
 
 -- Single Remove Gang
 local function RemoveGang(gangName)
