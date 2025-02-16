@@ -247,12 +247,12 @@ local function UpdateGangs(gangs)
             break
         end
 
-        if QBCore.Shared.Gangs[key] then
-            message = 'gang_exists'
+        --if QBCore.Shared.Gangs[key] then
+            --message = 'gang_exists'
             --shouldContinue = false
-            errorItem = gangs[key]
-            break
-        end
+            --errorItem = gangs[key]
+            --break
+        --end
 
         QBCore.Shared.Gangs[key] = value
     end
