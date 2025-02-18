@@ -291,3 +291,7 @@ RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)
 		xPlayer.Functions.SetMetaData('armor', armor)
 	end
 end)
+
+QBCore.Functions.CreateCallback('QBCore:GetServerGangs', function(source, cb, weaponName)
+    cb(QBCore.Shared.Gangs, QBCore.Shared.Jobs)
+end)
