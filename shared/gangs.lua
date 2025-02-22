@@ -537,18 +537,6 @@ QBShared.Gangs = {
             { name = 'Commandant', isboss = true },
         },
     },
-    santarosario = {
-        label = 'Santa Rosario',
-        type = "organization",
-        grades = {
-            { name = 'Soldat' },
-            { name = 'Caporal' },
-            { name = 'Capitaine', isboss = true },
-            { name = 'Bras Gauche', isboss = true },
-            { name = 'Bras Droit', isboss = true },
-            { name = 'Jefe', isboss = true },
-        },
-    },
     jagerfly = {
         label = 'Jagerfly MC',
         type = "biker",
@@ -565,6 +553,43 @@ QBShared.Gangs = {
             { name = 'Sergent d\'Armes', isboss = true },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
+        },
+    },
+    valhalla = {
+        label = 'Valhalla MC',
+        type = "biker",
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Capitaine de Route' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Sergent d\'Armes', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
+    theorder = {
+        label = 'The Order',
+        type = "organization",
+        grades = {
+            { name = '1ère Classe' },
+            { name = 'Caporal' },
+            { name = 'Sergent' },
+            { name = 'Capitaine', isboss = true },
+            { name = 'Colonel', isboss = true },
+            { name = 'Général', isboss = true },
+        },
+    },
+    hustler17th = {
+        label = '17th Hustler',
+        type = "gang",
+        grades = {
+            { name = 'Little G' },
+            { name = 'Gansta' },
+            { name = 'Hustler' },
+            { name = 'Big Hustler', isboss = true },
+            { name = 'Young G', isboss = true },
+            { name = 'OG', isboss = true },
         },
     },
     ]]
@@ -719,19 +744,6 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
-    valhalla = {
-        label = 'Valhalla MC',
-        type = "biker",
-        grades = {
-            { name = 'Prospect' },
-            { name = 'Membre' },
-            { name = 'Capitaine de Route' },
-            { name = 'Trésorier', isboss = true },
-            { name = 'Sergent d\'Armes', isboss = true },
-            { name = 'Vice-Président', isboss = true },
-            { name = 'Président', isboss = true },
-        },
-    },
     ballas = {
         label = 'Ballas',
         type = "gang",
@@ -752,18 +764,6 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
             { name = 'Double OG', isboss = true },
             { name = 'Triple OG', isboss = true },
-        },
-    },
-    hustler17th = {
-        label = '17th Hustler',
-        type = "gang",
-        grades = {
-            { name = 'Little G' },
-            { name = 'Gansta' },
-            { name = 'Hustler' },
-            { name = 'Big Hustler', isboss = true },
-            { name = 'Young G', isboss = true },
-            { name = 'OG', isboss = true },
         },
     },
     unypink = {
@@ -801,18 +801,6 @@ QBShared.Gangs = {
             { name = 'Teniente', isboss = true },
             { name = 'Socio', isboss = true },
             { name = 'Lider', isboss = true },
-        },
-    },
-    theorder = {
-        label = 'The Order',
-        type = "organization",
-        grades = {
-            { name = '1ère Classe' },
-            { name = 'Caporal' },
-            { name = 'Sergent' },
-            { name = 'Capitaine', isboss = true },
-            { name = 'Colonel', isboss = true },
-            { name = 'Général', isboss = true },
         },
     },
     soa = {
@@ -853,6 +841,17 @@ QBShared.Gangs = {
             { name = 'Driver Confirmé' },
             { name = 'Pilote' },
             { name = 'Wheelman', isboss = true },
+        },
+    },
+    santarosa = {
+        label = 'Cartel de Santa Rosa',
+        type = "organization",
+        grades = {
+            { name = 'Soldado' },
+            { name = 'Guerrero' },
+            { name = 'Teniente', isboss = true },
+            { name = 'Segundo', isboss = true },
+            { name = 'Jefe', isboss = true },
         },
     },
 }
