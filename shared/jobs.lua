@@ -605,4 +605,16 @@ QBShared.Jobs = {
 			{ name = 'Patron', isboss = true, payment = 150 },
 		},
 	},
+
+	beat = {
+		label = 'B.E.A.T',
+		type = 'beat',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Co-Fondateur', isboss = true, payment = 100 },
+			{ name = 'Fondateur', isboss = true, payment = 125 },
+		},
+	},
 }
