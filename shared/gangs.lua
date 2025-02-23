@@ -605,7 +605,7 @@ QBShared.Gangs = {
     },
     kcorp = {
         label = 'Kcorp',
-        type = "neutral",
+        type = "organization",
         grades = {
             { name = 'Membre', isboss = true },
         },
