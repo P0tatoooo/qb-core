@@ -854,4 +854,29 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
+    bloods = {
+        label = "West Side Blood's",
+        type = 'gang',
+        grades = {
+            { name = 'Petit' },
+            { name = 'Membre' },
+            { name = 'Grand' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
+    lamainnoire = {
+        label = 'La Main Noire',
+        type = "organization",
+        grades = {
+            { name = 'Les Initiés' },
+            { name = 'Les Executants' },
+            { name = 'Les Associés ' },
+            { name = 'Le Negociateur' },
+            { name = 'Le Sous-Lieutenant', isboss = true },
+            { name = 'Le Lieutenant', isboss = true },
+            { name = 'Le Conseiller', isboss = true },
+            { name = 'Le Parrain', isboss = true },
+        },
+    },
 }
