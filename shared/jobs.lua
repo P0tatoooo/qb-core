@@ -31,6 +31,23 @@ QBShared.Jobs = {
 		},
 	},
 
+	sheriff = {
+		label = 'BCSO',
+		type = 'leo',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+            { name = 'Rookie', payment = 125 },
+            { name = 'Ranger', payment = 125 },
+            { name = 'Deputy', payment = 125 },
+            { name = 'Deputy Chef', payment = 125 },
+            { name = 'Lieutenant', payment = 125 },
+            { name = 'Chef de Division', payment = 125 },
+			{ name = 'Shérif Adjoint', isboss = true, payment = 150 },
+            { name = 'Shérif', isboss = true, payment = 150 },
+		},
+	},
+
     ambulance = {
 		label = 'EMS',
 		type = 'ems',
