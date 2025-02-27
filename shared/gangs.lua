@@ -879,4 +879,15 @@ QBShared.Gangs = {
             { name = 'Le Parrain', isboss = true },
         },
     },
+    indomptables = {
+        label = 'Les Indomptables',
+        type = "organization",
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Lead' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Bras droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
