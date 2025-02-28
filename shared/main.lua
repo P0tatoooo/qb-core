@@ -97,6 +97,10 @@ function QBShared.CheckBlPlate(plate)
     end
 end
 
+function QBShared.IsInNorth(coords)
+    return coords.y > 1310
+end
+
 QBShared.MaleGloves = {
     [16] = true,
     [17] = true,
