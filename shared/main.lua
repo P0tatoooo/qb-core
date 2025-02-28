@@ -682,6 +682,7 @@ QBShared.SalaryPeriods = {
 
 QBShared.PublicJobs = {
     ["police"] = 0,
+    ["sheriff"] = 0,
     ["ambulance"] = 0, 
     ['government'] = 0,
     ['lawyer'] = 0,
