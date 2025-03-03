@@ -890,4 +890,16 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    families = {
+        label = 'Families',
+        type = "gang",
+        grades = {
+            { name = 'Petit' },
+            { name = 'Gangsta' },
+            { name = 'Great Gangsta' },
+            { name = 'Big Gangsta', isboss = true },
+            { name = 'Double OG', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
