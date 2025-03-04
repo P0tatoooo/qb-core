@@ -902,4 +902,15 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    klanhochburg = {
+        label = 'Klan Hochburg',
+        type = "organization",
+        grades = {
+            { name = 'biraz ' },
+            { name = 'wenig' },
+            { name = 'teğmen', isboss = true },
+            { name = 'zweite', isboss = true },
+            { name = 'şef', isboss = true },
+        },
+    }
 }
