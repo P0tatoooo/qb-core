@@ -592,6 +592,52 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    bcb = {
+        label = 'BCB',
+        type = "gang",
+        grades = {
+            { name = 'Esbirro' },
+            { name = 'Soldado' },
+            { name = 'Sergento' },
+            { name = 'Teniente', isboss = true },
+            { name = 'Socio', isboss = true },
+            { name = 'Lider', isboss = true },
+        },
+    },
+    babydriver = {
+        label = 'Baby Driver',
+        type = "little",
+        grades = {
+            { name = 'Recrue' },
+            { name = 'Driver Confirmé' },
+            { name = 'Pilote' },
+            { name = 'Wheelman', isboss = true },
+        },
+    },
+    gitans = {
+        label = 'Gitans',
+        type = "gang",
+        grades = {
+            { name = 'La Nièce' },
+            { name = 'Les Jus de Bite' },
+            { name = 'Les Grands', isboss = true },
+            { name = "L'Ancien", isboss = true },
+        },
+    },
+    segadores = {
+        label = 'Segadores MC',
+        type = "biker",
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Miembro' },
+            { name = 'Tresorero', isboss = true },
+            { name = 'El secretaro', isboss = true },
+            { name = 'El Pacificator', isboss = true },
+            { name = 'Captain del Camino', isboss = true },
+            { name = 'VP', isboss = true },
+            { name = 'Presidente', isboss = true },
+        },
+    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
@@ -696,20 +742,6 @@ QBShared.Gangs = {
             { name = 'Triple OG', isboss = true },
         },
     }, 
-    segadores = {
-        label = 'Segadores MC',
-        type = "biker",
-        grades = {
-            { name = 'Prospect' },
-            { name = 'Miembro' },
-            { name = 'Tresorero', isboss = true },
-            { name = 'El secretaro', isboss = true },
-            { name = 'El Pacificator', isboss = true },
-            { name = 'Captain del Camino', isboss = true },
-            { name = 'VP', isboss = true },
-            { name = 'Presidente', isboss = true },
-        },
-    },
     vagos = {
         label = 'Vagos',
         type = "gang",
@@ -781,28 +813,6 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
-    gitans = {
-        label = 'Gitans',
-        type = "gang",
-        grades = {
-            { name = 'La Nièce' },
-            { name = 'Les Jus de Bite' },
-            { name = 'Les Grands', isboss = true },
-            { name = "L'Ancien", isboss = true },
-        },
-    },
-    bcb = {
-        label = 'BCB',
-        type = "gang",
-        grades = {
-            { name = 'Esbirro' },
-            { name = 'Soldado' },
-            { name = 'Sergento' },
-            { name = 'Teniente', isboss = true },
-            { name = 'Socio', isboss = true },
-            { name = 'Lider', isboss = true },
-        },
-    },
     soa = {
         label = 'Sons Of Anarchy',
         type = "biker",
@@ -831,16 +841,6 @@ QBShared.Gangs = {
             { name = 'Conseiller', isboss = true },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
-        },
-    },
-    babydriver = {
-        label = 'Baby Driver',
-        type = "little",
-        grades = {
-            { name = 'Recrue' },
-            { name = 'Driver Confirmé' },
-            { name = 'Pilote' },
-            { name = 'Wheelman', isboss = true },
         },
     },
     santarosa = {
