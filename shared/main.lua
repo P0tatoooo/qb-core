@@ -651,6 +651,7 @@ QBShared.MaleBags = {
     [152] = true,
     [155] = true,
     [156] = true,
+    [184] = true,
 }
 
 QBShared.FemaleBags = {
@@ -677,6 +678,7 @@ QBShared.FemaleBags = {
     [180] = true,
     [183] = true,
     [184] = true,
+    [214] = true,
 }
 
 QBShared.SalaryPeriods = {
