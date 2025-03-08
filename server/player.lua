@@ -710,7 +710,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local result = MySQL.query.await('INSERT INTO old_properties SELECT * FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         local result = MySQL.query.await('DELETE FROM properties WHERE owner = @citizenid AND type = "civil"', {['@citizenid'] = citizenid})
-        local result = MySQL.query.await('UPDATE properties SET owner = "", ownername = "", insidecoordinates = "{}", furniture = "{}", status = "locked" WHERE owner = @citizenid AND type = "civilipl"', {['@citizenid'] = citizenid})
+        local result = MySQL.query.await('UPDATE properties SET owner = "", ownername = "", furniture = "{}", status = "locked" WHERE owner = @citizenid AND type = "civilipl"', {['@citizenid'] = citizenid})
 
         local propertiesText = ""
         local resultproperties = MySQL.query.await('SELECT * FROM properties WHERE owner=@owner', {
