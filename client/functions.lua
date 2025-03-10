@@ -286,6 +286,12 @@ function QBCore.Functions.TriggerCallback(name, cb, ...)
     TriggerServerEvent('QBCore:Server:TriggerCallback', name, ...)
 end
 
+-- Server Latent Callback
+function QBCore.Functions.TriggerLatentCallback(name, cb, ...)
+    QBCore.ServerCallbacks[name] = cb
+    TriggerServerEvent('QBCore:Server:TriggerLatentCallback', name, ...)
+end
+
 function QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCancel, disableControls, animation, prop, propTwo, onFinish, onCancel)
     if GetResourceState('progressbar') ~= 'started' then error('progressbar needs to be started in order for QBCore.Functions.Progressbar to work') end
     exports['progressbar']:Progress({

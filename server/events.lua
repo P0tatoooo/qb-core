@@ -111,6 +111,14 @@ RegisterNetEvent('QBCore:Server:TriggerCallback', function(name, ...)
     end, ...)
 end)
 
+-- Server Latent Callback
+RegisterNetEvent('QBCore:Server:TriggerLatentCallback', function(name, ...)
+    local src = source
+    QBCore.Functions.TriggerCallback(name, src, function(...)
+        TriggerLatentClientEvent('QBCore:Client:TriggerCallback', src, 1000000, name, ...)
+    end, ...)
+end)
+
 -- Player
 
 RegisterNetEvent('QBCore:UpdatePlayer', function()
