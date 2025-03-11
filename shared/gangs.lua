@@ -912,5 +912,20 @@ QBShared.Gangs = {
             { name = 'zweite', isboss = true },
             { name = 'şef', isboss = true },
         },
-    }
+    },
+    boyz50 = {
+        label = "50 Boyz",
+        type = 'gang',
+        grades = {
+            { name = 'Thug' },
+            { name = 'Real Thug' },
+            { name = 'Real Black' },
+            { name = 'Gansta' },
+            { name = 'Real Gansta' },
+            { name = 'Communication' },
+            { name = 'Advice Gangsta' },
+            { name = 'Big Gangsta', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
 }
