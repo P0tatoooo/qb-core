@@ -928,4 +928,16 @@ QBShared.Gangs = {
             { name = 'OG', isboss = true },
         },
     },
+    marabunta = {
+        label = "Marabunta",
+        type = 'gang',
+        grades = {
+            { name = 'Nino' },
+            { name = 'Soldado' },
+            { name = 'Commandante' },
+            { name = 'Teniente', isboss = true },
+            { name = 'Secundo', isboss = true },
+            { name = 'Jefe', isboss = true },
+        },
+    },
 }
