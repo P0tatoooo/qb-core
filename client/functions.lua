@@ -364,7 +364,7 @@ function QBCore.Functions.GetPeds(ignoreList)
     return peds
 end
 
-function QBCore.Functions.GetClosestPed(coords, ignoreList)
+function QBCore.Functions.GetClosestPed(coords, ignoreList, modelFilter, isWhitelist)
     local ped = PlayerPedId()
     if coords then
         coords = type(coords) == 'table' and vec3(coords.x, coords.y, coords.z) or coords
@@ -373,6 +373,33 @@ function QBCore.Functions.GetClosestPed(coords, ignoreList)
     end
     ignoreList = ignoreList or {}
     local peds = QBCore.Functions.GetPeds(ignoreList)
+
+    if modelFilter then
+        local filter = {}
+        if type(modelFilter) == 'string' then
+            filter[GetHashKey(modelFilter)] = true
+        elseif type(modelFilter) == 'table' then
+            for _,model in pairs(modelFilter) do
+                if type(model) == 'string' then
+                    filter[GetHashKey(model)] = true
+                else
+                    filter[model] = true
+                end
+            end
+        else
+            filter[modelFilter] = true
+        end
+        modelFilter = filter
+
+        local filteredEntities = {}
+        for _,entity in pairs(peds) do
+            if (isWhitelist and modelFilter[GetEntityModel(entity)]) or (not isWhitelist and not modelFilter[GetEntityModel(entity)]) then
+                filteredEntities[#filteredEntities+1] = entity
+            end
+        end
+        peds = filteredEntities
+    end
+
     local closestDistance = -1
     local closestPed = -1
     for i = 1, #peds, 1 do
