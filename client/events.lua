@@ -227,7 +227,7 @@ end)
 
 -- Me command
 
---[[ local function Draw3DText(coords, str)
+local function Draw3DText(coords, str)
     local onScreen, worldX, worldY = World3dToScreen2d(coords.x, coords.y, coords.z)
     local camCoords = GetGameplayCamCoord()
     local scale = 200 / (GetGameplayCamFov() * #(camCoords - coords))
@@ -269,7 +269,7 @@ RegisterNetEvent('QBCore:Command:ShowMe3D', function(senderId, msg)
         Wait(0)
     end
     pedDisplaying[targetPed] = pedDisplaying[targetPed] - 1
-end) ]]
+end)
 
 -- Listen to Shared being updated
 RegisterNetEvent('QBCore:Client:OnSharedUpdate', function(tableName, key, value)

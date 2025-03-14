@@ -368,7 +368,7 @@ QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t
 end, 'admin')
 
 -- Me command
---[[ QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.me.params.message.name'), help = Lang:t('command.me.params.message.help') } }, true, function(source, args)
+QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.me.params.message.name'), help = Lang:t('command.me.params.message.help') } }, true, function(source, args)
     if #args < 1 then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.missing_args2'), 'error')
         return
@@ -388,4 +388,4 @@ end, 'admin')
 
     local xPlayer = QBCore.Functions.GetPlayer(source)
     TriggerEvent('MyCity_Core:MeCommand:Logs', xPlayer.PlayerData.rpname, msg, xPlayer.PlayerData.source)
-end, 'user') ]]
+end, 'user')
