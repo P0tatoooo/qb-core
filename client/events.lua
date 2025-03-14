@@ -227,7 +227,7 @@ end)
 
 -- Me command
 
-local function Draw3DText(coords, str)
+--[[ local function Draw3DText(coords, str)
     local onScreen, worldX, worldY = World3dToScreen2d(coords.x, coords.y, coords.z)
     local camCoords = GetGameplayCamCoord()
     local scale = 200 / (GetGameplayCamFov() * #(camCoords - coords))
@@ -252,6 +252,13 @@ RegisterNetEvent('QBCore:Command:ShowMe3D', function(senderId, msg)
     local displayTime = 5000 + GetGameTimer()
 
     pedDisplaying[targetPed] = (pedDisplaying[targetPed] or 1) + 1
+
+    if pedDisplaying[targetPed] > 4 then
+        while pedDisplaying[targetPed] > 1 do Citizen.Wait(100) end
+        Citizen.Wait(math.random(0, 250))
+        pedDisplaying[targetPed] = (pedDisplaying[targetPed] or 1) + 1
+    end
+
     local offset = 0.8 + pedDisplaying[targetPed] * 0.1
     while displayTime > GetGameTimer() do
         local tCoords = GetEntityCoords(targetPed)
@@ -261,7 +268,8 @@ RegisterNetEvent('QBCore:Command:ShowMe3D', function(senderId, msg)
         end
         Wait(0)
     end
-end)
+    pedDisplaying[targetPed] = pedDisplaying[targetPed] - 1
+end) ]]
 
 -- Listen to Shared being updated
 RegisterNetEvent('QBCore:Client:OnSharedUpdate', function(tableName, key, value)
