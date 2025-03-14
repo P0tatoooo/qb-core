@@ -271,6 +271,36 @@ RegisterNetEvent('QBCore:Command:ShowMe3D', function(senderId, msg)
     pedDisplaying[targetPed] = pedDisplaying[targetPed] - 1
 end) ]]
 
+-- Render loop
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        local currentTime = GetGameTimer()
+        
+        if #activeMessages > 0 then
+            for senderId, messages in pairs(activeMessages) do
+                local offset = 0.9
+                for i = #messages, 1, -1 do
+                    local msgData = messages[i]
+                    if currentTime - msgData.timestamp > displayDuration * 1000 then
+                        removeOldestMessage(senderId)
+                        processQueue(senderId)
+                    else
+                        local targetPed = GetPlayerPed(msgData.targetid)
+                        if targetPed ~= -1 and HasEntityClearLosToEntity(PlayerPedId(), targetPed, 17 ) then
+                            local coords = GetEntityCoords(targetPed)
+                            QBCore.Functions.DrawText3D(vec3(coords.x, coords.y, coords.z + offset), msgData.text)
+                            offset = offset + 0.1
+                        end
+                    end
+                end
+            end
+        else
+            Citizen.Wait(1000)
+        end
+    end
+end)
+
 -- Listen to Shared being updated
 RegisterNetEvent('QBCore:Client:OnSharedUpdate', function(tableName, key, value)
     QBCore.Shared[tableName][key] = value
