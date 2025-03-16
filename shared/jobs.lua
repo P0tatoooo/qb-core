@@ -634,4 +634,18 @@ QBShared.Jobs = {
 			{ name = 'Fondateur', isboss = true, payment = 125 },
 		},
 	},
+
+	coffeeshop = {
+		label = 'Bean Machine',
+		type = 'coffeeshop',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Stagiaire', payment = 75 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Manager', payment = 75 },
+			{ name = 'Co-Patron', isboss = true, payment = 100 },
+			{ name = 'Patron', isboss = true, payment = 125 },
+		},
+	},
 }
