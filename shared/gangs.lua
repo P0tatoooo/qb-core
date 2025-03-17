@@ -934,6 +934,7 @@ QBShared.Gangs = {
         grades = {
             { name = 'Nino' },
             { name = 'Soldado' },
+            { name = 'Sicario' },
             { name = 'Commandante' },
             { name = 'Teniente', isboss = true },
             { name = 'Secundo', isboss = true },
