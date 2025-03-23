@@ -624,7 +624,7 @@ QBShared.Jobs = {
 		},
 	},
 
-	beat = {
+	--[[ beat = {
 		label = 'B.E.A.T',
 		type = 'beat',
 		defaultDuty = false,
@@ -634,7 +634,7 @@ QBShared.Jobs = {
 			{ name = 'Co-Fondateur', isboss = true, payment = 100 },
 			{ name = 'Fondateur', isboss = true, payment = 125 },
 		},
-	},
+	}, ]]
 
 	coffeeshop = {
 		label = 'Bean Machine',
