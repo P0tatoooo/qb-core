@@ -671,6 +671,17 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
+    klanhochburg = {
+        label = 'Klan Hochburg',
+        type = "organization",
+        grades = {
+            { name = 'biraz ' },
+            { name = 'wenig' },
+            { name = 'teğmen', isboss = true },
+            { name = 'zweite', isboss = true },
+            { name = 'şef', isboss = true },
+        },
+    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
@@ -900,17 +911,6 @@ QBShared.Gangs = {
             { name = 'Big Gangsta', isboss = true },
             { name = 'Double OG', isboss = true },
             { name = 'OG', isboss = true },
-        },
-    },
-    klanhochburg = {
-        label = 'Klan Hochburg',
-        type = "organization",
-        grades = {
-            { name = 'biraz ' },
-            { name = 'wenig' },
-            { name = 'teğmen', isboss = true },
-            { name = 'zweite', isboss = true },
-            { name = 'şef', isboss = true },
         },
     },
     boyz50 = {
