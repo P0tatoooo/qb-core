@@ -941,4 +941,15 @@ QBShared.Gangs = {
             { name = 'Jefe', isboss = true },
         },
     },
+    blackshadow = {
+        label = "The Black Shadow",
+        type = 'little',
+        grades = {
+            { name = 'Ptits' },
+            { name = 'Gangsangsta' },
+            { name = 'Main Forte' },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Boss', isboss = true },
+        },
+    },
 }
