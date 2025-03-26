@@ -682,6 +682,18 @@ QBShared.Gangs = {
             { name = 'şef', isboss = true },
         },
     },
+    families = {
+        label = 'Families',
+        type = "gang",
+        grades = {
+            { name = 'Petit' },
+            { name = 'Gangsta' },
+            { name = 'Great Gangsta' },
+            { name = 'Big Gangsta', isboss = true },
+            { name = 'Double OG', isboss = true },
+            { name = 'OG', isboss = true },
+        },
+    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
@@ -899,18 +911,6 @@ QBShared.Gangs = {
             { name = 'Trésorier', isboss = true },
             { name = 'Bras droit', isboss = true },
             { name = 'Boss', isboss = true },
-        },
-    },
-    families = {
-        label = 'Families',
-        type = "gang",
-        grades = {
-            { name = 'Petit' },
-            { name = 'Gangsta' },
-            { name = 'Great Gangsta' },
-            { name = 'Big Gangsta', isboss = true },
-            { name = 'Double OG', isboss = true },
-            { name = 'OG', isboss = true },
         },
     },
     boyz50 = {
