@@ -724,7 +724,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
         local result = MySQL.query.await('DELETE FROM storages WHERE owner = @citizenid', {['@citizenid'] = citizenid})
 
         local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nJob : **' .. Player.PlayerData.job.label .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
-        TriggerEvent('MyCity_Core:Wipe:Logs', "Wipe", message, sourceplayer)
+        TriggerEvent('MyCity_CoreV2:Wipe:Logs', "Wipe", message, sourceplayer)
     end
 end
 

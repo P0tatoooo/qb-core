@@ -104,7 +104,7 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
 
                 if source ~= 0 then
                     local xPlayer = QBCore.Functions.GetPlayer(source)
-                    TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. x .. ' ' .. y .. ' ' .. z, xPlayer.PlayerData.source)
+                    TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tp ' .. x .. ' ' .. y .. ' ' .. z, xPlayer.PlayerData.source)
                 end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.wrong_format'), 'error')
@@ -119,7 +119,7 @@ QBCore.Commands.Add('tpm', Lang:t('command.tpm.help'), {}, false, function(sourc
     TriggerClientEvent('QBCore:Command:GoToMarker', source)
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tpm', xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'tpm', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -138,7 +138,7 @@ QBCore.Commands.Add('addpermission', Lang:t('command.addpermission.help'), { { n
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'addpermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'addpermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
         end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
@@ -157,7 +157,7 @@ QBCore.Commands.Add('removepermission', Lang:t('command.removepermission.help'),
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'removepermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'removepermission ' .. Player.PlayerData.source .. ' ' .. permission, xPlayer.PlayerData.source)
         end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
@@ -177,7 +177,7 @@ QBCore.Commands.Add('openserver', Lang:t('command.openserver.help'), {}, false, 
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'openserver', xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'openserver', xPlayer.PlayerData.source)
         end
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
@@ -202,7 +202,7 @@ QBCore.Commands.Add('closeserver', Lang:t('command.closeserver.help'), { { name 
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'closeserver', xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'closeserver', xPlayer.PlayerData.source)
         end
     else
         QBCore.Functions.Kick(source, Lang:t('error.no_permission'), nil, nil)
@@ -220,7 +220,7 @@ QBCore.Commands.Add('car', Lang:t('command.car.help'), { { name = Lang:t('comman
 
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'car ' .. args[1], xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'car ' .. args[1], xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -228,7 +228,7 @@ QBCore.Commands.Add('dv', Lang:t('command.dv.help'), { { name = "radius", help =
     TriggerClientEvent('QBCore:Command:DeleteVehicle', source, (args[1] and tonumber(args[1])) or nil)
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dv ' .. (tonumber(args[1]) or ''), xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dv ' .. (tonumber(args[1]) or ''), xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -239,7 +239,7 @@ QBCore.Commands.Add('dvall', "Supprimer tous les véhicules aux alentours", {}, 
     end
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvall', xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvall', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -252,7 +252,7 @@ QBCore.Commands.Add('dvp', "Supprimer tous les peds aux alentours", {}, false, f
     end
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvp', xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvp', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -265,7 +265,7 @@ QBCore.Commands.Add('dvo',  "Supprimer tous les objets aux alentours", {}, false
     end
     if source ~= 0 then
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvo', xPlayer.PlayerData.source)
+        TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'dvo', xPlayer.PlayerData.source)
     end
 end, 'admin')
 
@@ -278,7 +278,7 @@ QBCore.Commands.Add('givemoney', Lang:t('command.givemoney.help'), { { name = La
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'givemoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'givemoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
         end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
@@ -292,7 +292,7 @@ QBCore.Commands.Add('removemoney', "Enlever de l'argent à un joueur", { { name 
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'removemoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'removemoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
         end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
@@ -306,7 +306,7 @@ QBCore.Commands.Add('setmoney', Lang:t('command.setmoney.help'), { { name = Lang
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
-            TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setmoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
+            TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setmoney ' .. Player.PlayerData.source .. ' ' .. (tostring(args[2]) or '') .. ' '.. (tonumber(args[3]) or ''), xPlayer.PlayerData.source)
         end
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
@@ -331,7 +331,7 @@ QBCore.Commands.Add('setjob', Lang:t("command.setjob.help"), { { name = Lang:t("
         
             if source ~= 0 then
                 local xPlayer = QBCore.Functions.GetPlayer(source)
-                TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setjob ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
+                TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setjob ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
             end
         else
             TriggerClientEvent('QBCore:Notify', source, "Le job ou le grade n'existe pas", 'error')
@@ -357,7 +357,7 @@ QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t
         
             if source ~= 0 then
                 local xPlayer = QBCore.Functions.GetPlayer(source)
-                TriggerEvent('MyCity_Core:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setgang ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
+                TriggerEvent('MyCity_CoreV2:AdminCommand:Logs', xPlayer.PlayerData.rpname, 'setgang ' .. Player.PlayerData.source .. ' ' .. (args[2] or '') .. ' '.. (args[3] or ''), xPlayer.PlayerData.source)
             end
         else
             TriggerClientEvent('QBCore:Notify', source, "Le gang ou le grade n'existe pas", 'error')
@@ -387,5 +387,5 @@ QBCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.
     end
 
     local xPlayer = QBCore.Functions.GetPlayer(source)
-    TriggerEvent('MyCity_Core:MeCommand:Logs', xPlayer.PlayerData.rpname, msg, xPlayer.PlayerData.source)
+    TriggerEvent('MyCity_CoreV2:MeCommand:Logs', xPlayer.PlayerData.rpname, msg, xPlayer.PlayerData.source)
 end, 'user')
