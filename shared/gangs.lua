@@ -952,4 +952,19 @@ QBShared.Gangs = {
             { name = 'Boss', isboss = true },
         },
     },
+    oldbones = {
+        label = 'Old Bones MC',
+        type = "biker",
+        grades = {
+            { name = 'Prospect' },
+            { name = 'Membre' },
+            { name = 'Membre Sénior' },
+            { name = 'Road Captain' },
+            { name = "Sergent d'Armes" },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Secrétaire', isboss = true },
+            { name = 'Vice-Président', isboss = true },
+            { name = 'Président', isboss = true },
+        },
+    },
 }
