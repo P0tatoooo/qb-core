@@ -122,7 +122,8 @@ end
 
 function QBCore.Player.GetOfflinePlayerByLicense(license)
     if license then
-        local PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where license = ?', { license })
+        local result = MySQL.query.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where license = ? AND cid=1', { license })
+        local PlayerData = result[1]
         if PlayerData then
             PlayerData.coins = 0
             local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
@@ -311,8 +312,22 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
     end
 
     function self.Functions.GetCoords()
-        local playerPed = GetPlayerPed(self.PlayerData.source)
-        local playerCoords = GetEntityCoords(playerPed)
+        local playerCoords
+
+        local playerPed
+        if tonumber(self.PlayerData.source) then
+            playerPed = GetPlayerPed(self.PlayerData.source)
+        end
+        
+        if playerPed and DoesEntityExist(playerPed) then
+            playerCoords = GetEntityCoords(playerPed)
+        else
+            if self.PlayerData.position and self.PlayerData.position.x then
+                playerCoords = vec3(self.PlayerData.position.x, self.PlayerData.position.y, self.PlayerData.position.y)
+            else
+                playerCoords = vector3(0,0,0)
+            end
+        end
         return playerCoords or vector3(0,0,0)
     end
 
