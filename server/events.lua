@@ -1,4 +1,5 @@
 -- Event Handler
+MC_DEBUG = GetConvarInt('mc_debug', 0) ~= 0
 
 AddEventHandler('chatMessage', function(_, _, message)
     if string.sub(message, 1, 1) == '/' then
@@ -45,7 +46,7 @@ local function onPlayerConnecting(name, _, deferrals)
 
     if not license then
         return deferrals.done(Lang:t('error.no_valid_license'))
-    elseif QBCore.Config.Server.CheckDuplicateLicense and QBCore.Functions.IsLicenseInUse(license) then
+    elseif QBCore.Config.Server.CheckDuplicateLicense and QBCore.Functions.IsLicenseInUse(license) and not MC_DEBUG then
         return deferrals.done(Lang:t('error.duplicate_license'))
     end
 
