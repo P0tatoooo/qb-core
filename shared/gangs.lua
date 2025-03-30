@@ -92,17 +92,6 @@ QBShared.Gangs = {
             { name = 'Major', isboss = true },
         },
     },
-    cosanostra = {
-        label = 'Cosa Nostra',
-        type = "organization",
-        grades = {
-            { name = 'Picciollo' },
-            { name = 'Soldado' },
-            { name = 'Capo', isboss = true },
-            { name = 'Consigliere', isboss = true },
-            { name = 'Don', isboss = true },
-        },
-    },
     ms13 = {
         label = 'MS13',
         type = "organization",
@@ -965,6 +954,18 @@ QBShared.Gangs = {
             { name = 'Secrétaire', isboss = true },
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
+        },
+    },
+    cosanostra = {
+        label = 'Cosa Nostra',
+        type = "organization",
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Capitaine' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Co-Lead', isboss = true },
+            { name = 'Lead', isboss = true },
         },
     },
 }
