@@ -699,6 +699,18 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    cosanostra = {
+        label = 'Cosa Nostra',
+        type = "organization",
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Capitaine' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Co-Lead', isboss = true },
+            { name = 'Lead', isboss = true },
+        },
+    },
     ]]
     nightkidz = {
         label = 'Night Kidz',
@@ -956,8 +968,8 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
-    cosanostra = {
-        label = 'Cosa Nostra',
+    torres = {
+        label = 'Famille Torres',
         type = "organization",
         grades = {
             { name = 'Soldat' },
