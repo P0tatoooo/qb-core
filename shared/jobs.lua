@@ -650,4 +650,18 @@ QBShared.Jobs = {
 			{ name = 'Patron', isboss = true, payment = 125 },
 		},
 	},
+
+	coyote = {
+		label = 'Le Coyote',
+		type = 'coyote',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Stagiaire', payment = 75 },
+			{ name = 'Employé', payment = 75 },
+			{ name = "Chef d'Equipe", payment = 75 },
+			{ name = 'Co-Patron', isboss = true, payment = 100 },
+			{ name = 'Patron', isboss = true, payment = 125 },
+		},
+	},
 }
