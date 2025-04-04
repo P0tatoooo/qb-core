@@ -701,3 +701,15 @@ QBShared.PublicJobs = {
     ['ammunation'] = 0,
     ['mcnews'] = 0,
 }
+
+QBShared.PublicJobsAndCivil = {
+    ["civil"] = 0,
+    ["police"] = 0,
+    ["sheriff"] = 0,
+    ["ambulance"] = 0, 
+    ['government'] = 0,
+    ['lawyer'] = 0,
+    ['gruppe6'] = 0,
+    ['ammunation'] = 0,
+    ['mcnews'] = 0,
+}
