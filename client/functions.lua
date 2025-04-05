@@ -665,6 +665,71 @@ function QBCore.Functions.GetClosestObject(coords, modelFilter, isWhitelist, ent
     return closestObject, closestDistance
 end
 
+function QBCore.Functions.ObjectsInArea(coords, range, modelFilter, isWhitelist, entityFilter, isEntityFilterWhitelist)
+    local objects = GetGamePool('CObject')
+    local closestDistances = {}
+    local closestObjects = {}
+    range = range or 5.0
+
+    if coords then
+        coords = type(coords) == 'table' and vec3(coords.x, coords.y, coords.z) or coords
+    else
+        coords = GetEntityCoords(PlayerPedId())
+    end
+
+    if modelFilter then
+        local filter = {}
+        if type(modelFilter) == 'string' then
+            filter[GetHashKey(modelFilter)] = true
+        elseif type(modelFilter) == 'table' then
+            for _,model in pairs(modelFilter) do
+                filter[GetHashKey(model)] = true
+            end
+        else
+            filter[modelFilter] = true
+        end
+        modelFilter = filter
+
+        local filteredEntities = {}
+        for _,entity in pairs(objects) do
+            if (isWhitelist and modelFilter[GetEntityModel(entity)]) or (not isWhitelist and not modelFilter[GetEntityModel(entity)]) then
+
+                filteredEntities[#filteredEntities+1] = entity
+            end
+        end
+        objects = filteredEntities
+    end
+
+    if entityFilter then
+        local filter = {}
+        if type(entityFilter) == 'table' then
+            for _,entity in pairs(entityFilter) do
+                filter[entity] = true
+            end
+        else
+            filter[entityFilter] = true
+        end
+        entityFilter = filter
+
+        local filteredEntities = {}
+        for _,entity in pairs(objects) do
+            if (isEntityFilterWhitelist and entityFilter[entity]) or (not isEntityFilterWhitelist and not entityFilter[entity]) then
+                filteredEntities[#filteredEntities+1] = entity
+            end
+        end
+        objects = filteredEntities
+    end
+
+    for i = 1, #objects, 1 do
+        local distance = #(GetEntityCoords(objects[i]) - coords)
+        if distance < range then
+            closestObjects[#closestObjects+1] = objects[i]
+            closestDistances[#closestDistances+1] = distance
+        end
+    end
+    return closestObjects, closestDistances
+end
+
 function QBCore.Functions.GetClosestBone(entity, list)
     local playerCoords, bone, coords, distance = GetEntityCoords(PlayerPedId())
     for _, element in pairs(list) do
