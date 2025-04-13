@@ -968,6 +968,18 @@ QBShared.Gangs = {
             { name = 'Président', isboss = true },
         },
     },
+    torres = {
+        label = 'Famille Torres',
+        type = "organization",
+        grades = {
+            { name = 'Soldat' },
+            { name = 'Capitaine' },
+            { name = 'Trésorier', isboss = true },
+            { name = 'Bras Droit', isboss = true },
+            { name = 'Co-Lead', isboss = true },
+            { name = 'Lead', isboss = true },
+        },
+    },
     mancini = {
         label = 'Famille Mancini',
         type = "organization",
