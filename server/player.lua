@@ -21,13 +21,28 @@ function QBCore.Player.Login(source, citizenid, newData)
                 if PlayerData.job.grade.level == 0 then
                     PlayerData.job.grade.level = 1
                 end
-                if QBCore.Shared.Jobs[PlayerData.job.name].grades[PlayerData.job.grade.level]?.name ~= PlayerData.job.grade.name then
-                    for k,v in pairs(QBCore.Shared.Jobs[PlayerData.job.name].grades) do
-                        if v.name == PlayerData.job.grade.name then
-                            PlayerData.job.grade.level = k
-                            break
+                if QBCore.Shared.Jobs[PlayerData.job.name] then
+                    if QBCore.Shared.Jobs[PlayerData.job.name].grades[PlayerData.job.grade.level]?.name ~= PlayerData.job.grade.name then
+                        for k,v in pairs(QBCore.Shared.Jobs[PlayerData.job.name].grades) do
+                            if v.name == PlayerData.job.grade.name then
+                                PlayerData.job.grade.level = k
+                                break
+                            end
                         end
                     end
+                else
+                    PlayerData.job = {
+                        name = 'unemployed',
+                        label = 'Sans Emploi',
+                        payment = 10,
+                        type = 'none',
+                        onduty = false,
+                        isboss = false,
+                        grade = {
+                            name = 'Chômeur',
+                            level = 0
+                        }
+                    }
                 end
 
                 PlayerData.gang = json.decode(PlayerData.gang)
@@ -44,6 +59,16 @@ function QBCore.Player.Login(source, citizenid, newData)
                             end
                         end
                     end
+                else
+                    PlayerData.gang = {
+                        name = 'civil',
+                        label = 'Civil',
+                        isboss = false,
+                        grade = {
+                            name = 'Sans Affiliation',
+                            level = 1
+                        }
+                    }
                 end
 
                 PlayerData.coins = 0
