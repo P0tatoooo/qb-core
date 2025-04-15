@@ -1,5 +1,6 @@
 QBCore.Players = {}
 QBCore.Player = {}
+MC_DEBUG = GetConvarInt('mc_debug', 0) ~= 0
 
 -- On player login get their data or set defaults
 -- Don't touch any of this unless you know what you are doing
@@ -689,7 +690,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
 
-        if GetConvarInt('mc_debug', 0) == 0 then
+        if not MC_DEBUG then
             if Player.PlayerData.job.name ~= "unemployed" then
                 TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name)
             end
@@ -779,8 +780,10 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             exports.MyCity_CoreV2:RemoveStorage(v.id)
         end
 
-        local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nJob : **' .. Player.PlayerData.job.label .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
-        TriggerEvent('MyCity_CoreV2:Wipe:Logs', "Wipe", message, sourceplayer)
+        if not MC_DEBUG then
+            local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nJob : **' .. Player.PlayerData.job.label .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
+            TriggerEvent('MyCity_CoreV2:Wipe:Logs', "Wipe", message, sourceplayer)
+        end
     end
 end
 
