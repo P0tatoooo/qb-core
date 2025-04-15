@@ -748,6 +748,20 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         --local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
 
+        local result2 = MySQL.query.await('SELECT coordinates FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
+        for l,w in pairs(result2) do
+            local coordinates = json.decode(w.coordinates)
+            if coordinates and coordinates.door then
+                local coords = vec3(coordinates.door.x, coordinates.door.y, -150.0 + (coordinates.offset or 0))
+                local posters = exports.MyCity_Posters:GetRegisteredPosters()
+                for k,v in pairs(posters) do
+                    if #(coords - v.pointA) < 50 then
+                        TriggerEvent("posters:deleteImage", k)
+                    end
+                end
+            end
+        end
+
         local result = MySQL.query.await('INSERT INTO old_properties SELECT * FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         local result = MySQL.query.await('DELETE FROM properties WHERE owner = @citizenid AND type = "civil"', {['@citizenid'] = citizenid})
         local result = MySQL.query.await('UPDATE properties SET owner = "", ownername = "", furniture = "{}", status = "locked" WHERE owner = @citizenid AND type = "civilipl"', {['@citizenid'] = citizenid})
