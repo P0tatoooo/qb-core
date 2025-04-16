@@ -60,6 +60,29 @@ function QBShared.GroupDigits(value)
 	return left..(num:reverse():gsub('(%d%d%d)','%1' .. ' '):reverse())..right
 end
 
+function QBShared.GetRectangleCenter(c1, c2, c3, c4)
+    return vector3(
+        (c1.x + c2.x + c3.x + c4.x) / 4,
+        (c1.y + c2.y + c3.y + c4.y) / 4,
+        (c1.z + c2.z + c3.z + c4.z) / 4
+    )
+end
+
+function QBShared.DeepCopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 function QBShared.ChangeVehicleExtra(vehicle, extra, enable)
     if DoesExtraExist(vehicle, extra) then
         if enable then
