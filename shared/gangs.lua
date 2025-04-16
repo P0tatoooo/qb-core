@@ -781,7 +781,7 @@ QBShared.Gangs = {
         },
     },
     ]]
-    nightkidz = {
+    --[[ nightkidz = {
         label = 'Night Kidz',
         type = "neutral",
         grades = {
@@ -1013,5 +1013,5 @@ QBShared.Gangs = {
             { name = 'Vice-Président', isboss = true },
             { name = 'Président', isboss = true },
         },
-    },
+    }, ]]
 }
