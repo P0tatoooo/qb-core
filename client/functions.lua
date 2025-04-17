@@ -507,16 +507,18 @@ function QBCore.Functions.GetPlayersFromCoords(coords, distance)
         coords = GetEntityCoords(ped)
     end
     distance = distance or 5
-    local closePlayers = {}
+    local closestPlayers = {}
     for _, player in pairs(players) do
-        local target = GetPlayerPed(player)
-        local targetCoords = GetEntityCoords(target)
-        local targetdistance = #(targetCoords - coords)
-        if targetdistance <= distance then
-            closePlayers[#closePlayers + 1] = player
+        if player ~= PlayerId() then
+            local target = GetPlayerPed(player)
+            local targetCoords = GetEntityCoords(target)
+            local targetdistance = #(targetCoords - coords)
+            if targetdistance <= distance then
+                closestPlayers[#closestPlayers + 1] = GetPlayerServerId(player)
+            end
         end
     end
-    return closePlayers
+    return closestPlayers
 end
 
 function QBCore.Functions.GetClosestVehicle(coords, modelFilter, isWhitelist)
@@ -574,7 +576,7 @@ local function EnumerateEntitiesWithinDistance(entities, isPlayerEntities, coord
 	if coords then
 		coords = vector3(coords.x, coords.y, coords.z)
 	else
-		local playerPed = ESX.PlayerData.ped
+		local playerPed = PlayerPedId()
 		coords = GetEntityCoords(playerPed)
 	end
 
@@ -591,10 +593,6 @@ end
 
 function QBCore.Functions.GetVehiclesInArea(coords, maxDistance) -- Vehicle inspection in designated area
 	return EnumerateEntitiesWithinDistance(GetGamePool('CVehicle'), false, coords, maxDistance)
-end
-
-function QBCore.Functions.GetPlayersInArea(coords, maxDistance)
-	return EnumerateEntitiesWithinDistance(QBCore.Functions.GetPlayers(true, true), true, coords, maxDistance)
 end
 
 function QBCore.Functions.IsSpawnPointClear(coords, maxDistance) -- Check the spawn point to see if it's empty or not:
