@@ -511,10 +511,12 @@ function QBCore.Functions.GetPlayersFromCoords(coords, distance)
     for _, player in pairs(players) do
         if player ~= PlayerId() then
             local target = GetPlayerPed(player)
-            local targetCoords = GetEntityCoords(target)
-            local targetdistance = #(targetCoords - coords)
-            if targetdistance <= distance then
-                closestPlayers[#closestPlayers + 1] = GetPlayerServerId(player)
+            if IsEntityVisible(target) then
+                local targetCoords = GetEntityCoords(target)
+                local targetdistance = #(targetCoords - coords)
+                if targetdistance <= distance then
+                    closestPlayers[#closestPlayers + 1] = GetPlayerServerId(player)
+                end
             end
         end
     end
