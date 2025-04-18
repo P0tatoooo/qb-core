@@ -74,9 +74,9 @@ function QBShared.DeepCopy(orig)
     if orig_type == 'table' then
         copy = {}
         for orig_key, orig_value in next, orig, nil do
-            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+            copy[QBShared.DeepCopy(orig_key)] = QBShared.DeepCopy(orig_value)
         end
-        setmetatable(copy, deepcopy(getmetatable(orig)))
+        setmetatable(copy, QBShared.DeepCopy(getmetatable(orig)))
     else -- number, string, boolean, etc
         copy = orig
     end
