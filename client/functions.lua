@@ -515,7 +515,7 @@ function QBCore.Functions.GetPlayersFromCoords(coords, distance)
                 local targetCoords = GetEntityCoords(target)
                 local targetdistance = #(targetCoords - coords)
                 if targetdistance <= distance then
-                    closestPlayers[#closestPlayers + 1] = GetPlayerServerId(player)
+                    closestPlayers[#closestPlayers + 1] = player
                 end
             end
         end
