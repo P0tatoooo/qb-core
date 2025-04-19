@@ -123,6 +123,31 @@ end
 QBCore.Functions.UpdateJob = UpdateJob
 exports('UpdateJob', UpdateJob)
 
+local function UpdateJobs(jobs)
+    local shouldContinue = true
+    local message = 'success'
+    local errorItem = nil
+
+    for key, value in pairs(jobs) do
+        if type(key) ~= 'string' then
+            message = 'invalid_gang_name'
+            shouldContinue = false
+            errorItem = jobs[key]
+            break
+        end
+
+        QBCore.Shared.Jobs[key] = value
+    end
+
+    if not shouldContinue then return false, message, errorItem end
+    TriggerClientEvent('QBCore:Client:OnSharedUpdateMultiple', -1, 'Jobs', jobs)
+    TriggerEvent('QBCore:Server:UpdateObject')
+    return true, message, nil
+end
+
+QBCore.Functions.UpdateJobs = UpdateJobs
+exports('UpdateJobs', UpdateJobs)
+
 -- Single add item
 local function AddItem(itemName, item)
     if type(itemName) ~= 'string' then
