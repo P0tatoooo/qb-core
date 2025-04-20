@@ -432,6 +432,7 @@ function QBCore.Functions.Kick(source, reason, setKickReason, deferrals)
                         DropPlayer(source, reason)
                     end)
                 end
+                Wait(100)
             end
             Wait(5000)
         end

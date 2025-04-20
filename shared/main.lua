@@ -31,6 +31,7 @@ function QBShared.SplitStr(str, delimiter)
         result[#result + 1] = string.sub(str, from, delim_from - 1)
         from = delim_to + 1
         delim_from, delim_to = string.find(str, delimiter, from)
+        Citizen.Wait(0)
     end
     result[#result + 1] = string.sub(str, from)
     return result
