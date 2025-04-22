@@ -162,8 +162,8 @@ function QBCore.Functions.DeleteObject(object)
 		DeleteObject(object)
 	end
 
-    if DoesEntityExist(entity) and NetworkGetEntityIsNetworked(entity) then
-        TriggerServerEvent('qb-core:server:forcedeleteentity', NetworkGetNetworkIdFromEntity(entity))
+    if DoesEntityExist(object) and NetworkGetEntityIsNetworked(object) then
+        TriggerServerEvent('qb-core:server:forcedeleteentity', NetworkGetNetworkIdFromEntity(object))
     end
 end
 
