@@ -304,3 +304,11 @@ end)
 QBCore.Functions.CreateCallback('QBCore:GetServerGangs', function(source, cb, weaponName)
     cb(QBCore.Shared.Gangs, QBCore.Shared.Jobs)
 end)
+
+Citizen.CreateThread(function()
+    local result = MySQL.query.await([[
+        UPDATE players
+        SET job = REPLACE(job, '"onduty":true', '"onduty":false')
+        WHERE job LIKE '%"onduty":true%';
+    ]])
+end)
