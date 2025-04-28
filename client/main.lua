@@ -10,7 +10,6 @@ exports('GetCoreObject', function()
 end)
 
 Citizen.CreateThread(function()
-    Citizen.Wait(5000)
     QBCore.Functions.TriggerLatentCallback('QBCore:GetServerGangs', function(gangs, jobs)
         QBCore.Shared.Gangs = gangs
         QBCore.Shared.Jobs = jobs

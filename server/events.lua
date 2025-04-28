@@ -301,7 +301,9 @@ RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)
 	end
 end)
 
-QBCore.Functions.CreateCallback('QBCore:GetServerGangs', function(source, cb, weaponName)
+local finishedJobsGangsInit
+QBCore.Functions.CreateCallback('QBCore:GetServerGangs', function(source, cb)
+    while not finishedJobsGangsInit do Citizen.Wait(0) end
     cb(QBCore.Shared.Gangs, QBCore.Shared.Jobs)
 end)
 
@@ -311,4 +313,53 @@ Citizen.CreateThread(function()
         SET job = REPLACE(job, '"onduty":true', '"onduty":false')
         WHERE job LIKE '%"onduty":true%';
     ]])
+
+    local jobs = MySQL.query.await('SELECT * FROM jobs', {})
+    local jobsData = {}
+
+    for k,v in pairs(jobs) do
+        jobsData[v.name] = {
+            name = v.name,
+            label = v.label,
+            type = v.type,
+            grades = json.decode(v.grades) or {},
+            status = v.status,
+            announcements = json.decode(v.announcements) or {},
+            taxes = json.decode(v.taxes) or {}
+        }
+    end
+
+    QBCore.Shared.Jobs = jobsData
+    --exports['qb-core']:UpdateJobs(QBCore.Shared.Jobs)
+
+    local gangs = MySQL.query.await('SELECT * FROM gangs', {})
+    local gangsData = {}
+    for k,v in pairs(gangs) do
+        local grades = json.decode(v.grades) or {}
+
+        for l,w in pairs(grades) do
+            grades[l].label = w.name
+            grades[l].salary = 0
+            grades[l].level = l
+            grades[l].period = {
+                label = "Aucune",
+                time = 0
+            }
+        end
+
+        gangsData[v.name] = {
+            label = v.label,
+            type = v.type,
+            grades = grades,
+        }
+        for l,w in pairs(v) do
+            if string.match(l, "pvp") then
+                gangsData[v.name][l] = w == 1
+            end
+        end
+    end
+
+    QBCore.Shared.Gangs = gangsData
+    --exports['qb-core']:UpdateGangs(QBCore.Shared.Gangs)
+    finishedJobsGangsInit = true
 end)
