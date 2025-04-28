@@ -14,7 +14,14 @@ Citizen.CreateThread(function()
     QBCore.Functions.TriggerLatentCallback('QBCore:GetServerGangs', function(gangs, jobs)
         QBCore.Shared.Gangs = gangs
         QBCore.Shared.Jobs = jobs
-        TriggerEvent("QBCore:Client:UpdateObject")
+        for k,v in pairs(QBCore.Shared.Gangs) do
+            TriggerEvent("QBCore:Client:UpdateSpecificObject", "Gangs", k, v)
+            Citizen.Wait(100)
+        end
+        for k,v in pairs(QBCore.Shared.Jobs) do
+            TriggerEvent("QBCore:Client:UpdateSpecificObject", "Jobs", k, v)
+            Citizen.Wait(100)
+        end
     end)
 end)
 

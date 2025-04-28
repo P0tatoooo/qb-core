@@ -229,6 +229,7 @@ end)
 RegisterNetEvent('QBCore:Client:OnSharedUpdate', function(tableName, key, value)
     QBCore.Shared[tableName][key] = value
     TriggerEvent('QBCore:Client:UpdateObject')
+    TriggerEvent('QBCore:Client:UpdateSpecificObject', tableName, key, value)
 end)
 
 RegisterNetEvent('QBCore:Client:OnSharedUpdateMultiple', function(tableName, values)

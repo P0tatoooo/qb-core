@@ -43,6 +43,7 @@ local function AddJob(jobName, job)
     QBCore.Shared.Jobs[jobName] = job
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Jobs', jobName, job)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Jobs', jobName, job)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
@@ -76,6 +77,10 @@ local function AddJobs(jobs)
 
     if not shouldContinue then return false, message, errorItem end
     TriggerClientEvent('QBCore:Client:OnSharedUpdateMultiple', -1, 'Jobs', jobs)
+    for k,v in pairs(jobs) do
+        TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Jobs', k, v)
+        Citizen.Wait(100)
+    end
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, message, nil
 end
@@ -96,6 +101,7 @@ local function RemoveJob(jobName)
     QBCore.Shared.Jobs[jobName] = nil
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Jobs', jobName, nil)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Jobs', jobName, nil)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
@@ -116,6 +122,7 @@ local function UpdateJob(jobName, job)
     QBCore.Shared.Jobs[jobName] = job
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Jobs', jobName, job)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Jobs', jobName, job)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
@@ -141,6 +148,10 @@ local function UpdateJobs(jobs)
 
     if not shouldContinue then return false, message, errorItem end
     TriggerClientEvent('QBCore:Client:OnSharedUpdateMultiple', -1, 'Jobs', jobs)
+    for k,v in pairs(jobs) do
+        TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Jobs', k, v)
+        Citizen.Wait(100)
+    end
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, message, nil
 end
@@ -251,6 +262,7 @@ local function AddGang(gangName, gang)
     QBCore.Shared.Gangs[gangName] = gang
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Gangs', gangName, gang)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Gangs', gangName, gang)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
@@ -284,6 +296,9 @@ local function UpdateGangs(gangs)
 
     if not shouldContinue then return false, message, errorItem end
     TriggerClientEvent('QBCore:Client:OnSharedUpdateMultiple', -1, 'Gangs', gangs)
+    for k,v in pairs(gangs) do
+        TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Gangs', k, v)
+    end
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, message, nil
 end
@@ -304,6 +319,7 @@ local function RemoveGang(gangName)
     QBCore.Shared.Gangs[gangName] = nil
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Gangs', gangName, nil)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Gangs', gangName, nil)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
@@ -324,6 +340,7 @@ local function UpdateGang(gangName, gang)
     QBCore.Shared.Gangs[gangName] = gang
 
     TriggerClientEvent('QBCore:Client:OnSharedUpdate', -1, 'Gangs', gangName, gang)
+    TriggerEvent('QBCore:Server:UpdateSpecificObject', 'Gangs', gangName, gang)
     TriggerEvent('QBCore:Server:UpdateObject')
     return true, 'success'
 end
