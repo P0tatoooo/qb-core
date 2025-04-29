@@ -190,30 +190,26 @@ function QBCore.Functions.DeleteEntity(entity)
     end
 end
 
-function QBCore.Functions.SpawnObject(object, coords, cb, networked)
+function QBCore.Functions.SpawnObject(object, coords, heading, networked)
 	local model = type(object) == 'number' and object or GetHashKey(object)
 	local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
+    heading = tonumber(heading) or 0.0
 	networked = networked == nil and true or networked
 
-	CreateThread(function()
-        RequestModel(model)
-        while not HasModelLoaded(model) do
-            Wait(10)
-        end
+    QBCore.Functions.LoadModel(model)
 
-		local obj = CreateObject(model, vector.xyz, networked, false, true)
-        if networked then
-            local timeout = GetGameTimer() + 2000
-            while not NetworkGetEntityIsNetworked(obj) or GetGameTimer() > timeout do Citizen.Wait(0) end
-        end
-		if cb then
-			cb(obj)
-		end
-	end)
+    local obj = CreateObject(model, vector.xyz, networked, false, true)
+    while not DoesEntityExist(obj) do Citizen.Wait(0) end
+    SetEntityHeading(obj, heading)
+    if networked then
+        local timeout = GetGameTimer() + 2000
+        while not NetworkGetEntityIsNetworked(obj) or GetGameTimer() > timeout do Citizen.Wait(0) end
+    end
+    return obj
 end
 
-function QBCore.Functions.SpawnLocalObject(object, coords, cb)
-    return QBCore.Functions.SpawnObject(object, coords, cb, false)
+function QBCore.Functions.SpawnLocalObject(object, coords, heading)
+    return QBCore.Functions.SpawnObject(object, coords, heading, false)
 end
 
 function QBCore.Functions.GetPlayers(onlyOtherPlayers, returnKeyValue, returnPeds)
