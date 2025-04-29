@@ -330,7 +330,7 @@ Citizen.CreateThread(function()
     end
 
     QBCore.Shared.Jobs = jobsData
-    --exports['qb-core']:UpdateJobs(QBCore.Shared.Jobs)
+    exports['qb-core']:UpdateJobs(QBCore.Shared.Jobs)
 
     local gangs = MySQL.query.await('SELECT * FROM gangs', {})
     local gangsData = {}
@@ -360,6 +360,6 @@ Citizen.CreateThread(function()
     end
 
     QBCore.Shared.Gangs = gangsData
-    --exports['qb-core']:UpdateGangs(QBCore.Shared.Gangs)
+    exports['qb-core']:UpdateGangs(QBCore.Shared.Gangs)
     finishedJobsGangsInit = true
 end)
