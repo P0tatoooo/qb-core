@@ -192,6 +192,7 @@ end
 
 function QBCore.Functions.SpawnObject(object, coords, heading, networked)
 	local model = type(object) == 'number' and object or GetHashKey(object)
+    coords = coords or GetEntityCoords(PlayerPedId())
 	local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
     heading = tonumber(heading) or 0.0
 	networked = networked == nil and true or networked
