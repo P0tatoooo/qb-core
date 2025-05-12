@@ -142,6 +142,33 @@ RegisterNetEvent('QBCore:UpdatePlayer', function()
     Player.Functions.Save()
 end)
 
+local JobsAutoStatus = {
+    coffeeshop = true,
+    diner = true,
+    sandwichbar = true,
+    chickndrive = true,
+    pizzeria = true,
+    burgershot = true,
+    coyote = true,
+    salieris = true,
+    yellowjack = true,
+    blacktop = true,
+    divin = true,
+    unicorn = true,
+    nightclub = true,
+}
+
+local function GetCurrentPlayerOnDuty(job)
+    local xPlayers = QBCore.Functions.GetQBPlayers()
+    local curPlayersOnDuty = 0
+    for k, xPlayer in pairs(xPlayers) do
+        if xPlayer.PlayerData.job.name == job and xPlayer.PlayerData.job.onduty then
+            curPlayersOnDuty = curPlayersOnDuty + 1
+        end
+    end
+    return curPlayersOnDuty
+end
+
 RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -164,9 +191,19 @@ RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.off_duty'))
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Fin de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
     else
+        local curPlayerOnDuty = 0
+        if JobsAutoStatus[Player.PlayerData.job.name] then
+            curPlayerOnDuty = GetCurrentPlayerOnDuty(Player.PlayerData.job.name)
+        end
+
         Player.Functions.SetJobDuty(true)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.on_duty'))
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Prise de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
+
+        print(JobsAutoStatus[Player.PlayerData.job.name] , GetCurrentPlayerOnDuty(Player.PlayerData.job.name))
+        if JobsAutoStatus[Player.PlayerData.job.name] and curPlayerOnDuty == 0 then
+            TriggerEvent('MyCity_MDT:SetCompanyStatus', true, Player.PlayerData.job.name)
+        end
     end
 
     TriggerEvent('QBCore:Server:SetDuty', src, Player.PlayerData.job.onduty)
