@@ -753,7 +753,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
         for l,w in pairs(result2) do
             local coordinates = json.decode(w.coordinates)
             if coordinates and coordinates.door then
-                local coords = vec3(coordinates.door.x, coordinates.door.y, -150.0 + (coordinates.offset or 0))
+                local coords = vec3(coordinates.door.x + (coordinates.xoffset or 0), coordinates.door.y + (coordinates.yoffset or 0), -150.0 + (coordinates.offset or 0))
                 local posters = exports.MyCity_Posters:GetRegisteredPosters()
                 for k,v in pairs(posters) do
                     if #(coords - v.pointA) < 50 then
