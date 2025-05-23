@@ -745,6 +745,13 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
                     ['@garage'] = 'Parking Divin',
                 })
             end
+
+            local result2 = MySQL.query.await('SELECT id FROM storages WHERE propertyid = @propertyid', {['@propertyid'] = v.id})
+            for l,w in pairs(result2) do
+                exports.MyCity_CoreV2:RemoveStorage(w.id)
+            end
+
+            TriggerClientEvent('potato_housing:removeProperty', -1, v.id)
         end
 
         --local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
