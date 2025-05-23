@@ -728,33 +728,10 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             })
         end
 
-        local result = MySQL.query.await('SELECT * FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
+        local result = MySQL.query.await('SELECT id FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         for k,v in pairs(result) do
-            local result2 = MySQL.query.await('SELECT citizenid FROM players WHERE currentproperty = @currentproperty', {['@currentproperty'] = tostring(v.id)})
-            for l,w in pairs(result2) do
-                local xTarget = QBCore.Functions.GetOfflinePlayerByCitizenId(w.citizenid)
-                xTarget.Functions.SetPlayerData('currentproperty', "")
-                xTarget.Functions.Save()
-            end
-
-            local result2 = MySQL.query.await('SELECT plate FROM player_vehicles WHERE garage = @garage', {['@garage'] = tostring(v.id)})
-            for l,w in pairs(result2) do
-                local result = MySQL.query.await('UPDATE player_vehicles SET status = @status, garage = @garage WHERE plate = @plate', {
-                    ['@plate'] = w.plate,
-                    ['@status'] = 'parking',
-                    ['@garage'] = 'Parking Divin',
-                })
-            end
-
-            local result2 = MySQL.query.await('SELECT id FROM storages WHERE propertyid = @propertyid', {['@propertyid'] = v.id})
-            for l,w in pairs(result2) do
-                exports.MyCity_CoreV2:RemoveStorage(w.id)
-            end
-
-            TriggerClientEvent('potato_housing:removeProperty', -1, v.id)
+            exports.MyCity_CoreV2:RemoveProperty(v.id)
         end
-
-        --local result = MySQL.query.await('DELETE FROM properties_keys WHERE owner=@owner', { ['@owner'] = citizenid }, function() end)
 
         local result2 = MySQL.query.await('SELECT coordinates FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         for l,w in pairs(result2) do
