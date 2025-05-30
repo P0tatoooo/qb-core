@@ -169,8 +169,8 @@ local function GetCurrentPlayerOnDuty(job)
     return curPlayersOnDuty
 end
 
-RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle)
-    local src = source
+RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
+    local src = sourceplayer or source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
 
