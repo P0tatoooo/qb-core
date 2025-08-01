@@ -84,6 +84,23 @@ function QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
     return QBCore.Player.GetOfflinePlayer(citizenid)
 end
 
+---Get player by discord id
+function QBCore.Functions.GetPlayerByDiscordId(discordid)
+    for src in pairs(QBCore.Players) do
+        if QBCore.Players[src].PlayerData.discord == discordid then
+            return QBCore.Players[src]
+        end
+    end
+    return nil
+end
+
+---Get offline player by discord id
+function QBCore.Functions.GetOfflinePlayerByDiscordId(discordid)
+    local xPlayer = QBCore.Functions.GetPlayerByDiscordId(discordid)
+    if xPlayer then return xPlayer end
+    return QBCore.Player.GetOfflinePlayer(nil, discordid)
+end
+
 ---Get player by license
 ---@param license string
 ---@return table?

@@ -104,32 +104,35 @@ function QBCore.Player.Login(source, citizenid, newData)
     end
 end
 
-function QBCore.Player.GetOfflinePlayer(citizenid)
+function QBCore.Player.GetOfflinePlayer(citizenid, discordid)
+    local PlayerData
     if citizenid then
-        local PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where citizenid = ?', { citizenid })
-        if PlayerData then
-            PlayerData.coins = 0
-            local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
-                ['@license'] = PlayerData.license
-            })
-            if result[1] then
-                PlayerData.coins = result[1].coins
-            end
-
-            PlayerData.discord = tonumber(PlayerData.discord)
-            PlayerData.money = json.decode(PlayerData.money)
-            PlayerData.job = json.decode(PlayerData.job)
-            PlayerData.gang = json.decode(PlayerData.gang)
-            PlayerData.position = json.decode(PlayerData.position)
-            PlayerData.metadata = json.decode(PlayerData.metadata)
-            PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
-            PlayerData.charinfo = json.decode(PlayerData.charinfo)
-            PlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
-            PlayerData.tattoos = json.decode(PlayerData.tattoos)
-            PlayerData.furnitures = json.decode(PlayerData.furnitures)
-            PlayerData.skills = json.decode(PlayerData.skills)
-            return QBCore.Player.CheckPlayerData(nil, PlayerData)
+        PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where citizenid = ?', { citizenid })
+    elseif discordid then
+        PlayerData = MySQL.prepare.await('SELECT *, DATE_FORMAT(creationdate, "%d-%m-%Y %H:%i") AS formatted_creationdate FROM players where discord = ? AND cid=1', { discordid })
+    end
+    if PlayerData then
+        PlayerData.coins = 0
+        local result = MySQL.query.await('SELECT coins FROM shop_coins WHERE license=@license',{
+            ['@license'] = PlayerData.license
+        })
+        if result[1] then
+            PlayerData.coins = result[1].coins
         end
+
+        PlayerData.discord = tonumber(PlayerData.discord)
+        PlayerData.money = json.decode(PlayerData.money)
+        PlayerData.job = json.decode(PlayerData.job)
+        PlayerData.gang = json.decode(PlayerData.gang)
+        PlayerData.position = json.decode(PlayerData.position)
+        PlayerData.metadata = json.decode(PlayerData.metadata)
+        PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
+        PlayerData.charinfo = json.decode(PlayerData.charinfo)
+        PlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
+        PlayerData.tattoos = json.decode(PlayerData.tattoos)
+        PlayerData.furnitures = json.decode(PlayerData.furnitures)
+        PlayerData.skills = json.decode(PlayerData.skills)
+        return QBCore.Player.CheckPlayerData(nil, PlayerData)
     end
     return nil
 end
