@@ -7,6 +7,11 @@ function QBCore.Functions.GetPlayerData(cb)
     cb(QBCore.PlayerData)
 end
 
+function QBCore.Functions.GetSpecialPlayerData(cb)
+    if not cb then return QBCore.SpecialPlayerData end
+    cb(QBCore.SpecialPlayerData)
+end
+
 function QBCore.Functions.GetCoords(entity)
     local coords = GetEntityCoords(entity)
     return vector4(coords.x, coords.y, coords.z, GetEntityHeading(entity))

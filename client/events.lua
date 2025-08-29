@@ -190,6 +190,10 @@ RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
     QBCore.PlayerData = val
 end)
 
+RegisterNetEvent('QBCore:Player:SetSpecialPlayerData', function(val)
+    QBCore.SpecialPlayerData = val
+end)
+
 RegisterNetEvent('QBCore:Player:UpdatePlayerData', function()
     TriggerServerEvent('QBCore:UpdatePlayer')
 end)

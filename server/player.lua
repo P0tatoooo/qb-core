@@ -85,17 +85,22 @@ function QBCore.Player.Login(source, citizenid, newData)
                 PlayerData.metadata = json.decode(PlayerData.metadata)
                 PlayerData.charinfo = json.decode(PlayerData.charinfo)
                 PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
-                PlayerData.favemotes = json.decode(PlayerData.favemotes)
                 PlayerData.tattoos = json.decode(PlayerData.tattoos)
-                PlayerData.furnitures = json.decode(PlayerData.furnitures)
                 PlayerData.skills = json.decode(PlayerData.skills)
-                QBCore.Player.CheckPlayerData(source, PlayerData)
+                
+                local SpecialPlayerData = {}
+                SpecialPlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
+                SpecialPlayerData.furnitures = json.decode(PlayerData.furnitures) or {}
+                PlayerData.favemotes = nil
+                PlayerData.furnitures = nil
+
+                QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
             else
                 DropPlayer(source, Lang:t('info.exploit_dropped'))
                 TriggerEvent('qb-log:server:CreateLog', 'anticheat', 'Anti-Cheat', 'white', GetPlayerName(source) .. ' Has Been Dropped For Character Joining Exploit', false)
             end
         else
-            QBCore.Player.CheckPlayerData(source, newData)
+            QBCore.Player.CheckPlayerData(source, newData, {favemotes = {}, furnitures = {}})
         end
         return true
     else
@@ -128,11 +133,16 @@ function QBCore.Player.GetOfflinePlayer(citizenid, discordid)
         PlayerData.metadata = json.decode(PlayerData.metadata)
         PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
         PlayerData.charinfo = json.decode(PlayerData.charinfo)
-        PlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
         PlayerData.tattoos = json.decode(PlayerData.tattoos)
-        PlayerData.furnitures = json.decode(PlayerData.furnitures)
         PlayerData.skills = json.decode(PlayerData.skills)
-        return QBCore.Player.CheckPlayerData(nil, PlayerData)
+
+        local SpecialPlayerData = {}
+        SpecialPlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
+        SpecialPlayerData.furnitures = json.decode(PlayerData.furnitures)
+        PlayerData.favemotes = nil
+        PlayerData.furnitures = nil
+
+        return QBCore.Player.CheckPlayerData(nil, PlayerData, SpecialPlayerData)
     end
     return nil
 end
@@ -170,11 +180,16 @@ function QBCore.Player.GetOfflinePlayerByLicense(license)
             PlayerData.metadata = json.decode(PlayerData.metadata)
             PlayerData.charinfo = json.decode(PlayerData.charinfo)
             PlayerData.bodyparts = json.decode(PlayerData.bodyparts)
-            PlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
             PlayerData.tattoos = json.decode(PlayerData.tattoos)
-            PlayerData.furnitures = json.decode(PlayerData.furnitures)
             PlayerData.skills = json.decode(PlayerData.skills)
-            return QBCore.Player.CheckPlayerData(nil, PlayerData)
+
+            local SpecialPlayerData = {}
+            SpecialPlayerData.favemotes = json.decode(PlayerData.favemotes) or {}
+            SpecialPlayerData.furnitures = json.decode(PlayerData.furnitures) or {}
+            PlayerData.favemotes = nil
+            PlayerData.furnitures = nil
+
+            return QBCore.Player.CheckPlayerData(nil, PlayerData, SpecialPlayerData)
         end
     end
     return nil
@@ -193,7 +208,7 @@ local function applyDefaults(playerData, defaults)
     end
 end
 
-function QBCore.Player.CheckPlayerData(source, PlayerData)
+function QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
     PlayerData = PlayerData or {}
     local Offline = not source
 
@@ -205,7 +220,7 @@ function QBCore.Player.CheckPlayerData(source, PlayerData)
 
     applyDefaults(PlayerData, QBCore.Config.Player.PlayerDefaults)
 
-    return QBCore.Player.CreatePlayer(PlayerData, Offline)
+    return QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
 end
 
 -- On player logout
@@ -222,16 +237,24 @@ end
 -- Don't touch any of this unless you know what you are doing
 -- Will cause major issues!
 
-function QBCore.Player.CreatePlayer(PlayerData, Offline)
+function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
     local self = {}
     self.Functions = {}
     self.PlayerData = PlayerData
     self.Offline = Offline
+    self.SpecialPlayerData = SpecialPlayerData
+
 
     function self.Functions.UpdatePlayerData()
         if self.Offline then return end
         TriggerEvent('QBCore:Player:SetPlayerData', self.PlayerData)
         TriggerClientEvent('QBCore:Player:SetPlayerData', self.PlayerData.source, self.PlayerData)
+    end
+
+    function self.Functions.UpdateSpecialPlayerData()
+        if self.Offline then return end
+        TriggerEvent('QBCore:Player:SetSpecialPlayerData', self.SpecialPlayerData)
+        TriggerClientEvent('QBCore:Player:SetSpecialPlayerData', self.PlayerData.source, self.SpecialPlayerData)
     end
 
     function self.Functions.SetJob(job, grade)
@@ -324,6 +347,16 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         if not key or type(key) ~= 'string' then return end
         self.PlayerData[key] = val
         self.Functions.UpdatePlayerData()
+    end
+
+    function self.Functions.SetSpecialPlayerData(key, val)
+        if not key or type(key) ~= 'string' then return end
+        self.SpecialPlayerData[key] = val
+        local result = MySQL.query.await('UPDATE players SET ' .. key .. '=@key WHERE citizenid=@citizenid',{
+            ['@key'] = json.encode(val),
+            ['@citizenid'] = self.PlayerData.citizenid
+        })
+        self.Functions.UpdateSpecialPlayerData()
     end
 
     function self.Functions.SetMetaData(meta, val)
@@ -515,6 +548,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         QBCore.Player.Save(self.PlayerData.source)
         TriggerEvent('QBCore:Server:PlayerLoaded', self)
         self.Functions.UpdatePlayerData()
+        self.Functions.UpdateSpecialPlayerData()
     end
 end
 
@@ -581,7 +615,7 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -597,7 +631,6 @@ function QBCore.Player.Save(source)
             metadata = json.encode(PlayerData.metadata),
             bodyparts = json.encode(PlayerData.bodyparts),
             tattoos = json.encode(PlayerData.tattoos),
-            furnitures = json.encode(PlayerData.furnitures),
             skills = json.encode(PlayerData.skills),
             currentproperty = PlayerData.currentproperty,
             mugshot = PlayerData.mugshot,
@@ -612,7 +645,7 @@ end
 
 function QBCore.Player.SaveOffline(PlayerData)
     if PlayerData then
-        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, furnitures, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :furnitures, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, furnitures = :furnitures, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
+        MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
             license = PlayerData.license,
@@ -628,7 +661,6 @@ function QBCore.Player.SaveOffline(PlayerData)
             metadata = json.encode(PlayerData.metadata),
             bodyparts = json.encode(PlayerData.bodyparts),
             tattoos = json.encode(PlayerData.tattoos),
-            furnitures = json.encode(PlayerData.furnitures),
             skills = json.encode(PlayerData.skills),
             currentproperty = PlayerData.currentproperty,
             mugshot = PlayerData.mugshot,

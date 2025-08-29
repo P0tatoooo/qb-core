@@ -1,5 +1,6 @@
 QBCore = {}
 QBCore.PlayerData = {}
+QBCore.SpecialPlayerData = {}
 QBCore.Config = QBConfig
 QBCore.Shared = QBShared
 QBCore.ClientCallbacks = {}
