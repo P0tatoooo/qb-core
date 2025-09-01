@@ -325,9 +325,10 @@ QBCore.Commands.Add('setjob', Lang:t("command.setjob.help"), { { name = Lang:t("
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
 
     if Player then
-        if QBCore.Functions.DoesJobExist(args[2], args[3]) then
-            Player.Functions.SetJob(args[2], args[3])
-            TriggerClientEvent('QBCore:Notify', source, "Le job de " .. QBCore.Functions.GetPlayerName(Player.PlayerData.source) .. " a bien été changé")
+        local jobExists, grade = QBCore.Functions.DoesJobExist(args[2], args[3])
+        if jobExists then
+            Player.Functions.SetJob(args[2], grade)
+            TriggerClientEvent('QBCore:Notify', source, "Le job de " .. Player.PlayerData.rpname .. " a bien été changé")
         
             if source ~= 0 then
                 local xPlayer = QBCore.Functions.GetPlayer(source)
@@ -351,9 +352,10 @@ end, 'user')
 QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t("command.setgang.params.id.name"), help = Lang:t("command.setgang.params.id.help") }, { name = Lang:t("command.setgang.params.gang.name"), help = Lang:t("command.setgang.params.gang.help") }, { name = Lang:t("command.setgang.params.grade.name"), help = Lang:t("command.setgang.params.grade.help") } }, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     if Player then
-        if QBCore.Functions.DoesGangExist(args[2], args[3]) then
-            Player.Functions.SetGang(args[2], args[3])
-            TriggerClientEvent('QBCore:Notify', source, "Le gang de " .. QBCore.Functions.GetPlayerName(Player.PlayerData.source) .. " a bien été changé")
+        local gangExists, grade = QBCore.Functions.DoesGangExist(args[2], args[3])
+        if gangExists then
+            Player.Functions.SetGang(args[2], grade)
+            TriggerClientEvent('QBCore:Notify', source, "Le gang de " .. Player.PlayerData.rpname .. " a bien été changé")
         
             if source ~= 0 then
                 local xPlayer = QBCore.Functions.GetPlayer(source)

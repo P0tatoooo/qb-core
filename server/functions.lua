@@ -623,10 +623,19 @@ function QBCore.Functions.DoesJobExist(job, grade)
     job = job:lower() or ''
     grade = tonumber(grade) or 1
 
-    if QBCore.Shared.Jobs[job] and QBCore.Shared.Jobs[job].grades[grade] then
-        return true
+    if not QBCore.Shared.Jobs[job] then
+        return false
     end
-    return false
+
+    while grade > 1 and not QBCore.Shared.Jobs[job].grades[grade] do
+        grade = grade - 1
+    end
+
+    if QBCore.Shared.Jobs[job].grades[grade] then
+        return true, grade
+    else
+        return false
+    end
 end
 
 function QBCore.Functions.DoesGangExist(gang, grade)
@@ -634,8 +643,17 @@ function QBCore.Functions.DoesGangExist(gang, grade)
     gang = gang:lower() or ''
     grade = tonumber(grade) or 1
 
-    if QBCore.Shared.Gangs[gang] and QBCore.Shared.Gangs[gang].grades[grade] then
-        return true
+    if not QBCore.Shared.Gangs[gang] then
+        return false
     end
-    return false
+
+    while grade > 1 and not QBCore.Shared.Gangs[gang].grades[grade] do
+        grade = grade - 1
+    end
+
+    if QBCore.Shared.Gangs[gang].grades[grade] then
+        return true, grade
+    else
+        return false
+    end
 end
