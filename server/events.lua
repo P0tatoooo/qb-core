@@ -369,6 +369,7 @@ Citizen.CreateThread(function()
     exports['qb-core']:UpdateJobs(QBCore.Shared.Jobs)
 
     local gangs = MySQL.query.await('SELECT * FROM gangs', {})
+    local pvpTypes = MySQL.query.await('SELECT * FROM pvptypes', {})
     local gangsData = {}
     for k,v in pairs(gangs) do
         local grades = json.decode(v.grades) or {}
@@ -388,7 +389,15 @@ Citizen.CreateThread(function()
             type = v.type,
             grades = grades,
         }
-        for l,w in pairs(v) do
+
+        local pvpTypeData = {}
+        for l,w in pairs(pvpTypes) do
+            if w.name == v.type then
+                pvpTypeData = w
+            end
+        end
+
+        for l,w in pairs(pvpTypeData) do
             if string.match(l, "pvp") then
                 gangsData[v.name][l] = w == 1
             end
