@@ -142,22 +142,6 @@ RegisterNetEvent('QBCore:UpdatePlayer', function()
     Player.Functions.Save()
 end)
 
-local JobsAutoStatus = {
-    coffeeshop = true,
-    diner = true,
-    sandwichbar = true,
-    chickndrive = true,
-    pizzeria = true,
-    burgershot = true,
-    coyote = true,
-    salieris = true,
-    yellowjack = true,
-    blacktop = true,
-    divin = true,
-    unicorn = true,
-    nightclub = true,
-}
-
 local function GetCurrentPlayerOnDuty(job)
     local xPlayers = QBCore.Functions.GetQBPlayers()
     local curPlayersOnDuty = 0
@@ -192,7 +176,7 @@ RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Fin de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
     else
         local curPlayerOnDuty = 0
-        if JobsAutoStatus[Player.PlayerData.job.name] then
+        if QBCore.Shared.JobsAutoStatus[Player.PlayerData.job.name] then
             curPlayerOnDuty = GetCurrentPlayerOnDuty(Player.PlayerData.job.name)
         end
 
@@ -200,7 +184,7 @@ RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.on_duty'))
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Prise de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
 
-        if JobsAutoStatus[Player.PlayerData.job.name] and curPlayerOnDuty == 0 then
+        if QBCore.Shared.JobsAutoStatus[Player.PlayerData.job.name] and curPlayerOnDuty == 0 then
             TriggerEvent('MyCity_MDT:SetCompanyStatus', true, Player.PlayerData.job.name)
         end
     end
