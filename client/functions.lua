@@ -346,10 +346,6 @@ function QBCore.Functions.GetObjects()
     return GetGamePool('CObject')
 end
 
-function QBCore.Functions.GetPlayers()
-    return GetActivePlayers()
-end
-
 function QBCore.Functions.GetPeds(ignoreList)
     local pedPool = GetGamePool('CPed')
     local peds = {}
@@ -595,6 +591,10 @@ local function EnumerateEntitiesWithinDistance(entities, isPlayerEntities, coord
 	end
 
 	return nearbyEntities
+end
+
+function QBCore.Functions.GetPlayersInArea(coords, maxDistance)
+	return EnumerateEntitiesWithinDistance(QBCore.Functions.GetPlayers(true, true), true, coords, maxDistance)
 end
 
 function QBCore.Functions.GetVehiclesInArea(coords, maxDistance) -- Vehicle inspection in designated area
