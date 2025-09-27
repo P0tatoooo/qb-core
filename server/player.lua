@@ -1,6 +1,6 @@
 QBCore.Players = {}
 QBCore.Player = {}
-MC_DEBUG = GetConvarInt('mc_debug', 0) ~= 0
+MC_REMOVEWHITELIST = GetConvarInt('mc_removewhitelist', 0) ~= 0
 
 -- On player login get their data or set defaults
 -- Don't touch any of this unless you know what you are doing
@@ -257,14 +257,21 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         TriggerClientEvent('QBCore:Player:SetSpecialPlayerData', self.PlayerData.source, self.SpecialPlayerData)
     end
 
+    local function updateDiscordRoles(discord, oldjob, newjob, newgrade)
+        Citizen.CreateThread(function()
+            TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, oldjob)
+            Citizen.Wait(10000)
+            TriggerEvent("MyCity_CoreV2:AddDiscordRole", discord, newjob, newgrade)
+        end)
+    end
+
     function self.Functions.SetJob(job, grade)
         job = job:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
-        if self.PlayerData.job.name ~= 'unemployed' and self.PlayerData.job.name ~= job then
-            TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", self.PlayerData.discord, self.PlayerData.job.name)
+        if MC_REMOVEWHITELIST then
+            updateDiscordRoles(self.PlayerData.discord, self.PlayerData.job.name, job, grade)
         end
-        TriggerEvent("MyCity_CoreV2:AddDiscordRole", self.PlayerData.discord, job)
         self.PlayerData.job = {
             name = job,
             label = QBCore.Shared.Jobs[job].label,
@@ -725,7 +732,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
 
-        if not MC_DEBUG then
+        if MC_REMOVEWHITELIST then
             if Player.PlayerData.job.name ~= "unemployed" then
                 TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name)
             end
@@ -799,7 +806,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             exports.MyCity_CoreV2:RemoveStorage(v.id)
         end
 
-        if not MC_DEBUG then
+        if MC_REMOVEWHITELIST then
             local message = 'Nom : **' .. Player.PlayerData.rpname .. '**\nJob : **' .. Player.PlayerData.job.label .. '**\nFaction : **' .. Player.PlayerData.gang.label .. '**\nCitizenId : **' .. Player.PlayerData.citizenid .. '**\nLicense : **' .. Player.PlayerData.license .. '**'
             TriggerEvent('MyCity_CoreV2:Wipe:Logs', "Wipe", message, sourceplayer)
         end
