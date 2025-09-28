@@ -205,12 +205,12 @@ function QBCore.Functions.SpawnObject(object, coords, heading, networked)
 
     QBCore.Functions.LoadModel(model)
     local obj = CreateObject(model, vector.xyz, networked, false, true)
-    local timeout = GetGameTimer() + 2000
+    local timeout = GetGameTimer() + 100
     while (not DoesEntityExist(obj)) and (GetGameTimer() < timeout) do Citizen.Wait(0) end
     SetEntityHeading(obj, heading)
     
     if networked then
-        local timeout = GetGameTimer() + 2000
+        local timeout = GetGameTimer() + 100
         while (not NetworkGetEntityIsNetworked(obj)) and (GetGameTimer() < timeout) do Citizen.Wait(0) end
     end
 
