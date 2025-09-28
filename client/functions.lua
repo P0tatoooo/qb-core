@@ -119,8 +119,9 @@ end
 
 function QBCore.Functions.LoadModel(model)
     if HasModelLoaded(model) then return end
+    local timeout = GetGameTimer() + 2000
 	RequestModel(model)
-	while not HasModelLoaded(model) do
+	while (not HasModelLoaded(model)) and (GetGameTimer() < timeout) do
 		Wait(0)
 	end
 end
@@ -204,13 +205,15 @@ function QBCore.Functions.SpawnObject(object, coords, heading, networked)
 
     QBCore.Functions.LoadModel(model)
     local obj = CreateObject(model, vector.xyz, networked, false, true)
-    while not DoesEntityExist(obj) do Citizen.Wait(0) end
+    local timeout = GetGameTimer() + 2000
+    while (not DoesEntityExist(obj)) and (GetGameTimer() < timeout) do Citizen.Wait(0) end
     SetEntityHeading(obj, heading)
     
     if networked then
         local timeout = GetGameTimer() + 2000
-        while not NetworkGetEntityIsNetworked(obj) or GetGameTimer() > timeout do Citizen.Wait(0) end
+        while (not NetworkGetEntityIsNetworked(obj)) and (GetGameTimer() < timeout) do Citizen.Wait(0) end
     end
+
     SetModelAsNoLongerNeeded(model)
 
     return obj
