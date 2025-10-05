@@ -260,7 +260,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
     local function updateDiscordRoles(discord, oldjob, newjob, newgrade)
         Citizen.CreateThread(function()
             TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, oldjob)
-            Citizen.Wait(5000)
+            Citizen.Wait(10000)
             if newjob ~= 'unemployed' then
                 TriggerEvent("MyCity_CoreV2:AddDiscordRole", discord, newjob, newgrade)
             end
