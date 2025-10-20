@@ -61,6 +61,42 @@ function QBShared.GroupDigits(value)
 	return left..(num:reverse():gsub('(%d%d%d)','%1' .. ' '):reverse())..right
 end
 
+local function indexInTable(index, table)
+    for k,v in pairs(table) do
+        if v == index then
+            return true
+        end
+    end
+    return false
+end
+
+function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
+    math.random(GetGameTimer())
+
+    if #usedindexes == #table then usedindexes = {} end
+
+    local index = math.random(1, #table)
+    local timeout = GetGameTimer() + 2000
+
+    while (table[index].used or indexInTable(index, usedindexes)) and GetGameTimer() < timeout do
+        Citizen.Wait(0)
+        index = math.random(1, #table)
+    end
+
+    if table[index].used or indexInTable(index, usedindexes) then
+        for i=1, #table do
+            if not table[i].used and not indexInTable(i, usedindexes) then
+                index = i
+                break
+            end
+        end
+    end
+
+    usedindexes[#usedindexes+1] = index
+
+    return index, usedindexes
+end
+
 function QBShared.GetRectangleCenter(c1, c2, c3, c4)
     return vector3(
         (c1.x + c2.x + c3.x + c4.x) / 4,
