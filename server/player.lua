@@ -761,7 +761,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
                 targetGarage = 'Parking Bateaux Marina'
             end
 
-            local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk, status = @status, garage = @garage WHERE plate = @plate', {
+            local result = MySQL.query.await('UPDATE player_vehicles SET fakeplate = @fakeplate, carkeys = @carkeys, glovebox = @glovebox, trunk = @trunk, status = @status, garage = @garage, registered=@registered WHERE plate = @plate', {
                 ['@fakeplate'] = '',
                 ['@carkeys'] = '{}',
                 ['@glovebox'] = nil,
@@ -769,6 +769,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
                 ['@plate'] = v.plate,
                 ['@status'] = 'parking',
                 ['@garage'] = targetGarage,
+                ['@registered'] = '',
             })
         end
 
