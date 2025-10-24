@@ -257,10 +257,17 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         TriggerClientEvent('QBCore:Player:SetSpecialPlayerData', self.PlayerData.source, self.SpecialPlayerData)
     end
 
-    local function updateDiscordRoles(discord, oldjob, newjob, newgrade)
+    local function updateDiscordRoles(discord, oldjob, oldisboss, newjob, newgrade)
         Citizen.CreateThread(function()
-            TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, oldjob)
-            Citizen.Wait(10000)
+            if oldjob ~= newjob then
+                TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, oldjob)
+            end
+
+            if (oldisboss and not QBCore.Shared.Jobs[newjob].isboss) then
+                TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, "boss")
+            end
+            
+            Citizen.Wait(1000)
             if newjob ~= 'unemployed' then
                 TriggerEvent("MyCity_CoreV2:AddDiscordRole", discord, newjob, newgrade)
             end
@@ -271,9 +278,9 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         job = job:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
-        if MC_REMOVEWHITELIST then
-            updateDiscordRoles(self.PlayerData.discord, self.PlayerData.job.name, job, grade)
-        end
+        --if MC_REMOVEWHITELIST then
+            updateDiscordRoles(self.PlayerData.discord, self.PlayerData.job.name, self.PlayerData.job.grade.isboss, job, grade)
+        --end
         self.PlayerData.job = {
             name = job,
             label = QBCore.Shared.Jobs[job].label,
@@ -736,7 +743,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         if MC_REMOVEWHITELIST then
             if Player.PlayerData.job.name ~= "unemployed" then
-                TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name)
+                TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name, true)
             end
         end
 
