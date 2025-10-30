@@ -278,9 +278,9 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         job = job:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
-        --if MC_REMOVEWHITELIST then
+        if MC_REMOVEWHITELIST then
             updateDiscordRoles(self.PlayerData.discord, self.PlayerData.job.name, self.PlayerData.job.grade.isboss, job, grade)
-        --end
+        end
         self.PlayerData.job = {
             name = job,
             label = QBCore.Shared.Jobs[job].label,
