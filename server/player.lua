@@ -94,6 +94,20 @@ function QBCore.Player.Login(source, citizenid, newData)
                 PlayerData.favemotes = nil
                 PlayerData.furnitures = nil
 
+                local permissions = QBCore.Functions.GetPermission(source)
+
+                if permissions['god'] then
+                    SpecialPlayerData.group = "god"
+                elseif permissions['admin'] then
+                    SpecialPlayerData.group = "admin"
+                elseif permissions['mod'] then
+                    SpecialPlayerData.group = "mod"
+                elseif permissions['ped'] then
+                    SpecialPlayerData.group = "ped"
+                else
+                    SpecialPlayerData.group = "user"
+                end
+
                 QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
             else
                 DropPlayer(source, Lang:t('info.exploit_dropped'))
