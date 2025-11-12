@@ -677,6 +677,8 @@ QBShared.FemaleBulletproof = {
     [89] = true,
     [92] = true,
     [95] = true,
+    [102] = true,
+    [103] = true,
 }
 
 QBShared.MaleBags = {
