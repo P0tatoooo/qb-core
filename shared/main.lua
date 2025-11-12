@@ -161,6 +161,41 @@ function QBShared.IsInNorth(coords)
     return coords.y > 1310
 end
 
+--- Get the closest grid point to given coordinates
+function QBShared.GetClosestGridPoint(x, y)
+    local GRID_STEP = 100
+
+    -- Snap the coordinates to the nearest multiple of GRID_STEP
+    local closestX = math.floor((x + GRID_STEP / 2) / GRID_STEP) * GRID_STEP
+    local closestY = math.floor((y + GRID_STEP / 2) / GRID_STEP) * GRID_STEP
+
+    return vector2(closestX, closestY)
+end
+
+function QBShared.GetNearbyGridPoints(coords)
+    x = coords.x
+    y = coords.y
+
+    local GRID_STEP = 100
+    -- Get the closest grid point
+    local closestX = math.floor((x + GRID_STEP / 2) / GRID_STEP) * GRID_STEP
+    local closestY = math.floor((y + GRID_STEP / 2) / GRID_STEP) * GRID_STEP
+
+    local points = {}
+
+    -- Loop through a 5x5 square around the closest point
+    for dx = -2 * GRID_STEP, 2 * GRID_STEP, GRID_STEP do
+        for dy = -2 * GRID_STEP, 2 * GRID_STEP, GRID_STEP do
+            local px = closestX + dx
+            local py = closestY + dy
+
+            table.insert(points, vector2(px, py))
+        end
+    end
+
+    return points
+end
+
 QBShared.MaleGloves = {
     [16] = true,
     [17] = true,
