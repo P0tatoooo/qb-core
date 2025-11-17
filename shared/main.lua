@@ -8,6 +8,10 @@ QBShared.StarterItems = {
     ['money'] = { amount = 500, item = 'money' },
 }
 
+function QBShared.IsInNorth(coords)
+    return coords.y > 1310
+end
+
 for i = 48, 57 do NumberCharset[#NumberCharset + 1] = string.char(i) end
 for i = 65, 90 do StringCharset[#StringCharset + 1] = string.char(i) end
 for i = 97, 122 do StringCharset[#StringCharset + 1] = string.char(i) end
@@ -97,6 +101,36 @@ function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
     return index, usedindexes
 end
 
+function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, islandpart)
+    math.random(GetGameTimer())
+
+    if #usedindexes == #table then usedindexes = {} end
+
+    local index = math.random(1, #table)
+    local timeout = GetGameTimer() + 2000
+    local isNorth
+
+    while (table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth))) and GetGameTimer() < timeout do
+        Citizen.Wait(0)
+        index = math.random(1, #table)
+        isNorth = QBShared.IsInNorth(vec3(table[index].x, table[index].y, table[index].z))
+    end
+
+    if table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
+        for i=1, #table do
+            isNorth = QBShared.IsInNorth(vec3(table[index].x, table[index].y, table[index].z))
+            if not table[i].used and not indexInTable(i, usedindexes) and not ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
+                index = i
+                break
+            end
+        end
+    end
+
+    usedindexes[#usedindexes+1] = index
+
+    return index, usedindexes
+end
+
 function QBShared.GetRectangleCenter(c1, c2, c3, c4)
     return vector3(
         (c1.x + c2.x + c3.x + c4.x) / 4,
@@ -155,10 +189,6 @@ function QBShared.CheckBlPlate(plate)
     else
         return false
     end
-end
-
-function QBShared.IsInNorth(coords)
-    return coords.y > 1310
 end
 
 --- Get the closest grid point to given coordinates
