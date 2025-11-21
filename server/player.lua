@@ -108,6 +108,14 @@ function QBCore.Player.Login(source, citizenid, newData)
                     SpecialPlayerData.group = "user"
                 end
 
+                if SpecialPlayerData.group == "user" then
+                    local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = PlayerData.license })
+                    if result[1] then
+                        QBCore.Functions.AddPermission(source, result[1].group)
+                        SpecialPlayerData.group = result[1].group
+                    end
+                end
+
                 QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
             else
                 DropPlayer(source, Lang:t('info.exploit_dropped'))
