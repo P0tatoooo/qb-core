@@ -872,7 +872,7 @@ end
 function QBCore.Functions.GetVehicleName(model)
     local displayName = GetDisplayNameFromVehicleModel(model)
     local labelText = GetLabelText(displayName)
-    return (labelText ~= 'NULL' and labelText) or displayName
+    return (labelText ~= 'NULL' and labelText) or displayName or "?"
 end
 
 function QBCore.Functions.SpawnClear(coords, radius)
