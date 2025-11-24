@@ -1193,15 +1193,15 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
                 end
             end
         end
-        if props.neonEnabled then
+        --[[ if props.neonEnabled then
             SetVehicleNeonLightEnabled(vehicle, 0, props.neonEnabled[1])
             SetVehicleNeonLightEnabled(vehicle, 1, props.neonEnabled[2])
             SetVehicleNeonLightEnabled(vehicle, 2, props.neonEnabled[3])
             SetVehicleNeonLightEnabled(vehicle, 3, props.neonEnabled[4])
-        end
-        if props.neonColor then
+        end ]]
+        --[[ if props.neonColor then
             SetVehicleNeonLightsColour(vehicle, props.neonColor[1], props.neonColor[2], props.neonColor[3])
-        end
+        end ]]
         if props.interiorColor then
             SetVehicleInteriorColour(vehicle, props.interiorColor)
         end
