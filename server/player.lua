@@ -401,6 +401,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         if not meta or type(meta) ~= 'string' then return end
         if meta == 'hunger' or meta == 'thirst' then
             val = val > 100 and 100 or val
+            TriggerClientEvent('QBCore:Client:OnHungerThirstUpdate', self.PlayerData.source, meta, val)
         end
         self.PlayerData.metadata[meta] = val
         self.Functions.UpdatePlayerData()
