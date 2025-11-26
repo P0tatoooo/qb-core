@@ -778,11 +778,14 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             ['@citizenid'] = citizenid
         })
 
-        local result = MySQL.query.await('SELECT plate,type FROM player_vehicles WHERE citizenid = @citizenid AND job = "civ"', {
+        local result = MySQL.query.await('SELECT plate,type,glovebox,trunk FROM player_vehicles WHERE citizenid = @citizenid AND job = "civ"', {
             ['@citizenid'] = citizenid
         })
 
         for k,v in pairs(result) do
+            local text = "Glovebox :\n" .. (v.glovebox or '') .. '\nCoffre :\n' .. (v.trunk or '')
+            TriggerEvent('MyCity_CoreV2:DeleteTrunks:Logs', "Suppression Coffre Véhicule Premium - " .. v.plate, text)
+
             exports.ox_inventory:ClearInventory('glovebox' .. v.plate, false)
             exports.ox_inventory:ClearInventory('trunk' .. v.plate, false)
 
