@@ -20,6 +20,9 @@ CreateThread(function()
                 local currentHealth = GetEntityHealth(ped)
                 local decreaseThreshold = math.random(5, 10)
                 SetEntityHealth(ped, currentHealth - decreaseThreshold)
+                if currentHealth - decreaseThreshold < 100 then
+                    TriggerServerEvent('MyCity_CoreV2:Death:Logs', 'hungerthirst')
+                end
             end
         end
         Wait(QBCore.Config.StatusInterval)
