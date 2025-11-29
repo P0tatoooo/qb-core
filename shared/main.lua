@@ -79,7 +79,7 @@ function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
 
     if #usedindexes == #table then usedindexes = {} end
 
-    local index
+    local index = -1
     local randomIndex = math.random(1, #table)
     local timeout = GetGameTimer() + 2000
 
@@ -111,7 +111,7 @@ function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, isl
 
     if #usedindexes == #table then usedindexes = {} end
 
-    local index
+    local index = -1
     local randomIndex = math.random(1, #table)
     local timeout = GetGameTimer() + 2000
     local isNorth
