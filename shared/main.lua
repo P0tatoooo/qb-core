@@ -113,12 +113,14 @@ function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, isl
     while (table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth))) and GetGameTimer() < timeout do
         Citizen.Wait(0)
         index = math.random(1, #table)
-        isNorth = QBShared.IsInNorth(vec3(table[index].x, table[index].y, table[index].z))
+        local coords = table[index].coords or vec3(table[index].x, table[index].y, table[index].z)
+        isNorth = QBShared.IsInNorth(coords)
     end
 
     if table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
         for i=1, #table do
-            isNorth = QBShared.IsInNorth(vec3(table[index].x, table[index].y, table[index].z))
+            local coords = table[index].coords or vec3(table[index].x, table[index].y, table[index].z)
+            isNorth = QBShared.IsInNorth(coords)
             if not table[i].used and not indexInTable(i, usedindexes) and not ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
                 index = i
                 break
