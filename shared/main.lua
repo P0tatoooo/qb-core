@@ -79,24 +79,29 @@ function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
 
     if #usedindexes == #table then usedindexes = {} end
 
-    local index = math.random(1, #table)
+    local index
+    local randomIndex = math.random(1, #table)
     local timeout = GetGameTimer() + 2000
 
-    while (table[index].used or indexInTable(index, usedindexes)) and GetGameTimer() < timeout do
+    while (table[randomIndex].used or indexInTable(randomIndex, usedindexes)) and GetGameTimer() < timeout do
         Citizen.Wait(0)
-        index = math.random(1, #table)
+        randomIndex = math.random(1, #table)
     end
 
-    if table[index].used or indexInTable(index, usedindexes) then
+    if table[randomIndex].used or indexInTable(randomIndex, usedindexes) then
         for i=1, #table do
             if not table[i].used and not indexInTable(i, usedindexes) then
                 index = i
                 break
             end
         end
+    else
+        index = randomIndex
     end
 
-    usedindexes[#usedindexes+1] = index
+    if index then
+        usedindexes[#usedindexes+1] = index
+    end
 
     return index, usedindexes
 end
@@ -106,29 +111,34 @@ function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, isl
 
     if #usedindexes == #table then usedindexes = {} end
 
-    local index = math.random(1, #table)
+    local index
+    local randomIndex = math.random(1, #table)
     local timeout = GetGameTimer() + 2000
     local isNorth
 
-    while (table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth))) and GetGameTimer() < timeout do
+    while (table[randomIndex].used or indexInTable(randomIndex, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth))) and GetGameTimer() < timeout do
         Citizen.Wait(0)
-        index = math.random(1, #table)
-        local coords = table[index].coords or vec3(table[index].x, table[index].y, table[index].z)
+        randomIndex = math.random(1, #table)
+        local coords = table[randomIndex].coords or vec3(table[randomIndex].x, table[randomIndex].y, table[randomIndex].z)
         isNorth = QBShared.IsInNorth(coords)
     end
 
-    if table[index].used or indexInTable(index, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
+    if table[randomIndex].used or indexInTable(randomIndex, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
         for i=1, #table do
-            local coords = table[index].coords or vec3(table[index].x, table[index].y, table[index].z)
+            local coords = table[randomIndex].coords or vec3(table[randomIndex].x, table[randomIndex].y, table[randomIndex].z)
             isNorth = QBShared.IsInNorth(coords)
             if not table[i].used and not indexInTable(i, usedindexes) and not ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
                 index = i
                 break
             end
         end
+    else
+        index = randomIndex
     end
 
-    usedindexes[#usedindexes+1] = index
+    if index then
+        usedindexes[#usedindexes+1] = index
+    end
 
     return index, usedindexes
 end
