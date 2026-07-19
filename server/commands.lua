@@ -274,7 +274,7 @@ end, 'admin')
 QBCore.Commands.Add('givemoney', Lang:t('command.givemoney.help'), { { name = Lang:t('command.givemoney.params.id.name'), help = Lang:t('command.givemoney.params.id.help') }, { name = Lang:t('command.givemoney.params.moneytype.name'), help = Lang:t('command.givemoney.params.moneytype.help') }, { name = Lang:t('command.givemoney.params.amount.name'), help = Lang:t('command.givemoney.params.amount.help') } }, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     if Player then
-        Player.Functions.AddMoney(tostring(args[2]), tonumber(args[3]), 'Admin give money')
+        Player.Functions.AddMoney(tostring(args[2]), tonumber(args[3]), "Admin", true)
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
@@ -288,7 +288,7 @@ end, 'admin')
 QBCore.Commands.Add('removemoney', "Enlever de l'argent à un joueur", { { name = Lang:t('command.givemoney.params.id.name'), help = Lang:t('command.givemoney.params.id.help') }, { name = Lang:t('command.givemoney.params.moneytype.name'), help = Lang:t('command.givemoney.params.moneytype.help') }, { name = Lang:t('command.givemoney.params.amount.name'), help = Lang:t('command.givemoney.params.amount.help') } }, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     if Player then
-        Player.Functions.RemoveMoney(tostring(args[2]), tonumber(args[3]), 'Admin remove money')
+        Player.Functions.RemoveMoney(tostring(args[2]), tonumber(args[3]), "Admin", true)
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)

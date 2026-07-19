@@ -119,7 +119,6 @@ function QBCore.Player.Login(source, citizenid, newData)
                 QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
             else
                 DropPlayer(source, Lang:t('info.exploit_dropped'))
-                TriggerEvent('qb-log:server:CreateLog', 'anticheat', 'Anti-Cheat', 'white', GetPlayerName(source) .. ' Has Been Dropped For Character Joining Exploit', false)
             end
         else
             QBCore.Player.CheckPlayerData(source, newData, {favemotes = {}, furnitures = {}})
@@ -439,7 +438,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         self.Functions.UpdatePlayerData()
     end
 
-    function self.Functions.AddMoney(moneytype, amount, reason)
+    function self.Functions.AddMoney(moneytype, amount, reason, manual)
         reason = reason or 'unknown'
         moneytype = moneytype:lower()
         amount = tonumber(amount)
@@ -447,16 +446,26 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         if not self.PlayerData.money[moneytype] then return false end
         self.PlayerData.money[moneytype] = self.PlayerData.money[moneytype] + amount
 
-        if not self.Offline then
+        if self.Offline then
+            self.Functions.Save()
+
+            if moneytype == "bank" then
+                TriggerEvent('MyCity_Banking:CreateStatement2', self.PlayerData.citizenid, amount, reason, 'deposit', 'player', manual)
+            end
+        else
             self.Functions.UpdatePlayerData()
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'add', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'add', reason)
+
+            if moneytype == "bank" then
+                TriggerEvent('MyCity_Banking:CreateStatement', self.PlayerData.source, amount, reason, 'deposit', 'player', manual)
+            end
         end
 
         return true
     end
 
-    function self.Functions.RemoveMoney(moneytype, amount, reason)
+    function self.Functions.RemoveMoney(moneytype, amount, reason, manual)
         reason = reason or 'unknown'
         moneytype = moneytype:lower()
         amount = tonumber(amount)
@@ -471,19 +480,21 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         end
         self.PlayerData.money[moneytype] = self.PlayerData.money[moneytype] - amount
 
-        if not self.Offline then
-            self.Functions.UpdatePlayerData()
-            if amount > 100000 then
-                TriggerEvent('qb-log:server:CreateLog', 'playermoney', 'RemoveMoney', 'red', '**' .. GetPlayerName(self.PlayerData.source) .. ' (citizenid: ' .. self.PlayerData.citizenid .. ' | id: ' .. self.PlayerData.source .. ')** $' .. amount .. ' (' .. moneytype .. ') removed, new ' .. moneytype .. ' balance: ' .. self.PlayerData.money[moneytype] .. ' reason: ' .. reason, true)
-            else
-                TriggerEvent('qb-log:server:CreateLog', 'playermoney', 'RemoveMoney', 'red', '**' .. GetPlayerName(self.PlayerData.source) .. ' (citizenid: ' .. self.PlayerData.citizenid .. ' | id: ' .. self.PlayerData.source .. ')** $' .. amount .. ' (' .. moneytype .. ') removed, new ' .. moneytype .. ' balance: ' .. self.PlayerData.money[moneytype] .. ' reason: ' .. reason)
-            end
+        if self.Offline then
+            self.Functions.Save()
 
-            if moneytype == 'bank' then
-                TriggerClientEvent('qb-phone:client:RemoveBankMoney', self.PlayerData.source, amount)
+            if moneytype == "bank" then
+                TriggerEvent('MyCity_Banking:CreateStatement2', self.PlayerData.citizenid, amount, reason, 'withdraw', 'player', manual)
             end
+        else
+            self.Functions.UpdatePlayerData()
+
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'remove', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'remove', reason)
+
+            if moneytype == "bank" then
+                TriggerEvent('MyCity_Banking:CreateStatement', self.PlayerData.source, amount, reason, 'withdraw', 'player', manual)
+            end
         end
 
         return true
@@ -498,9 +509,10 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         local difference = amount - self.PlayerData.money[moneytype]
         self.PlayerData.money[moneytype] = amount
 
-        if not self.Offline then
+        if self.Offline then
+            self.Functions.Save()
+        else
             self.Functions.UpdatePlayerData()
-            TriggerEvent('qb-log:server:CreateLog', 'playermoney', 'SetMoney', 'green', '**' .. GetPlayerName(self.PlayerData.source) .. ' (citizenid: ' .. self.PlayerData.citizenid .. ' | id: ' .. self.PlayerData.source .. ')** $' .. amount .. ' (' .. moneytype .. ') set, new ' .. moneytype .. ' balance: ' .. self.PlayerData.money[moneytype] .. ' reason: ' .. reason)
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
         end
