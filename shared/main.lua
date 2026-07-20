@@ -99,7 +99,7 @@ function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
         index = randomIndex
     end
 
-    if index then
+    if index and index ~= -1 then
         usedindexes[#usedindexes+1] = index
     end
 
@@ -136,7 +136,7 @@ function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, isl
         index = randomIndex
     end
 
-    if index then
+    if index and index ~= -1 then
         usedindexes[#usedindexes+1] = index
     end
 
