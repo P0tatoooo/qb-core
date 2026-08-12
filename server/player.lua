@@ -420,15 +420,16 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         end
         
         if playerPed and DoesEntityExist(playerPed) then
-            playerCoords = GetEntityCoords(playerPed)
+            local coord = GetEntityCoords(playerPed)
+            playerCoords = vec4(coord.x, coord.y, coord.z, GetEntityHeading(playerPed))
         else
             if self.PlayerData.position and self.PlayerData.position.x then
-                playerCoords = vec3(self.PlayerData.position.x, self.PlayerData.position.y, self.PlayerData.position.y)
+                playerCoords = vec4(self.PlayerData.position.x, self.PlayerData.position.y, self.PlayerData.position.y, self.PlayerData.position.w or 0.0)
             else
-                playerCoords = vector3(0,0,0)
+                playerCoords = vector4(0,0,0,0)
             end
         end
-        return playerCoords or vector3(0,0,0)
+        return playerCoords or vector4(0,0,0,0)
     end
 
     function self.Functions.AddJobReputation(amount)
@@ -664,6 +665,7 @@ end
 function QBCore.Player.Save(source)
     local ped = GetPlayerPed(source)
     local pcoords = GetEntityCoords(ped)
+    local pheading = GetEntityHeading(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
         MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
@@ -678,7 +680,7 @@ function QBCore.Player.Save(source)
             charinfo = json.encode(PlayerData.charinfo),
             job = json.encode(PlayerData.job),
             gang = json.encode(PlayerData.gang),
-            position = json.encode(pcoords),
+            position = json.encode(vec4(pcoords.x, pcoords.y, pcoords.z, pheading)),
             metadata = json.encode(PlayerData.metadata),
             bodyparts = json.encode(PlayerData.bodyparts),
             tattoos = json.encode(PlayerData.tattoos),
