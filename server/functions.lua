@@ -522,19 +522,46 @@ function QBCore.Functions.ToggleOptin(source)
     Player.Functions.SetPlayerData('optin', Player.PlayerData.optin)
 end
 
----Check if player is banned
+---Check if player is banned (el_bwh / bwh_bans)
 ---@param source any
 ---@return boolean, string?
 function QBCore.Functions.IsPlayerBanned(source)
-    local plicense = QBCore.Functions.GetIdentifier(source, 'license')
-    local result = MySQL.single.await('SELECT id, reason, expire FROM bans WHERE license = ?', { plicense })
-    if not result then return false end
-    if os.time() < result.expire then
-        local timeTable = os.date('*t', tonumber(result.expire))
-        return true, 'You have been banned from the server:\n' .. result.reason .. '\nYour ban expires ' .. timeTable.day .. '/' .. timeTable.month .. '/' .. timeTable.year .. ' ' .. timeTable.hour .. ':' .. timeTable.min .. '\n'
-    else
-        MySQL.query('DELETE FROM bans WHERE id = ?', { result.id })
+    -- el_bwh does its own ban check on playerConnecting, don't do it twice
+    if GetResourceState('el_bwh') == 'started' then return false end
+
+    local identifiers = GetPlayerIdentifiers(source)
+    if not identifiers or #identifiers == 0 then return false end
+
+    -- Pre-filter on the identifiers, the exact match is done below (receiver is a json array)
+    local conditions, params = {}, {}
+    for i = 1, #identifiers do
+        conditions[#conditions + 1] = 'receiver LIKE ?'
+        params[#params + 1] = '%' .. identifiers[i] .. '%'
     end
+
+    local result = MySQL.query.await([[
+        SELECT id, receiver, reason, sender_name, UNIX_TIMESTAMP(length) AS expire
+        FROM bwh_bans
+        WHERE (unbanned = 0 OR unbanned IS NULL)
+        AND (length IS NULL OR length > NOW())
+        AND (]] .. table.concat(conditions, ' OR ') .. ')', params)
+    if not result or #result == 0 then return false end
+
+    for i = 1, #result do
+        local ban = result[i]
+        local receivers = ban.receiver and json.decode(ban.receiver)
+        if receivers then
+            for j = 1, #receivers do
+                for k = 1, #identifiers do
+                    if receivers[j] == identifiers[k] then
+                        local expire = ban.expire and ('Expire le ' .. os.date('%d/%m/%Y', ban.expire) .. ' a ' .. os.date('%H:%M', ban.expire)) or 'PERMANENT'
+                        return true, ('BANNI !\nRaison: %s\nExpiration: %s\nBanni par: %s (Ban ID: #%s)'):format(ban.reason or 'Aucune raison', expire, ban.sender_name or 'N/A', ban.id)
+                    end
+                end
+            end
+        end
+    end
+
     return false
 end
 
