@@ -185,7 +185,7 @@ RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Prise de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
 
         if QBCore.Shared.JobsAutoStatus[Player.PlayerData.job.name] and curPlayerOnDuty == 0 then
-            TriggerEvent('MyCity_MDT:SetCompanyStatus', true, Player.PlayerData.job.name)
+            TriggerEvent('MyCity_Tab:SetCompanyStatus', true, Player.PlayerData.job.name)
         end
     end
 
