@@ -1,16 +1,13 @@
 -- Player load and unload handling
 -- New method for checking if logged in across all scripts (optional)
--- if LocalPlayer.state['isLoggedIn'] then
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     ShutdownLoadingScreenNui()
     LocalPlayer.state:set('isLoggedIn', true, false)
-    if not QBCore.Config.Server.PVP then return end
     SetCanAttackFriendly(PlayerPedId(), true, false)
     NetworkSetFriendlyFireOption(true)
     exports['soz-voip']:MutePlayer(false)
-    TriggerEvent('MyCity_Clothing:InitCharacter')
     TriggerEvent('qb-weathersync:client:EnableSync')
-    TriggerEvent("MyCity_MultiCharacter:CharacterChosen")
+    TriggerEvent("soz-voip:startConnectCheckThread")
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
 end)
 
