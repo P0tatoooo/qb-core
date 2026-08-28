@@ -833,7 +833,10 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
                 local posters = exports.MyCity_Posters:GetRegisteredPosters()
                 for k,v in pairs(posters) do
                     if #(coords - v.pointA) < 50 then
-                        TriggerEvent("posters:deleteImage", k)
+                        -- Export et non `posters:deleteImage` : l'évènement
+                        -- réseau vérifie désormais la distance du joueur, ce
+                        -- ménage-là est interne.
+                        exports.MyCity_Posters:RemovePoster(k)
                     end
                 end
             end
