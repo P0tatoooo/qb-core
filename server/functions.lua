@@ -619,6 +619,93 @@ function QBCore.Functions.PrepForSQL(source, data, pattern)
     return true
 end
 
+-- Colonnes communes à deux tables, résolues une fois puis mises en cache.
+local sharedColumnsCache = {}
+
+---Liste (échappée) des colonnes présentes à la fois dans `sourceTable` et dans
+---`targetTable`, dans l'ordre de la table source.
+---Les colonnes générées de la cible (`job_name`, `gang_name`...) sont exclues :
+---MySQL refuse qu'on leur fournisse une valeur, elles se recalculent seules à
+---partir des colonnes copiées.
+---@param sourceTable string
+---@param targetTable string
+---@return string? columns
+local function getSharedColumns(sourceTable, targetTable)
+    local cacheKey = sourceTable .. '>' .. targetTable
+    if sharedColumnsCache[cacheKey] then return sharedColumnsCache[cacheKey] end
+
+    local columns = MySQL.query.await([[
+        SELECT src.COLUMN_NAME AS name
+        FROM information_schema.COLUMNS AS src
+        INNER JOIN information_schema.COLUMNS AS dst
+            ON dst.TABLE_SCHEMA = src.TABLE_SCHEMA
+            AND dst.TABLE_NAME = ?
+            AND dst.COLUMN_NAME = src.COLUMN_NAME
+        WHERE src.TABLE_SCHEMA = DATABASE() AND src.TABLE_NAME = ?
+            AND COALESCE(dst.GENERATION_EXPRESSION, '') = ''
+        ORDER BY src.ORDINAL_POSITION
+    ]], { targetTable, sourceTable })
+
+    if not columns or #columns == 0 then return nil end
+
+    local escaped = {}
+    for i = 1, #columns do
+        escaped[i] = ('`%s`'):format(columns[i].name)
+    end
+
+    sharedColumnsCache[cacheKey] = table.concat(escaped, ', ')
+    return sharedColumnsCache[cacheKey]
+end
+
+---Vérifie qu'une copie `sourceTable` -> `targetTable` est possible, sans rien
+---écrire. À appeler avant la moindre suppression.
+---@param sourceTable string
+---@param targetTable string
+---@return boolean
+function QBCore.Functions.CanCopyRows(sourceTable, targetTable)
+    if getSharedColumns(sourceTable, targetTable) then return true end
+    print(('^1[qb-core] Copie %s -> %s impossible : aucune colonne commune^7'):format(sourceTable, targetTable))
+    return false
+end
+
+---Recopie des lignes d'une table vers une autre en listant explicitement les
+---colonnes communes aux deux tables.
+---`INSERT INTO target SELECT * FROM source` casse dès qu'une colonne est
+---ajoutée d'un seul côté (ou que l'ordre diffère) : les archives (`old_players`
+---& co) finissent toujours par diverger du schéma vivant.
+---Les copies passent par une transaction : soit tout est écrit, soit rien, ce
+---qui évite l'archive à moitié faite dont on ne peut plus se dépêtrer. Ne lève
+---pas d'erreur : renvoie false pour que l'appelant annule la suppression qui
+---suit plutôt que de perdre les données.
+---@param copies { source: string, target: string, where: string, params: table }[] `where` utilise des placeholders `?`
+---@return boolean
+function QBCore.Functions.CopyRows(copies)
+    local queries = {}
+
+    for i = 1, #copies do
+        local copy = copies[i]
+        local columns = getSharedColumns(copy.source, copy.target)
+
+        if not columns then
+            print(('^1[qb-core] Copie %s -> %s impossible : aucune colonne commune^7'):format(copy.source, copy.target))
+            return false
+        end
+
+        queries[i] = {
+            query = ('INSERT INTO `%s` (%s) SELECT %s FROM `%s` WHERE %s'):format(copy.target, columns, columns, copy.source, copy.where),
+            values = copy.params
+        }
+    end
+
+    if MySQL.transaction.await(queries) then return true end
+
+    for i = 1, #copies do
+        print(('^1[qb-core] Copie %s -> %s échouée^7'):format(copies[i].source, copies[i].target))
+    end
+
+    return false
+end
+
 function QBCore.Functions.DoesJobExist(job, grade)
     if not job then return false end
     job = job:lower() or ''

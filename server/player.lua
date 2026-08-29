@@ -770,6 +770,16 @@ end ]]
 function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
     local result = MySQL.scalar.await('SELECT license FROM players where citizenid = ?', { citizenid })
     if result then
+        -- Un wipe à moitié fait est pire qu'un wipe qui n'a pas eu lieu : on
+        -- s'assure que les trois archives sont exploitables avant de toucher
+        -- au personnage.
+        if not (QBCore.Functions.CanCopyRows('players', 'old_players')
+            and QBCore.Functions.CanCopyRows('player_vehicles', 'old_player_vehicles')
+            and QBCore.Functions.CanCopyRows('properties', 'old_properties')) then
+            print(('^1[qb-core] Wipe de %s annulé : tables d\'archive inexploitables^7'):format(citizenid))
+            return
+        end
+
         local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
 
         if Player and Player.PlayerData.source ~= sourceplayer then
@@ -784,8 +794,15 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             end
         end
 
-        local resultPlayer = MySQL.query.await('INSERT INTO old_players SELECT * FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
-        local resultPlayer = MySQL.query.await('INSERT INTO old_player_vehicles SELECT * FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no" AND job = "civ"', {['@citizenid'] = citizenid})
+        local archived = QBCore.Functions.CopyRows({
+            { source = 'players', target = 'old_players', where = 'citizenid = ?', params = { citizenid } },
+            { source = 'player_vehicles', target = 'old_player_vehicles', where = 'citizenid = ? AND premium = "no" AND job = "civ"', params = { citizenid } }
+        })
+
+        if not archived then
+            print(('^1[qb-core] Wipe de %s annulé : archivage impossible^7'):format(citizenid))
+            return
+        end
 
         local result = MySQL.query.await('DELETE FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
         local result = MySQL.query.await('DELETE FROM player_vehicles WHERE citizenid = @citizenid AND premium = "no" AND job = "civ"', {
@@ -842,8 +859,16 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
             end
         end
 
-        local result = MySQL.query.await('INSERT INTO old_properties SELECT * FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
-        local result = MySQL.query.await('DELETE FROM properties WHERE owner = @citizenid AND type = "civil"', {['@citizenid'] = citizenid})
+        -- Le personnage est déjà supprimé à ce stade : on ne remonte pas, on se
+        -- contente de garder les propriétés en base si l'archivage a échoué.
+        if QBCore.Functions.CopyRows({
+            { source = 'properties', target = 'old_properties', where = 'owner = ?', params = { citizenid } }
+        }) then
+            local result = MySQL.query.await('DELETE FROM properties WHERE owner = @citizenid AND type = "civil"', {['@citizenid'] = citizenid})
+        else
+            print(('^1[qb-core] Wipe de %s : archivage des propriétés impossible, elles ne sont pas supprimées^7'):format(citizenid))
+        end
+
         local result = MySQL.query.await('UPDATE properties SET owner = "", ownername = "", furniture = "{}", status = "locked" WHERE owner = @citizenid AND type = "civilipl"', {['@citizenid'] = citizenid})
 
         local propertiesText = ""
