@@ -187,6 +187,22 @@ RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
     QBCore.PlayerData = val
 end)
 
+-- Applies a partial update instead of receiving the whole PlayerData table.
+-- `section` is a PlayerData sub-table name ('metadata', 'money', ...) or nil for top-level keys.
+RegisterNetEvent('QBCore:Player:PatchPlayerData', function(section, patch)
+    if type(patch) ~= 'table' then return end
+    local target = QBCore.PlayerData
+    if section then
+        if type(target[section]) ~= 'table' then target[section] = {} end
+        target = target[section]
+    end
+    for k, v in pairs(patch) do
+        target[k] = v
+    end
+    -- Local re-broadcast so client resources watching PlayerData keep working. Costs no bandwidth.
+    TriggerEvent('QBCore:Player:SetPlayerData', QBCore.PlayerData)
+end)
+
 RegisterNetEvent('QBCore:Player:SetSpecialPlayerData', function(val)
     QBCore.SpecialPlayerData = val
 end)
