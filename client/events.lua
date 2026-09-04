@@ -15,17 +15,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     LocalPlayer.state:set('isLoggedIn', false, false)
 end)
 
-RegisterNetEvent('QBCore:Client:PvpHasToggled', function(pvp_state)
-    SetCanAttackFriendly(PlayerPedId(), pvp_state, false)
-    NetworkSetFriendlyFireOption(pvp_state)
-end)
 -- Teleport Commands
-
-RegisterNetEvent('QBCore:Command:TeleportToPlayer', function(coords)
-    local ped = PlayerPedId()
-    SetPedCoordsKeepVehicle(ped, coords.x, coords.y, coords.z)
-end)
-
 RegisterNetEvent('QBCore:Command:TeleportToCoords', function(x, y, z, h)
     local ped = PlayerPedId()
     SetPedCoordsKeepVehicle(ped, x, y, z)
@@ -140,7 +130,6 @@ RegisterNetEvent('QBCore:Command:SpawnVehicle', function(vehName)
     SetVehicleFuelLevel(vehicle, 100.0)
     SetVehicleDirtLevel(vehicle, 0.0)
     SetModelAsNoLongerNeeded(hash)
-    TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(vehicle))
 end)
 
 RegisterNetEvent('QBCore:Command:DeleteVehicle', function(radius)
@@ -162,7 +151,7 @@ RegisterNetEvent('QBCore:Command:DeleteVehicle', function(radius)
 	end
 end)
 
-RegisterNetEvent('QBCore:Client:VehicleInfo', function(info)
+--[[ RegisterNetEvent('QBCore:Client:VehicleInfo', function(info)
     local plate = QBCore.Functions.GetPlate(info.vehicle)
     local hasKeys = true
 
@@ -179,7 +168,7 @@ RegisterNetEvent('QBCore:Client:VehicleInfo', function(info)
 
         TriggerEvent('QBCore:Client:' .. info.event .. 'Vehicle', data)
     end
-end)
+end) ]]
 
 -- Other stuff
 
@@ -217,12 +206,6 @@ end)
 
 RegisterNetEvent('QBCore:ShowAdvancedNotification', function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
     QBCore.Functions.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
-end)
-
--- This event is exploitable and should not be used. It has been deprecated, and will be removed soon.
-RegisterNetEvent('QBCore:Client:UseItem', function(item)
-    QBCore.Debug(string.format('%s triggered QBCore:Client:UseItem by ID %s with the following data. This event is deprecated due to exploitation, and will be removed soon. Check qb-inventory for the right use on this event.', GetInvokingResource(), GetPlayerServerId(PlayerId())))
-    QBCore.Debug(item)
 end)
 
 -- Callback Events --

@@ -198,7 +198,7 @@ end)
 -- BaseEvents
 
 -- Vehicles
-RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName, netid)
+--[[ RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName, netid)
     local src = source
     local data = {
         vehicle = veh,
@@ -235,7 +235,7 @@ RegisterServerEvent('baseevents:leftVehicle', function(veh, seat, modelName)
         event = 'Left'
     }
     TriggerClientEvent('QBCore:Client:VehicleInfo', src, data)
-end)
+end) ]]
 
 -- Items
 

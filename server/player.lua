@@ -247,6 +247,9 @@ end
 -- On player logout
 
 function QBCore.Player.Logout(source)
+    -- [playedtime patch] Logout dropped the player object without ever saving it, so the
+    -- current session's playtime (and any other unsaved PlayerData) was discarded.
+    if QBCore.Players[source] then QBCore.Player.Save(source) end
     TriggerClientEvent('QBCore:Client:OnPlayerUnload', source)
     TriggerEvent('QBCore:Server:OnPlayerUnload', source)
     TriggerClientEvent('QBCore:Player:UpdatePlayerData', source)
@@ -663,6 +666,9 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
     if self.Offline then
         return self
     else
+        -- [playedtime patch] session clock. Sibling of PlayerData, not inside it,
+        -- so Save() never serialises it and it dies with the player object.
+        self.sessionStart = GetGameTimer()
         QBCore.Players[self.PlayerData.source] = self
         QBCore.Player.Save(self.PlayerData.source)
         TriggerEvent('QBCore:Server:PlayerLoaded', self)
@@ -734,6 +740,15 @@ function QBCore.Player.Save(source)
     local pcoords = GetEntityCoords(ped)
     local pheading = GetEntityHeading(ped)
     local PlayerData = QBCore.Players[source].PlayerData
+    -- [playedtime patch] credit elapsed session time (ms) before metadata is serialised.
+    -- Resetting sessionStart makes this idempotent: two saves back to back credit the
+    -- interval once, so no caller needs to know about playedtime at all.
+    local player = QBCore.Players[source]
+    if player.sessionStart and PlayerData and PlayerData.metadata then
+        local now = GetGameTimer()
+        PlayerData.metadata.playedtime = (PlayerData.metadata.playedtime or 0) + (now - player.sessionStart)
+        player.sessionStart = now
+    end
     if PlayerData then
         MySQL.insert('INSERT INTO players (citizenid, cid, license, discord, name, steam, rpname, money, charinfo, job, gang, position, metadata, bodyparts, tattoos, currentproperty, mugshot, phone, skills) VALUES (:citizenid, :cid, :license, :discord, :name, :steam, :rpname, :money, :charinfo, :job, :gang, :position, :metadata, :bodyparts, :tattoos, :currentproperty, :mugshot, :phone, :skills) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, steam = :steam, rpname = :rpname, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata, bodyparts = :bodyparts, tattoos = :tattoos, currentproperty = :currentproperty, mugshot = :mugshot, phone = :phone, skills = :skills', {
             citizenid = PlayerData.citizenid,
