@@ -60,6 +60,8 @@ function QBCore.Player.Login(source, citizenid, newData)
                             end
                         end
                     end
+
+                    TriggerEvent('MyCity_CoreV2:AddDiscordRoleIllegal', PlayerData.discord, PlayerData.gang.name, PlayerData.gang.grade.level)
                 else
                     PlayerData.gang = {
                         name = 'civil',
@@ -346,10 +348,32 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         return true
     end
 
+    local function updateDiscordRolesIllegal(discord, oldgang, oldisboss, newgang, newgrade)
+        Citizen.CreateThread(function()
+            if oldgang ~= 'civil' then
+                if oldgang ~= newgang then
+                    TriggerEvent("MyCity_CoreV2:RemoveDiscordRoleIllegal", discord, oldgang, true)
+                else
+                    if (oldisboss and not QBCore.Shared.Gangs[newgang].grades[newgrade].isboss) then
+                        TriggerEvent("MyCity_CoreV2:RemoveDiscordRoleIllegal", discord, "bossillegal")
+                    end
+                end
+            end
+            
+            Citizen.Wait(3000)
+            if newgang ~= 'civil' then
+                TriggerEvent("MyCity_CoreV2:AddDiscordRoleIllegal", discord, newgang, newgrade)
+            end
+        end)
+    end
+
     function self.Functions.SetGang(gang, grade)
         gang = gang:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Gangs[gang] then return false end
+        if MC_REMOVEWHITELIST then
+            updateDiscordRolesIllegal(self.PlayerData.discord, self.PlayerData.gang.name, self.PlayerData.gang.grade.isboss, gang, grade)
+        end
         self.PlayerData.gang = {
             name = gang,
             label = QBCore.Shared.Gangs[gang].label,
