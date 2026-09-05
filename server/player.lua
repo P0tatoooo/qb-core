@@ -1,6 +1,7 @@
 QBCore.Players = {}
 QBCore.Player = {}
 MC_REMOVEWHITELIST = GetConvarInt('mc_removewhitelist', 0) ~= 0
+MC_UPDATEDISCORD = GetConvarInt('mc_updatediscord', 0) ~= 0
 
 -- On player login get their data or set defaults
 -- Don't touch any of this unless you know what you are doing
@@ -314,7 +315,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         job = job:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Jobs[job] then return false end
-        if MC_REMOVEWHITELIST then
+        if MC_UPDATEDISCORD then
             updateDiscordRoles(self.PlayerData.discord, self.PlayerData.job.name, self.PlayerData.job.grade.isboss, job, grade)
         end
         self.PlayerData.job = {
@@ -371,7 +372,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         gang = gang:lower()
         grade = tonumber(grade) or 1
         if not QBCore.Shared.Gangs[gang] then return false end
-        if MC_REMOVEWHITELIST then
+        if MC_UPDATEDISCORD then
             updateDiscordRolesIllegal(self.PlayerData.discord, self.PlayerData.gang.name, self.PlayerData.gang.grade.isboss, gang, grade)
         end
         self.PlayerData.gang = {
@@ -894,12 +895,6 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local Player = QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
 
-        if MC_REMOVEWHITELIST then
-            if Player.PlayerData.job.name ~= "unemployed" then
-                TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name, true)
-            end
-        end
-
         local archived = QBCore.Functions.CopyRows({
             { source = 'players', target = 'old_players', where = 'citizenid = ?', params = { citizenid } },
             { source = 'player_vehicles', target = 'old_player_vehicles', where = 'citizenid = ? AND premium = "no" AND job = "civ"', params = { citizenid } }
@@ -908,6 +903,17 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
         if not archived then
             print(('^1[qb-core] Wipe de %s annulé : archivage impossible^7'):format(citizenid))
             return
+        end
+
+        if MC_UPDATEDISCORD then
+            if Player.PlayerData.cid == 1 then
+                if Player.PlayerData.job.name ~= "unemployed" then
+                    TriggerEvent('MyCity_CoreV2:RemoveDiscordRole', Player.PlayerData.discord, Player.PlayerData.job.name, true)
+                end
+                if Player.PlayerData.gang.name ~= "civil" then
+                    TriggerEvent('MyCity_CoreV2:RemoveDiscordRoleIllegal', Player.PlayerData.discord, Player.PlayerData.gang.name, true)
+                end
+            end
         end
 
         -- Custom tattoos designed for this character: the ownership and wear
