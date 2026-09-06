@@ -522,13 +522,12 @@ function QBCore.Functions.ToggleOptin(source)
     Player.Functions.SetPlayerData('optin', Player.PlayerData.optin)
 end
 
----Check if player is banned (el_bwh / bwh_bans)
+---Check if player is banned (`bwh_bans`, written by MyCity_AdminMenu)
 ---@param source any
 ---@return boolean, string?
 function QBCore.Functions.IsPlayerBanned(source)
-    -- el_bwh does its own ban check on playerConnecting, don't do it twice
-    if GetResourceState('el_bwh') == 'started' then return false end
-
+    -- This is the only ban check on connect since el_bwh was removed: the admin
+    -- panel writes the bans, this reads them.
     local identifiers = GetPlayerIdentifiers(source)
     if not identifiers or #identifiers == 0 then return false end
 
