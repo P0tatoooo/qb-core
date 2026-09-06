@@ -466,7 +466,11 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
             TriggerClientEvent('QBCore:Client:OnHungerThirstUpdate', self.PlayerData.source, meta, val)
         end
         self.PlayerData.metadata[meta] = val
-        if FULL_SYNC_META[meta] then
+        -- val == nil has to take the full-sync path: `{ [meta] = nil }` builds an
+        -- EMPTY table, so the patch carries nothing and the client keeps the old
+        -- value forever. Clearing a key (e.g. bulletproofvest on unequip) was
+        -- silently never reaching clients at all.
+        if val == nil or FULL_SYNC_META[meta] then
             self.Functions.UpdatePlayerData()
         else
             self.Functions.PatchPlayerData('metadata', { [meta] = val })
@@ -489,7 +493,9 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
                     self.PlayerData.metadata[meta] = val
                     patch[meta] = val
                     count = count + 1
-                    if FULL_SYNC_META[meta] then fullSync = true end
+                    -- Same nil problem as SetMetaData above: a nil never lands
+                    -- in `patch`, so the deletion can only travel as a full sync.
+                    if val == nil or FULL_SYNC_META[meta] then fullSync = true end
                 end
             end
         end
