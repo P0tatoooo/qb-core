@@ -1047,7 +1047,13 @@ end
 
 function QBCore.Player.CreateCitizenId()
     local CitizenId = tostring(QBCore.Shared.RandomStr(3) .. QBCore.Shared.RandomInt(5)):upper()
-    local result = MySQL.prepare.await('SELECT EXISTS(SELECT 1 FROM players WHERE citizenid = ?) AS uniqueCheck', { CitizenId })
+    -- Also checked against old_players (wiped/archived characters) - not just
+    -- the live players table - so a wiped citizenid never gets reassigned to
+    -- a brand-new character. Reuse still gave the new row its own correct
+    -- creationdate, but made the same ID appear to have two different
+    -- creation dates across logs/Discord history/old_players, looking like a
+    -- data-corruption bug when the stored values were actually both right.
+    local result = MySQL.prepare.await('SELECT EXISTS(SELECT 1 FROM players WHERE citizenid = ?) OR EXISTS(SELECT 1 FROM old_players WHERE citizenid = ?) AS uniqueCheck', { CitizenId, CitizenId })
     if result == 0 then return CitizenId end
     return QBCore.Player.CreateCitizenId()
 end

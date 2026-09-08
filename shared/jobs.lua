@@ -496,6 +496,25 @@ QBShared.Jobs = {
 		},
 	},
 
+	-- Supérettes. Le nom DOIT commencer par « grocerystore » : c'est ce préfixe
+	-- que MyCity_CoreV2 (Shared/GroceryStore.lua) reconnaît. Chaque job ajouté
+	-- ici a besoin d'une fiche du même nom dans GroceryStoreConfig.Stores,
+	-- sinon il n'a ni magasin ni réserve.
+	grocerystore_davis = {
+		label = 'Supérette de Davis',
+		type = 'grocerystore',
+		defaultDuty = false,
+		offDutyPay = false,
+		grades = {
+			{ name = 'Intérimaire', payment = 50 },
+			{ name = 'Employé', payment = 75 },
+			{ name = 'Vendeur Confirmé', payment = 100 },
+			{ name = 'Manager', payment = 125 },
+			{ name = 'Co-Patron', isboss = true, payment = 150 },
+			{ name = 'Patron', isboss = true, payment = 150 },
+		},
+	},
+
     youtool = {
 		label = 'Youtool',
 		type = 'youtool',
