@@ -88,7 +88,8 @@ QBCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.
             local target = GetPlayerPed(tonumber(args[1]))
             if target ~= 0 then
                 if source ~= 0 then
-                    TriggerEvent("MyCity_CoreV2:AdminMenu:TP", tonumber(args[1]), false, source)
+                    -- Évènement non réseau de MyCity_CoreV2 : l'admin est passé explicitement
+                    TriggerEvent("MyCity_CoreV2:AdminMenu:TP:Server", tonumber(args[1]), false, source)
                 end
             else
                 TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')

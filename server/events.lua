@@ -155,8 +155,10 @@ local function GetCurrentPlayerOnDuty(job)
     return curPlayersOnDuty
 end
 
-RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
-    local src = sourceplayer or source
+-- Prise / fin de service de `src`. Avant, l'évènement réseau prenait le joueur en second
+-- argument : n'importe quel client pouvait mettre n'importe qui en ou hors service (par
+-- exemple sortir toute la police de service).
+local function toggleDuty(src, forcetoggle)
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
 
@@ -193,6 +195,17 @@ RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle, sourceplayer)
 
     TriggerEvent('QBCore:Server:SetDuty', src, Player.PlayerData.job.onduty)
     TriggerClientEvent('QBCore:Client:SetDuty', src, Player.PlayerData.job.onduty)
+end
+
+-- Clients (vestiaires, téléphone, tablette de police…) : toujours pour l'appelant
+RegisterNetEvent('QBCore:ToggleDuty', function(forcetoggle)
+    toggleDuty(source, forcetoggle)
+end)
+
+-- Appels serveur qui retirent un autre joueur du service (MyCity_Tab, menu admin de
+-- MyCity_CoreV2) : évènement non réseau, le joueur est explicite
+AddEventHandler('QBCore:ToggleDuty:Server', function(forcetoggle, src)
+    toggleDuty(src, forcetoggle)
 end)
 
 -- BaseEvents
