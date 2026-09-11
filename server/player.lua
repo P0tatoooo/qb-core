@@ -32,6 +32,8 @@ function QBCore.Player.Login(source, citizenid, newData)
                             end
                         end
                     end
+
+                    TriggerEvent('MyCity_CoreV2:AddDiscordRole', PlayerData.discord, PlayerData.job.name, PlayerData.job.grade.level)
                 else
                     PlayerData.job = {
                         name = 'unemployed',
@@ -300,7 +302,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
                 if oldjob ~= newjob then
                     TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, oldjob, true)
                 else
-                    if (oldisboss and not QBCore.Shared.Gangs[newjob].grades[newgrade].isboss) then
+                    if (oldisboss and not QBCore.Shared.Jobs[newjob].grades[newgrade].isboss) then
                         TriggerEvent("MyCity_CoreV2:RemoveDiscordRole", discord, "boss")
                     end
                 end
