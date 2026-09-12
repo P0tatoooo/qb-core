@@ -8,6 +8,37 @@ MC_UPDATEDISCORD = GetConvarInt('mc_updatediscord', 0) ~= 0
 -- Will cause major issues!
 
 local resourceName = GetCurrentResourceName()
+
+-- Shared by both branches of QBCore.Player.Login below - the new-character
+-- branch used to skip this entirely (SpecialPlayerData.group stayed nil
+-- until the player disconnected and reconnected, going through the
+-- citizenid branch that actually computes it), so an admin/staff member's
+-- permissions weren't in effect on the character they'd just created.
+local function resolvePlayerGroup(source, license)
+    local group = "user"
+    local permissions = QBCore.Functions.GetPermission(source)
+
+    if permissions['god'] then
+        group = "god"
+    elseif permissions['admin'] then
+        group = "admin"
+    elseif permissions['mod'] then
+        group = "mod"
+    elseif permissions['ped'] then
+        group = "ped"
+    end
+
+    if group == "user" then
+        local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = license })
+        if result[1] then
+            QBCore.Functions.AddPermission(source, result[1].group)
+            group = result[1].group
+        end
+    end
+
+    return group
+end
+
 function QBCore.Player.Login(source, citizenid, newData)
     if source and source ~= '' then
         if citizenid then
@@ -99,34 +130,19 @@ function QBCore.Player.Login(source, citizenid, newData)
                 PlayerData.favemotes = nil
                 PlayerData.furnitures = nil
 
-                local permissions = QBCore.Functions.GetPermission(source)
-
-                if permissions['god'] then
-                    SpecialPlayerData.group = "god"
-                elseif permissions['admin'] then
-                    SpecialPlayerData.group = "admin"
-                elseif permissions['mod'] then
-                    SpecialPlayerData.group = "mod"
-                elseif permissions['ped'] then
-                    SpecialPlayerData.group = "ped"
-                else
-                    SpecialPlayerData.group = "user"
-                end
-
-                if SpecialPlayerData.group == "user" then
-                    local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = PlayerData.license })
-                    if result[1] then
-                        QBCore.Functions.AddPermission(source, result[1].group)
-                        SpecialPlayerData.group = result[1].group
-                    end
-                end
+                SpecialPlayerData.group = resolvePlayerGroup(source, PlayerData.license)
 
                 QBCore.Player.CheckPlayerData(source, PlayerData, SpecialPlayerData)
             else
                 DropPlayer(source, Lang:t('info.exploit_dropped'))
             end
         else
-            QBCore.Player.CheckPlayerData(source, newData, {favemotes = {}, furnitures = {}})
+            local license = QBCore.Functions.GetIdentifier(source, 'license')
+            QBCore.Player.CheckPlayerData(source, newData, {
+                favemotes = {},
+                furnitures = {},
+                group = resolvePlayerGroup(source, license)
+            })
         end
         return true
     else
