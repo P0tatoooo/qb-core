@@ -838,7 +838,7 @@ QBShared.PublicJobs = {
     ['lawyer'] = 0,
     ['gruppe6'] = 0,
     ['ammunation'] = 0,
-    ['mcnews'] = 0,
+    ['weazelnews'] = 0,
 }
 
 QBShared.PublicJobsAndCivil = {
@@ -850,5 +850,5 @@ QBShared.PublicJobsAndCivil = {
     ['lawyer'] = 0,
     ['gruppe6'] = 0,
     ['ammunation'] = 0,
-    ['mcnews'] = 0,
+    ['weazelnews'] = 0,
 }
