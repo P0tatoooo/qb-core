@@ -30,6 +30,19 @@ end
 QBCore.Functions.SetField = SetField
 exports('SetField', SetField)
 
+--- Le statut de cette entreprise suit-il le service ? (colonne `jobs`.`autostatus`)
+---
+--- Un export plutôt qu'une table à parcourir : les ressources qui s'en servent
+--- n'ont ni à connaître la forme du métier, ni à se garder d'un métier inconnu,
+--- et le jour où la règle se complique elle ne change qu'ici.
+local function IsJobAutoStatus(jobName)
+    local job = QBCore.Shared.Jobs[jobName]
+    return (job ~= nil and job.autostatus == true)
+end
+
+QBCore.Functions.IsJobAutoStatus = IsJobAutoStatus
+exports('IsJobAutoStatus', IsJobAutoStatus)
+
 -- Single add job function which should only be used if you planning on adding a single job
 local function AddJob(jobName, job)
     if type(jobName) ~= 'string' then

@@ -179,8 +179,10 @@ local function toggleDuty(src, forcetoggle)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.off_duty'))
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Fin de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
     else
+        local autoStatus = (QBCore.Shared.Jobs[Player.PlayerData.job.name] or {}).autostatus == true
+
         local curPlayerOnDuty = 0
-        if QBCore.Shared.JobsAutoStatus[Player.PlayerData.job.name] then
+        if autoStatus then
             curPlayerOnDuty = GetCurrentPlayerOnDuty(Player.PlayerData.job.name)
         end
 
@@ -188,7 +190,7 @@ local function toggleDuty(src, forcetoggle)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.on_duty'))
         TriggerEvent('MyCity_CoreV2:Service:Logs', Player.PlayerData.job.label .. ' - Prise de Service - ' .. Player.PlayerData.rpname, Player.PlayerData.source)
 
-        if QBCore.Shared.JobsAutoStatus[Player.PlayerData.job.name] and curPlayerOnDuty == 0 then
+        if autoStatus and curPlayerOnDuty == 0 then
             TriggerEvent('MyCity_Tab:SetCompanyStatus', true, Player.PlayerData.job.name)
         end
     end
@@ -353,15 +355,41 @@ Citizen.CreateThread(function()
     local jobs = MySQL.query.await('SELECT * FROM jobs', {})
     local jobsData = {}
 
+    -- Le statut automatique était une liste écrite dans shared/jobs.lua ; il est
+    -- maintenant une colonne. Sans elle, aucune entreprise n'ouvrirait plus à la
+    -- prise de service, et rien ne le dirait : on le dit.
+    if jobs[1] and jobs[1].autostatus == nil then
+        print('^1[qb-core] La colonne `jobs`.`autostatus` manque : aucune entreprise n\'ouvrira à la prise de service. Voir MyCity_CoreV2/sql/job_autostatus.sql.^0')
+    end
+
     for k,v in pairs(jobs) do
+        local grades = json.decode(v.grades) or {}
+
+        -- Un grade sans salaire n'est jamais payé (la boucle de paie de
+        -- MyCity_Tab l'ignore, temps de service compris) et un grade sans
+        -- période fait échouer l'onglet Grades de la tablette. Les entreprises
+        -- créées avant que MyCity_CoreV2 ne mette ses grades en forme *avant*
+        -- de les écrire en ont gardé : on comble ce qui manque, sans toucher à
+        -- ce qui a été réglé.
+        for level, grade in pairs(grades) do
+            if type(grade) == 'table' then
+                grade.label = grade.label or grade.name
+                grade.level = grade.level or level
+                grade.salary = tonumber(grade.salary) or 1
+                grade.period = grade.period or { label = 'Aucune', time = 0 }
+            end
+        end
+
         jobsData[v.name] = {
             name = v.name,
             label = v.label,
             type = v.type,
-            grades = json.decode(v.grades) or {},
+            grades = grades,
             status = v.status,
             announcements = json.decode(v.announcements) or {},
-            taxes = json.decode(v.taxes) or {}
+            taxes = json.decode(v.taxes) or {},
+            -- oxmysql rend un TINYINT(1) en booléen : `== 1` seul ne suffit pas.
+            autostatus = v.autostatus == true or tonumber(v.autostatus) == 1
         }
     end
 
