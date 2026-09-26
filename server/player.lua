@@ -984,7 +984,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local result = MySQL.query.await('SELECT id FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         for k,v in pairs(result) do
-            exports.MyCity_CoreV2:RemoveProperty(v.id, nil, Player.PlayerData.rpname)
+            exports.MyCity_RealEstate:RemoveProperty(v.id, nil, Player.PlayerData.rpname)
         end
 
         local result2 = MySQL.query.await('SELECT coordinates FROM properties WHERE owner = @citizenid', {['@citizenid'] = citizenid})
@@ -1026,7 +1026,7 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
 
         local result2 = MySQL.query.await('SELECT * FROM storages WHERE owner = @citizenid', {['@citizenid'] = citizenid})
         for k,v in pairs(result2) do
-            exports.MyCity_CoreV2:RemoveStorage(v.id)
+            exports.MyCity_RealEstate:RemoveStorage(v.id)
         end
 
         if MC_REMOVEWHITELIST then
