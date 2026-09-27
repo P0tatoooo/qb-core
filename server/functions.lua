@@ -441,6 +441,64 @@ end
 
 -- Setting & Removing Permissions
 
+-- Staff groups stored in `adminmembers` (/addpermission) are granted exactly like
+-- the ones in the cfg: `add_principal identifier.license:... qbcore.<group>`, on
+-- the identifier, for the whole server session (loaded at start, server/events.lua).
+--
+-- They used to go on `player.<id>`, and only once the character was loaded: until
+-- then the player was a plain user - at connection (server closed, whitelist),
+-- during character selection, and for every script that reads its permissions
+-- when the client starts (pmms.manage, chat suggestions...), which never saw the
+-- group. A cfg group is there from the first connection check.
+
+---@type table<string, string> license -> group granted from adminmembers
+local storedGroups = {}
+
+local function isStaffGroup(group)
+    for _, permission in pairs(QBCore.Config.Server.Permissions) do
+        if permission == group then return true end
+    end
+    return false
+end
+
+---Grant a stored (adminmembers) group to a license, the way the cfg does.
+---A license the cfg already gives this group is left alone: its entry is the
+---cfg's, and RevokeStoredGroup must never take it away.
+---@param license string 'license:...'
+---@param group string
+---@return boolean granted
+function QBCore.Functions.GrantStoredGroup(license, group)
+    if type(license) ~= 'string' or license == '' then return false end
+    QBCore.Functions.RevokeStoredGroup(license)
+    if not isStaffGroup(group) then return false end
+
+    local principal = 'identifier.' .. license
+    if IsPrincipalAceAllowed(principal, group) then return false end
+
+    ExecuteCommand(('add_principal %s qbcore.%s'):format(principal, group))
+    storedGroups[license] = group
+    return true
+end
+
+---Take back the group GrantStoredGroup gave a license (never a cfg one).
+---@param license string
+function QBCore.Functions.RevokeStoredGroup(license)
+    local group = storedGroups[license]
+    if not group then return end
+
+    ExecuteCommand(('remove_principal identifier.%s qbcore.%s'):format(license, group))
+    storedGroups[license] = nil
+end
+
+-- A restart of qb-core must not leave the grants behind: they would look like
+-- cfg ones on the next start, and /removepermission could not remove them.
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then return end
+    for license in pairs(storedGroups) do
+        QBCore.Functions.RevokeStoredGroup(license)
+    end
+end)
+
 ---Add permission for player
 ---@param source any
 ---@param permission string

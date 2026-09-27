@@ -130,12 +130,17 @@ QBCore.Commands.Add('addpermission', Lang:t('command.addpermission.help'), { { n
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     local permission = tostring(args[2]):lower()
     if Player then
-        QBCore.Functions.AddPermission(Player.PlayerData.source, permission)
-
         local result = MySQL.query.await('INSERT INTO adminmembers(`identifier`, `group`) VALUES (@identifier, @group) ON DUPLICATE KEY UPDATE `group` = @group', {
             ['@identifier'] = Player.PlayerData.license,
             ['@group'] = permission,
         })
+
+        -- On the license, like a cfg group (see QBCore.Functions.GrantStoredGroup).
+        if QBCore.Functions.GrantStoredGroup(Player.PlayerData.license, permission) then
+            QBCore.Commands.Refresh(Player.PlayerData.source)
+        else
+            QBCore.Functions.AddPermission(Player.PlayerData.source, permission)
+        end
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
@@ -150,7 +155,9 @@ QBCore.Commands.Add('removepermission', Lang:t('command.removepermission.help'),
     local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
     local permission = tostring(args[2]):lower()
     if Player then
+        QBCore.Functions.RevokeStoredGroup(Player.PlayerData.license)
         QBCore.Functions.RemovePermission(Player.PlayerData.source, permission)
+        QBCore.Commands.Refresh(Player.PlayerData.source)
 
         local result = MySQL.query.await('DELETE FROM adminmembers WHERE `identifier` = @identifier', {
             ['@identifier'] = Player.PlayerData.license

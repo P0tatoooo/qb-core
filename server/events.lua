@@ -321,12 +321,19 @@ AddEventHandler('qb-core:server:forcedeleteentity', function(entitynetid)
     end
 end)
 
-AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
-    Citizen.Wait(1000)
-    local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = Player.PlayerData.license })
-    if result[1] then
-        QBCore.Functions.AddPermission(Player.PlayerData.source, result[1].group)
+-- Staff groups from adminmembers: granted on the identifier at start, like the
+-- cfg's (QBCore.Functions.GrantStoredGroup), so they apply from the first
+-- connection check instead of a second after the character is loaded.
+CreateThread(function()
+    Wait(0) -- after server/commands.lua has given each qbcore.<group> its ace
+    local rows = MySQL.query.await('SELECT identifier, `group` FROM adminmembers') or {}
+    local granted = 0
+    for i = 1, #rows do
+        if QBCore.Functions.GrantStoredGroup(rows[i].identifier, rows[i].group) then
+            granted = granted + 1
+        end
     end
+    print(('[qb-core] %d staff group(s) from adminmembers granted on their license.'):format(granted))
 end)
 
 RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)

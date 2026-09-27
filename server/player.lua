@@ -28,10 +28,17 @@ local function resolvePlayerGroup(source, license)
         group = "ped"
     end
 
+    -- adminmembers groups are granted on the license at start, like the cfg's
+    -- (server/events.lua): GetPermission above already sees them. A row added to
+    -- the table by hand while the server runs is picked up here.
     if group == "user" then
         local result = MySQL.query.await('SELECT `group` FROM adminmembers WHERE identifier=@identifier', { ['@identifier'] = license })
         if result[1] then
-            QBCore.Functions.AddPermission(source, result[1].group)
+            if QBCore.Functions.GrantStoredGroup(license, result[1].group) then
+                QBCore.Commands.Refresh(source)
+            else
+                QBCore.Functions.AddPermission(source, result[1].group) -- not a staff group of Config.Server.Permissions
+            end
             group = result[1].group
         end
     end
