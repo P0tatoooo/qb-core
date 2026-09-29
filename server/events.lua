@@ -61,7 +61,10 @@ local function onPlayerConnecting(name, _, deferrals)
     deferrals.update(string.format(Lang:t('info.join_server'), name))
     deferrals.done()
 
-    TriggerClientEvent('QBCore:Client:SharedUpdate', src, QBCore.Shared)
+    -- QBCore.Shared (180 Ko mesurés) n'est plus envoyé ici : pendant les deferrals,
+    -- le client n'a encore lancé aucune ressource, personne ne le reçoit. Il a déjà
+    -- les fichiers shared/ (objets, véhicules, armes), et les métiers et factions de
+    -- la base arrivent ensuite par QBCore:GetServerGangs (client/main.lua).
 end
 
 AddEventHandler('playerConnecting', onPlayerConnecting)
@@ -126,17 +129,19 @@ RegisterNetEvent('QBCore:UpdatePlayer', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
+    local newHunger = Player.PlayerData.metadata['hunger']
+    local newThirst = Player.PlayerData.metadata['thirst']
     if not Player.PlayerData.metadata.autoheal then
-        local newHunger = Player.PlayerData.metadata['hunger'] - QBCore.Config.Player.HungerRate
-        local newThirst = Player.PlayerData.metadata['thirst'] - QBCore.Config.Player.ThirstRate
+        newHunger = newHunger - QBCore.Config.Player.HungerRate
+        newThirst = newThirst - QBCore.Config.Player.ThirstRate
         if newHunger <= 0 then
             newHunger = 0
         end
         if newThirst <= 0 then
             newThirst = 0
         end
-        Player.Functions.SetMetaData('thirst', newThirst)
-        Player.Functions.SetMetaData('hunger', newHunger)
+        -- One network event for both values instead of one per key
+        Player.Functions.SetMetaDatas({ thirst = newThirst, hunger = newHunger })
     end
     TriggerClientEvent('hud:client:UpdateNeeds', src, newHunger, newThirst)
     Player.Functions.Save()
@@ -316,8 +321,9 @@ RegisterNetEvent('QBCore:UpdatePlayerHealthAndArmor', function(health, armor)
     local src = source
 	local xPlayer = QBCore.Functions.GetPlayer(src)
 	if xPlayer then
-        xPlayer.Functions.SetMetaData('health', health)
-		xPlayer.Functions.SetMetaData('armor', armor)
+        -- Fired from a 100ms loop in qb-ambulancejob: batch both keys into one event,
+        -- and SetMetaDatas drops it entirely when neither value actually changed.
+        xPlayer.Functions.SetMetaDatas({ health = health, armor = armor })
 	end
 end)
 

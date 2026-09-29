@@ -273,6 +273,16 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         TriggerClientEvent('QBCore:Player:SetPlayerData', self.PlayerData.source, self.PlayerData)
     end
 
+    -- Sends only the fields that actually changed instead of the whole PlayerData table (~10.7kb).
+    -- `section` is a PlayerData sub-table name ('metadata', 'money', ...) or nil for top-level keys.
+    -- `patch` is a { key = value } table of the changed fields.
+    -- Server-side listeners still get the full table via the local event, which costs nothing.
+    function self.Functions.PatchPlayerData(section, patch)
+        if self.Offline then return end
+        TriggerEvent('QBCore:Player:SetPlayerData', self.PlayerData)
+        TriggerClientEvent('QBCore:Player:PatchPlayerData', self.PlayerData.source, section, patch)
+    end
+
     function self.Functions.UpdateSpecialPlayerData()
         if self.Offline then return end
         TriggerEvent('QBCore:Player:SetSpecialPlayerData', self.SpecialPlayerData)
@@ -384,7 +394,12 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
     function self.Functions.SetPlayerData(key, val)
         if not key or type(key) ~= 'string' then return end
         self.PlayerData[key] = val
-        self.Functions.UpdatePlayerData()
+        -- job/gang are read off the full table by external bridges (ox_inventory), keep them whole.
+        if key == 'job' or key == 'gang' or key == 'metadata' then
+            self.Functions.UpdatePlayerData()
+        else
+            self.Functions.PatchPlayerData(nil, { [key] = val })
+        end
     end
 
     function self.Functions.SetSpecialPlayerData(key, val)
@@ -397,14 +412,72 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         self.Functions.UpdateSpecialPlayerData()
     end
 
+    -- Metadata keys that external resources watch through the full-table net event
+    -- (ox_inventory's qb bridge tracks isdead/inlaststand). These keep the full push;
+    -- they change on death/revive only, so the cost is irrelevant.
+    local FULL_SYNC_META = {
+        isdead = true,
+        inlaststand = true,
+    }
+
+    -- Returns true when the value is actually new. Tables are always considered changed
+    -- because callers commonly mutate them in place (see AddJobReputation).
+    local function metaChanged(meta, val)
+        if type(val) == 'table' then return true end
+        return self.PlayerData.metadata[meta] ~= val
+    end
+
     function self.Functions.SetMetaData(meta, val)
         if not meta or type(meta) ~= 'string' then return end
         if meta == 'hunger' or meta == 'thirst' then
             val = val > 100 and 100 or val
+        end
+        -- Nothing to sync. This alone kills the qb-ambulancejob 100ms health/armor loop,
+        -- which otherwise re-sent the whole PlayerData table while nothing had changed.
+        if not metaChanged(meta, val) then return end
+        if meta == 'hunger' or meta == 'thirst' then
             TriggerClientEvent('QBCore:Client:OnHungerThirstUpdate', self.PlayerData.source, meta, val)
         end
         self.PlayerData.metadata[meta] = val
-        self.Functions.UpdatePlayerData()
+        -- val == nil has to take the full-sync path: `{ [meta] = nil }` builds an
+        -- EMPTY table, so the patch carries nothing and the client keeps the old
+        -- value forever. Clearing a key (e.g. bulletproofvest on unequip) was
+        -- silently never reaching clients at all.
+        if val == nil or FULL_SYNC_META[meta] then
+            self.Functions.UpdatePlayerData()
+        else
+            self.Functions.PatchPlayerData('metadata', { [meta] = val })
+        end
+    end
+
+    -- Batch variant: applies several metadata keys in one network event instead of one each.
+    function self.Functions.SetMetaDatas(metas)
+        if type(metas) ~= 'table' then return end
+        local patch, count, fullSync = {}, 0, false
+        for meta, val in pairs(metas) do
+            if type(meta) == 'string' then
+                if meta == 'hunger' or meta == 'thirst' then
+                    val = val > 100 and 100 or val
+                end
+                if metaChanged(meta, val) then
+                    if meta == 'hunger' or meta == 'thirst' then
+                        TriggerClientEvent('QBCore:Client:OnHungerThirstUpdate', self.PlayerData.source, meta, val)
+                    end
+                    self.PlayerData.metadata[meta] = val
+                    patch[meta] = val
+                    count = count + 1
+                    -- Same nil problem as SetMetaData above: a nil never lands
+                    -- in `patch`, so the deletion can only travel as a full sync.
+                    if val == nil or FULL_SYNC_META[meta] then fullSync = true end
+                end
+            end
+        end
+        if count == 0 then return end
+        if fullSync then
+            self.Functions.UpdatePlayerData()
+        else
+            self.Functions.PatchPlayerData('metadata', patch)
+        end
     end
 
     function self.Functions.GetMetaData(meta)
@@ -436,7 +509,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         if not amount then return end
         amount = tonumber(amount)
         self.PlayerData.metadata['jobrep'][self.PlayerData.job.name] = self.PlayerData.metadata['jobrep'][self.PlayerData.job.name] + amount
-        self.Functions.UpdatePlayerData()
+        self.Functions.PatchPlayerData('metadata', { jobrep = self.PlayerData.metadata['jobrep'] })
     end
 
     function self.Functions.AddMoney(moneytype, amount, reason)
@@ -448,7 +521,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         self.PlayerData.money[moneytype] = self.PlayerData.money[moneytype] + amount
 
         if not self.Offline then
-            self.Functions.UpdatePlayerData()
+            self.Functions.PatchPlayerData('money', { [moneytype] = self.PlayerData.money[moneytype] })
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'add', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'add', reason)
         end
@@ -472,7 +545,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         self.PlayerData.money[moneytype] = self.PlayerData.money[moneytype] - amount
 
         if not self.Offline then
-            self.Functions.UpdatePlayerData()
+            self.Functions.PatchPlayerData('money', { [moneytype] = self.PlayerData.money[moneytype] })
             if amount > 100000 then
                 TriggerEvent('qb-log:server:CreateLog', 'playermoney', 'RemoveMoney', 'red', '**' .. GetPlayerName(self.PlayerData.source) .. ' (citizenid: ' .. self.PlayerData.citizenid .. ' | id: ' .. self.PlayerData.source .. ')** $' .. amount .. ' (' .. moneytype .. ') removed, new ' .. moneytype .. ' balance: ' .. self.PlayerData.money[moneytype] .. ' reason: ' .. reason, true)
             else
@@ -499,7 +572,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
         self.PlayerData.money[moneytype] = amount
 
         if not self.Offline then
-            self.Functions.UpdatePlayerData()
+            self.Functions.PatchPlayerData('money', { [moneytype] = self.PlayerData.money[moneytype] })
             TriggerEvent('qb-log:server:CreateLog', 'playermoney', 'SetMoney', 'green', '**' .. GetPlayerName(self.PlayerData.source) .. ' (citizenid: ' .. self.PlayerData.citizenid .. ' | id: ' .. self.PlayerData.source .. ')** $' .. amount .. ' (' .. moneytype .. ') set, new ' .. moneytype .. ' balance: ' .. self.PlayerData.money[moneytype] .. ' reason: ' .. reason)
             TriggerClientEvent('QBCore:Client:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
             TriggerEvent('QBCore:Server:OnMoneyChange', self.PlayerData.source, moneytype, amount, 'set', reason)
@@ -516,7 +589,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline, SpecialPlayerData)
 
     function self.Functions.SetCreditCard(cardNumber)
         self.PlayerData.charinfo.card = cardNumber
-        self.Functions.UpdatePlayerData()
+        self.Functions.PatchPlayerData('charinfo', { card = cardNumber })
     end
 
     function self.Functions.GetCardSlot(cardNumber, cardType)
