@@ -19,6 +19,8 @@ CreateThread(function()
                 local ped = PlayerPedId()
                 local currentHealth = GetEntityHealth(ped)
                 local decreaseThreshold = math.random(5, 10)
+                -- MyCity_Ambulance : une mort sans arme, que le jeu ne nomme pas (cause du coma)
+                if currentHealth - decreaseThreshold < 100 then TriggerEvent('MyCity_Ambulance:client:DamageReason', 'needs') end
                 SetEntityHealth(ped, currentHealth - decreaseThreshold)
                 if currentHealth - decreaseThreshold < 100 then
                     TriggerServerEvent('MyCity_CoreV2:Death:Logs', 'hungerthirst')
