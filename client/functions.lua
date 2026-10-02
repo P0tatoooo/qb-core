@@ -63,7 +63,15 @@ function QBCore.Functions.ShowAdvancedNotification(sender, subject, msg, texture
 	EndTextCommandThefeedPostTicker(flash or false, saveToBrief)
 end
 
+-- MyCity : le texte d'aide de GTA est remplacé par l'invite de MyCity_HelpCard
+-- (minimale, en haut à gauche, au design MyCity_UI), qui lit le format de GTA
+-- ([~b~E~s~], ~INPUT_PICKUP~...) et vit tant qu'on l'appelle, comme lui. Sans
+-- MyCity_HelpCard, le texte de GTA comme avant.
 function QBCore.Functions.ShowHelpNotification(msg, thisFrame)
+	if GetResourceState('MyCity_HelpCard') == 'started' then
+		exports.MyCity_HelpCard:Prompt(msg)
+		return
+	end
 	AddTextEntry('esxHelpNotification', msg)
 
 	if thisFrame then
