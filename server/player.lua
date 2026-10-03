@@ -952,8 +952,8 @@ function QBCore.Player.ForceDeleteCharacter(citizenid, sourceplayer)
         -- Custom tattoos designed for this character: the ownership and wear
         -- rows go, and any tattoo left with no wearer at all is deleted from
         -- the catalog and MC_Tattoos' files rather than accumulating forever.
-        if GetResourceState('illenium-appearance') == 'started' then
-            pcall(function() exports['illenium-appearance']:OnCharacterWiped(citizenid) end)
+        if GetResourceState('MyCity_Appearance') == 'started' then
+            pcall(function() exports['MyCity_Appearance']:OnCharacterWiped(citizenid) end)
         end
 
         local result = MySQL.query.await('DELETE FROM players WHERE citizenid = @citizenid', {['@citizenid'] = citizenid})
