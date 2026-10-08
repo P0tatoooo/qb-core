@@ -1,4 +1,5 @@
 shared_script '@offsey/ai_module_fg-obfuscated.lua'
+shared_script '@MyCity_PerfMonitor/hook.lua' -- MyCity_PerfMonitor hook (perf hook add)
 fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
