@@ -238,12 +238,14 @@ function QBShared.GetNearbyGridPoints(coords)
     return points
 end
 
--- Gloves that hide the fingerprints (arms, component 3), bags big enough for a long weapon (component 5) and real
--- bulletproof vests (component 9), as [drawable] = true. The lists live in shared/clothinglists.json, edited from
+-- Gloves that hide the fingerprints (arms, component 3), bags big enough for a long weapon (component 5), real
+-- bulletproof vests (component 9), helmets that hide the face (hats, prop 0) and masks that hide it even partly
+-- (component 1), as [drawable] = true. The lists live in shared/clothinglists.json, edited from
 -- MyCity_AdminMenu (page Vêtements Spéciaux): the server loads them and publishes them in GlobalState.clothingLists
 -- (server/clothinglists.lua), clients fill these tables from it (client/clothinglists.lua). Filled in place, so a
 -- change reaches everything that reads them through qb-core (IsWearingGloves, IsWearingBag, IsABulletproofVest).
-QBShared.ClothingLists = { 'MaleGloves', 'FemaleGloves', 'MaleBulletproof', 'FemaleBulletproof', 'MaleBags', 'FemaleBags' }
+QBShared.ClothingLists = { 'MaleGloves', 'FemaleGloves', 'MaleBulletproof', 'FemaleBulletproof', 'MaleBags', 'FemaleBags',
+    'MaleHelmets', 'FemaleHelmets', 'MaleMasks', 'FemaleMasks' }
 for _, name in ipairs(QBShared.ClothingLists) do
     QBShared[name] = {}
 end
