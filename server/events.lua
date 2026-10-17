@@ -61,7 +61,12 @@ local function onPlayerConnecting(name, _, deferrals)
     deferrals.update(string.format(Lang:t('info.join_server'), name))
     deferrals.done()
 
-    TriggerClientEvent('QBCore:Client:SharedUpdate', src, QBCore.Shared)
+    -- Plus de TriggerClientEvent('QBCore:Client:SharedUpdate', src, QBCore.Shared) ici :
+    -- ~127 Ko à chaque connexion (MyCity_PerfMonitor) pour rien. Le joueur est encore à
+    -- l'écran de chargement, le script client de qb-core ne tourne pas, personne ne
+    -- reçoit l'évènement. Le client a QBShared par ses shared_scripts, demande jobs et
+    -- gangs lui-même (client/main.lua, QBCore:GetServerGangs) et les changements à chaud
+    -- passent par QBCore:Client:OnSharedUpdateMultiple.
 end
 
 AddEventHandler('playerConnecting', onPlayerConnecting)
