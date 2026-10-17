@@ -27,7 +27,8 @@ client_scripts {
     'client/loops.lua',
     'client/events.lua',
     'client/drawtext.lua',
-    'client/admin.lua'
+    'client/admin.lua',
+    'client/clothinglists.lua'
 }
 
 server_scripts {
@@ -38,7 +39,8 @@ server_scripts {
     'server/events.lua',
     'server/commands.lua',
     'server/exports.lua',
-    'server/debug.lua'
+    'server/debug.lua',
+    'server/clothinglists.lua'
 }
 
 ui_page 'html/index.html'
