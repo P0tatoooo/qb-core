@@ -373,6 +373,9 @@ Citizen.CreateThread(function()
     if jobs[1] and jobs[1].autostatus == nil then
         print('^1[qb-core] La colonne `jobs`.`autostatus` manque : aucune entreprise n\'ouvrira à la prise de service. Voir MyCity_CoreV2/sql/job_autostatus.sql.^0')
     end
+    if jobs[1] and jobs[1].loyaltycard == nil then
+        print('^1[qb-core] La colonne `jobs`.`loyaltycard` manque : aucune entreprise ne donnera de carte de fidélité. Voir MyCity_CoreV2/sql/job_loyaltycard.sql.^0')
+    end
 
     for k,v in pairs(jobs) do
         local grades = json.decode(v.grades) or {}
@@ -401,7 +404,9 @@ Citizen.CreateThread(function()
             announcements = json.decode(v.announcements) or {},
             taxes = json.decode(v.taxes) or {},
             -- oxmysql rend un TINYINT(1) en booléen : `== 1` seul ne suffit pas.
-            autostatus = v.autostatus == true or tonumber(v.autostatus) == 1
+            autostatus = v.autostatus == true or tonumber(v.autostatus) == 1,
+            -- Ses employés donnent des cartes de fidélité (MyCity_CoreV2 LoyaltyCard.lua).
+            loyaltycard = v.loyaltycard == true or tonumber(v.loyaltycard) == 1
         }
     end
 
