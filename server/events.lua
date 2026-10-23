@@ -127,11 +127,13 @@ end)
 
 RegisterNetEvent('QBCore:UpdatePlayer', function()
     local src = source
+    -- MyCity: hunger and thirst on hold while the character is being made (MyCity_Appearance sets it server-side)
+    local paused = Player(src).state.needsPaused == true
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
     local newHunger = Player.PlayerData.metadata['hunger']
     local newThirst = Player.PlayerData.metadata['thirst']
-    if not Player.PlayerData.metadata.autoheal then
+    if not Player.PlayerData.metadata.autoheal and not paused then
         newHunger = newHunger - QBCore.Config.Player.HungerRate
         newThirst = newThirst - QBCore.Config.Player.ThirstRate
         if newHunger <= 0 then
