@@ -1,6 +1,6 @@
 CreateThread(function()
     while true do
-        local sleep = 0
+        local sleep = 1000   -- MyCity: was 0, every frame on the character screen
         if LocalPlayer.state.isLoggedIn then
             sleep = (1000 * 60) * QBCore.Config.UpdateInterval
             TriggerServerEvent('QBCore:UpdatePlayer')
