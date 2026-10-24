@@ -202,6 +202,26 @@ function QBCore.Functions.GetDutyCount(job)
     return count
 end
 
+---Returns the job of every loaded player, keyed by source, built here so only
+---this slim table crosses the resource boundary: GetQBPlayers() from another
+---resource serialises every Player object (PlayerData + Functions)
+---@return table<number, { citizenid: string, job: string, type: string, grade: number, onduty: boolean }>
+function QBCore.Functions.GetPlayerJobs()
+    local jobs = {}
+    for src, Player in pairs(QBCore.Players) do
+        local data = Player.PlayerData
+        local job = data.job or {}
+        jobs[src] = {
+            citizenid = data.citizenid,
+            job = job.name,
+            type = job.type,
+            grade = job.grade and job.grade.level,
+            onduty = job.onduty,
+        }
+    end
+    return jobs
+end
+
 -- Routing buckets (Only touch if you know what you are doing)
 
 ---Returns the objects related to buckets, first returned value is the player buckets, second one is entity buckets
