@@ -163,7 +163,9 @@ function QBCore.Functions.GetQBPlayers()
     return QBCore.Players
 end
 
---- Gets a list of all online players of a specified job or job type and the number
+--- Gets a list of all online players of a specified job and the number. By job
+--- name only: MyCity's job types are unused, and matching them too counted the
+--- players of another job whose type happened to carry that name.
 --- @param job string
 --- @param checkOnDuty boolean If true, only players on duty will be returned
 function QBCore.Functions.GetPlayersByJob(job, checkOnDuty)
@@ -171,7 +173,7 @@ function QBCore.Functions.GetPlayersByJob(job, checkOnDuty)
     local count = 0
     for src, Player in pairs(QBCore.Players) do
         local playerData = Player.PlayerData
-        if playerData.job.name == job or playerData.job.type == job then
+        if playerData.job.name == job then
             if checkOnDuty then
                 if playerData.job.onduty then
                     players[#players + 1] = src
