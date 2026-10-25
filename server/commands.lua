@@ -141,6 +141,8 @@ QBCore.Commands.Add('addpermission', Lang:t('command.addpermission.help'), { { n
         else
             QBCore.Functions.AddPermission(Player.PlayerData.source, permission)
         end
+        -- MyCity_AdminMenu renvoie ses accès au joueur (permission_manager.lua)
+        TriggerEvent('QBCore:Server:OnPermissionUpdate', Player.PlayerData.source)
 
         if source ~= 0 then
             local xPlayer = QBCore.Functions.GetPlayer(source)
@@ -158,6 +160,8 @@ QBCore.Commands.Add('removepermission', Lang:t('command.removepermission.help'),
         QBCore.Functions.RevokeStoredGroup(Player.PlayerData.license)
         QBCore.Functions.RemovePermission(Player.PlayerData.source, permission)
         QBCore.Commands.Refresh(Player.PlayerData.source)
+        -- MyCity_AdminMenu renvoie ses accès au joueur (permission_manager.lua)
+        TriggerEvent('QBCore:Server:OnPermissionUpdate', Player.PlayerData.source)
 
         local result = MySQL.query.await('DELETE FROM adminmembers WHERE `identifier` = @identifier', {
             ['@identifier'] = Player.PlayerData.license
