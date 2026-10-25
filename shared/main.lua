@@ -74,72 +74,63 @@ local function indexInTable(index, table)
     return false
 end
 
+--- Un rang au hasard dans `table` : ni pris en ce moment (`.used`), ni déjà tiré (`usedindexes`, la
+--- rotation). Plus rien à tirer alors que des entrées sont libres (celles qui restent hors de la
+--- rotation sont toutes prises, par exemple par des PNJ qui gardent leur point) : la rotation
+--- repart de zéro. Avant, elle ne repartait qu'une fois pleine, et restait bloquée pour de bon
+--- (MyCity_CoreV2, Go Fast : « J'ai plus besoin de toi »). → rang ou -1, rotation
 function QBShared.GetRandomIndexFromUsedTable(table, usedindexes)
-    math.random(GetGameTimer())
+    usedindexes = usedindexes or {}
 
-    if #usedindexes == #table then usedindexes = {} end
-
-    local index = -1
-    local randomIndex = math.random(1, #table)
-    local timeout = GetGameTimer() + 2000
-
-    while (table[randomIndex].used or indexInTable(randomIndex, usedindexes)) and GetGameTimer() < timeout do
-        Citizen.Wait(0)
-        randomIndex = math.random(1, #table)
-    end
-
-    if table[randomIndex].used or indexInTable(randomIndex, usedindexes) then
-        for i=1, #table do
-            if not table[i].used and not indexInTable(i, usedindexes) then
-                index = i
-                break
-            end
+    local function candidates()
+        local list = {}
+        for i = 1, #table do
+            if not table[i].used and not indexInTable(i, usedindexes) then list[#list + 1] = i end
         end
-    else
-        index = randomIndex
+        return list
     end
 
-    if index and index ~= -1 then
-        usedindexes[#usedindexes+1] = index
+    local list = candidates()
+    if #list == 0 and #usedindexes > 0 then
+        usedindexes = {}
+        list = candidates()
     end
+    if #list == 0 then return -1, usedindexes end
 
+    local index = list[math.random(1, #list)]
+    usedindexes[#usedindexes + 1] = index
     return index, usedindexes
 end
 
+--- Comme GetRandomIndexFromUsedTable, seulement dans la partie de l'île `islandpart` ('north' /
+--- 'south', nil : partout). Même remise à zéro de la rotation quand plus rien n'est tirable. Avant,
+--- la recherche de secours testait la position du rang tiré au hasard au lieu de chaque entrée.
 function QBShared.GetRandomIndexFromUsedTableIslandParts(table, usedindexes, islandpart)
-    math.random(GetGameTimer())
+    usedindexes = usedindexes or {}
 
-    if #usedindexes == #table then usedindexes = {} end
-
-    local index = -1
-    local randomIndex = math.random(1, #table)
-    local timeout = GetGameTimer() + 2000
-    local isNorth
-
-    while (table[randomIndex].used or indexInTable(randomIndex, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth))) and GetGameTimer() < timeout do
-        Citizen.Wait(0)
-        randomIndex = math.random(1, #table)
-        local coords = table[randomIndex].coords or vec3(table[randomIndex].x, table[randomIndex].y, table[randomIndex].z)
-        isNorth = QBShared.IsInNorth(coords)
+    local function inPart(entry)
+        if islandpart ~= 'north' and islandpart ~= 'south' then return true end
+        local coords = entry.coords or vec3(entry.x, entry.y, entry.z)
+        return QBShared.IsInNorth(coords) == (islandpart == 'north')
     end
 
-    if table[randomIndex].used or indexInTable(randomIndex, usedindexes) or ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
-        for i=1, #table do
-            local coords = table[randomIndex].coords or vec3(table[randomIndex].x, table[randomIndex].y, table[randomIndex].z)
-            isNorth = QBShared.IsInNorth(coords)
-            if not table[i].used and not indexInTable(i, usedindexes) and not ((islandpart == "south" and isNorth) or (islandpart == "north" and not isNorth)) then
-                index = i
-                break
-            end
+    local function candidates()
+        local list = {}
+        for i = 1, #table do
+            if not table[i].used and not indexInTable(i, usedindexes) and inPart(table[i]) then list[#list + 1] = i end
         end
-    else
-        index = randomIndex
+        return list
     end
 
-    if index and index ~= -1 then
-        usedindexes[#usedindexes+1] = index
+    local list = candidates()
+    if #list == 0 and #usedindexes > 0 then
+        usedindexes = {}
+        list = candidates()
     end
+    if #list == 0 then return -1, usedindexes end
 
+    local index = list[math.random(1, #list)]
+    usedindexes[#usedindexes + 1] = index
     return index, usedindexes
 end
 
